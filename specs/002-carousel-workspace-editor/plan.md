@@ -35,7 +35,7 @@ Implementação de um espaço de trabalho visual dinâmico, elegante e ergonômi
 - 100% client-side (sem dependência de banco de dados remoto ou servidores)
 - Sem frameworks pesados de animação (transições fluidas via CSS transitions nativas)
 - Manter fidelidade estrita à paleta e tokens do `DESIGN.md` (Abyssal Glow, Platinum, Silver Mist, Lavender Phosphor e gradiente bioluminescente)  
-**Scale/Scope**: Carrosséis de 1 a 12 slides com até 5 elementos secundários por slide
+**Scale/Scope**: Quantidade dinâmica e adaptativa de slides (tipicamente de 3 até 20+ slides conforme a densidade e tópicos do roteiro, sem teto fixo artificial), com até 5 elementos secundários por slide
 
 ---
 
@@ -94,6 +94,7 @@ specs/002-carousel-workspace-editor/
     │   └── ExportToolbar.jsx      # Exportação em ZIP de PNGs e PDF para LinkedIn
     ├── services/
     │   ├── workspaceService.js    # Lógica de mutação de slides, docking e ancoragem de grade
+    │   ├── workspaceConstants.js  # Catálogo curado de tipografias e ícones vetoriais
     │   ├── textSegmenter.js       # Segmentação algorítmica local por quebras de texto
     │   ├── aiService.js           # Cliente Gemini API com fallback de timeout
     │   ├── storageService.js      # Persistência contínua offline-first com idb-keyval
