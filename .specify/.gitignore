@@ -10,7 +10,8 @@ extensions/*/local-config.yml
 
 # Pastas internas do .specify
 integrations/
-memory/
 scripts/
 templates/
 workflows/
+memory/*
+!memory/constitution.md

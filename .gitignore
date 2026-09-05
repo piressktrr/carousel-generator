@@ -3,10 +3,11 @@
 
 # Spec Kit internal directories
 .specify/integrations/
-.specify/memory/
 .specify/scripts/
 .specify/templates/
 .specify/workflows/
+.specify/memory/*
+!.specify/memory/constitution.md
 
 # Operating System
 .DS_Store
