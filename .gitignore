@@ -1,0 +1,24 @@
+# Agent and AI instructions
+.agents/
+
+# Spec Kit internal directories
+.specify/integrations/
+.specify/memory/
+.specify/scripts/
+.specify/templates/
+.specify/workflows/
+
+# Operating System
+.DS_Store
+Thumbs.db
+
+# IDE & Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment variables & local configuration
+.env
+.env.*
+!.env.example
