@@ -24,12 +24,12 @@
 
 **Purpose**: Inicialização do projeto, dependências, bundler Vite e tokens visuais fundamentais
 
-- [ ] T001 Initialize package.json with dependencies (`react`, `react-dom`, `vite`, `lucide-react`, `idb-keyval`, `html-to-image`, `jszip`, `jspdf`) in package.json
-- [ ] T002 Configure Vite development server and build options in vite.config.js
-- [ ] T003 [P] Configure HTML shell, viewport, and typography CDN imports (Inter, Plus Jakarta Sans, Playfair Display, Space Grotesk, Montserrat) in index.html
-- [ ] T004 [P] Setup global CSS variables and theme tokens (Liquid Abyss, Platinum, Silver Mist, Lavender Phosphor, Bioluminescent Glow) in src/styles/themes.css
-- [ ] T005 [P] Setup base CSS resets, responsive container layouts, and typography resets in src/styles/index.css
-- [ ] T006 [P] Configure workspace layout structure, translucent scrollbars, and split screen styles in src/styles/workspace.css
+- [X] T001 Initialize package.json with dependencies (`react`, `react-dom`, `vite`, `lucide-react`, `idb-keyval`, `html-to-image`, `jszip`, `jspdf`) in package.json
+- [X] T002 Configure Vite development server and build options in vite.config.js
+- [X] T003 [P] Configure HTML shell, viewport, and typography CDN imports (Inter, Plus Jakarta Sans, Playfair Display, Space Grotesk, Montserrat) in index.html
+- [X] T004 [P] Setup global CSS variables and theme tokens (Liquid Abyss, Platinum, Silver Mist, Lavender Phosphor, Bioluminescent Glow) in src/styles/themes.css
+- [X] T005 [P] Setup base CSS resets, responsive container layouts, and typography resets in src/styles/index.css
+- [X] T006 [P] Configure workspace layout structure, translucent scrollbars, and split screen styles in src/styles/workspace.css
 
 ---
 
@@ -39,12 +39,12 @@
 
 **⚠️ CRITICAL**: Nenhuma tarefa de User Story pode ser iniciada até a conclusão desta fase
 
-- [ ] T007 Implement offline-first IndexedDB persistence service (`saveWorkspace`, `getWorkspace`, `clearWorkspace`, `saveProfile`, `getProfile`) using idb-keyval in src/services/storageService.js
-- [ ] T008 [P] Implement algorithmic local text segmentation fallback (paragraph & list item chunking) in src/services/textSegmenter.js
-- [ ] T009 [P] Implement Gemini API client with 10s timeout and automatic fallback to local segmenter in src/services/aiService.js
-- [ ] T010 [P] Define curated typography list and Lucide icon registry in src/services/workspaceConstants.js
-- [ ] T011 Implement core immutable workspace and slide data operations (`updateSlide`, `setDockedImage`, `removeDockedImage`, `addOverlay`, `updateOverlay`, `removeOverlay`) in src/services/workspaceService.js
-- [ ] T012 Initialize React root rendering and application mount in src/main.jsx
+- [X] T007 Implement offline-first IndexedDB persistence service (`saveWorkspace`, `getWorkspace`, `clearWorkspace`, `saveProfile`, `getProfile`) using idb-keyval in src/services/storageService.js
+- [X] T008 [P] Implement algorithmic local text segmentation fallback (paragraph & list item chunking) in src/services/textSegmenter.js
+- [X] T009 [P] Implement Gemini API client with 10s timeout and automatic fallback to local segmenter in src/services/aiService.js
+- [X] T010 [P] Define curated typography list and Lucide icon registry in src/services/workspaceConstants.js
+- [X] T011 Implement core immutable workspace and slide data operations (`updateSlide`, `setDockedImage`, `removeDockedImage`, `addOverlay`, `updateOverlay`, `removeOverlay`) in src/services/workspaceService.js
+- [X] T012 Initialize React root rendering and application mount in src/main.jsx
 
 **Checkpoint**: Fundação pronta — implementação das User Stories desbloqueada para execução
 
@@ -58,9 +58,9 @@
 
 ### Implementation for User Story 1
 
-- [ ] T013 [P] [US1] Create script input view component with textarea, example script loader, and submit button in src/components/ScriptInputView.jsx
-- [ ] T014 [US1] Implement slide generation pipeline with title hook synthesis and fallback handling in src/services/workspaceService.js
-- [ ] T015 [US1] Implement main application state coordinator managing script intake, generation lifecycle, and studio transition in src/App.jsx
+- [X] T013 [P] [US1] Create script input view component with textarea, example script loader, and submit button in src/components/ScriptInputView.jsx
+- [X] T014 [US1] Implement slide generation pipeline with title hook synthesis and fallback handling in src/services/workspaceService.js
+- [X] T015 [US1] Implement main application state coordinator managing script intake, generation lifecycle, and studio transition in src/App.jsx
 
 **Checkpoint**: User Story 1 funcional — o usuário consegue transformar roteiros em slides e acessar o estúdio (MVP inicial).
 
@@ -74,12 +74,12 @@
 
 ### Implementation for User Story 2
 
-- [ ] T016 [P] [US2] Implement slide content editor tab (inline text modification, slide reordering, adding and deleting slides) in src/components/LeftSidebar/SlideContentTab.jsx
-- [ ] T017 [P] [US2] Implement base slide card presentation with active focus indicator and click-to-select in src/components/SlideCard.jsx
-- [ ] T018 [P] [US2] Implement horizontal scrollable canvas for previewing and selecting slides in src/components/SlidesCanvas.jsx
-- [ ] T019 [US2] Implement left sidebar navigation shell with tab switcher, project actions, and "Iniciar Novo Projeto" button in src/components/LeftSidebar/LeftSidebar.jsx
-- [ ] T020 [US2] Implement main studio workspace orchestrator connecting left sidebar and right canvas in src/components/StudioWorkspace.jsx
-- [ ] T021 [US2] Implement 400ms debounced auto-save hook to IndexedDB and project reset logic in src/components/StudioWorkspace.jsx
+- [X] T016 [P] [US2] Implement slide content editor tab (inline text modification, slide reordering, adding and deleting slides) in src/components/LeftSidebar/SlideContentTab.jsx
+- [X] T017 [P] [US2] Implement base slide card presentation with active focus indicator and click-to-select in src/components/SlideCard.jsx
+- [X] T018 [P] [US2] Implement horizontal scrollable canvas for previewing and selecting slides in src/components/SlidesCanvas.jsx
+- [X] T019 [US2] Implement left sidebar navigation shell with tab switcher, project actions, and "Iniciar Novo Projeto" button in src/components/LeftSidebar/LeftSidebar.jsx
+- [X] T020 [US2] Implement main studio workspace orchestrator connecting left sidebar and right canvas in src/components/StudioWorkspace.jsx
+- [X] T021 [US2] Implement 400ms debounced auto-save hook to IndexedDB and project reset logic in src/components/StudioWorkspace.jsx
 
 **Checkpoint**: User Story 2 funcional — o ambiente de estúdio opera com navegação fluida em duas zonas e autosave contínuo.
 
@@ -93,9 +93,9 @@
 
 ### Implementation for User Story 3
 
-- [ ] T022 [P] [US3] Implement image docking sidebar tab with file uploader, 4 anchor mode toggles (top, bottom, left, right), and zoom slider in src/components/LeftSidebar/ImageDockingTab.jsx
-- [ ] T023 [US3] Implement responsive docking layout rendering (vertical stack & horizontal split) and aspect-ratio preservation in src/components/SlideCard.jsx
-- [ ] T024 [US3] Implement image removal action restoring full-text layout in src/components/LeftSidebar/ImageDockingTab.jsx
+- [X] T022 [P] [US3] Implement image docking sidebar tab with file uploader, 4 anchor mode toggles (top, bottom, left, right), and zoom slider in src/components/LeftSidebar/ImageDockingTab.jsx
+- [X] T023 [US3] Implement responsive docking layout rendering (vertical stack & horizontal split) and aspect-ratio preservation in src/components/SlideCard.jsx
+- [X] T024 [US3] Implement image removal action restoring full-text layout in src/components/LeftSidebar/ImageDockingTab.jsx
 
 **Checkpoint**: User Story 3 funcional — cada slide suporta imagem principal ancorada em 4 orientações com zoom proporcional.
 
@@ -109,10 +109,10 @@
 
 ### Implementation for User Story 4
 
-- [ ] T025 [P] [US4] Implement 9-point anchor coordinate rules and absolute overlay positioning styles in src/styles/workspace.css
-- [ ] T026 [P] [US4] Implement overlays sidebar tab with curated Lucide icon picker, custom image uploader, 3x3 grid selector, and size slider in src/components/LeftSidebar/OverlaysTab.jsx
-- [ ] T027 [US4] Implement dynamic Lucide icon and secondary image layer rendering with 9-anchor positioning in src/components/SlideCard.jsx
-- [ ] T028 [US4] Implement individual overlay item list management (selection, update, and removal) in src/components/LeftSidebar/OverlaysTab.jsx
+- [X] T025 [P] [US4] Implement 9-point anchor coordinate rules and absolute overlay positioning styles in src/styles/workspace.css
+- [X] T026 [P] [US4] Implement overlays sidebar tab with curated Lucide icon picker, custom image uploader, 3x3 grid selector, and size slider in src/components/LeftSidebar/OverlaysTab.jsx
+- [X] T027 [US4] Implement dynamic Lucide icon and secondary image layer rendering with 9-anchor positioning in src/components/SlideCard.jsx
+- [X] T028 [US4] Implement individual overlay item list management (selection, update, and removal) in src/components/LeftSidebar/OverlaysTab.jsx
 
 **Checkpoint**: User Story 4 funcional — overlays de ícones e selos gráficos customizáveis com precisão de grade 3x3.
 
@@ -126,8 +126,8 @@
 
 ### Implementation for User Story 5
 
-- [ ] T029 [P] [US5] Implement typography sidebar tab with global font dropdown and slide-specific override controls in src/components/LeftSidebar/TypographyTab.jsx
-- [ ] T030 [US5] Integrate dynamic font-family resolution (slide fontOverride fallback to workspace globalFont) in src/components/SlideCard.jsx
+- [X] T029 [P] [US5] Implement typography sidebar tab with global font dropdown and slide-specific override controls in src/components/LeftSidebar/TypographyTab.jsx
+- [X] T030 [US5] Integrate dynamic font-family resolution (slide fontOverride fallback to workspace globalFont) in src/components/SlideCard.jsx
 
 **Checkpoint**: User Story 5 funcional — consistência visual tipográfica garantida com flexibilidade de destaque pontual.
 
@@ -141,9 +141,9 @@
 
 ### Implementation for User Story 6
 
-- [ ] T031 [P] [US6] Implement creator profile sidebar tab with avatar upload, @handle text input, and active slide visibility toggle in src/components/LeftSidebar/BrandingTab.jsx
-- [ ] T032 [US6] Implement creator branding footer rendering and slide-level visibility switch in src/components/SlideCard.jsx
-- [ ] T033 [US6] Connect creator profile persistence to IndexedDB storage in src/components/LeftSidebar/BrandingTab.jsx
+- [X] T031 [P] [US6] Implement creator profile sidebar tab with avatar upload, @handle text input, and active slide visibility toggle in src/components/LeftSidebar/BrandingTab.jsx
+- [X] T032 [US6] Implement creator branding footer rendering and slide-level visibility switch in src/components/SlideCard.jsx
+- [X] T033 [US6] Connect creator profile persistence to IndexedDB storage in src/components/LeftSidebar/BrandingTab.jsx
 
 **Checkpoint**: User Story 6 funcional — identidade de marca configurada e visibilidade controlada granularmente por slide.
 
@@ -153,11 +153,11 @@
 
 **Purpose**: Exportação em alta resolução, atalhos de teclado e refinamento visual final
 
-- [ ] T034 [P] Implement multi-format export toolbar (PNG pack in ZIP and multi-page PDF for LinkedIn) in src/components/ExportToolbar.jsx
-- [ ] T035 [P] Implement client-side high-resolution rendering and download packaging in src/services/exportService.js
-- [ ] T036 Add keyboard shortcuts (ArrowLeft/ArrowRight to cycle active slides, Esc to deselect) in src/components/StudioWorkspace.jsx
-- [ ] T037 Polish bioluminescent theme transitions, active slide glow borders, and hover microinteractions in src/styles/workspace.css
-- [ ] T038 Execute end-to-end acceptance validation across all 5 scenarios in specs/002-carousel-workspace-editor/quickstart.md
+- [X] T034 [P] Implement multi-format export toolbar (PNG pack in ZIP and multi-page PDF for LinkedIn) in src/components/ExportToolbar.jsx
+- [X] T035 [P] Implement client-side high-resolution rendering and download packaging in src/services/exportService.js
+- [X] T036 Add keyboard shortcuts (ArrowLeft/ArrowRight to cycle active slides, Esc to deselect) in src/components/StudioWorkspace.jsx
+- [X] T037 Polish bioluminescent theme transitions, active slide glow borders, and hover microinteractions in src/styles/workspace.css
+- [X] T038 Execute end-to-end acceptance validation across all 5 scenarios in specs/002-carousel-workspace-editor/quickstart.md
 
 ---
 

@@ -1,0 +1,549 @@
+/* ==========================================================================
+   Studio Workspace, Left Sidebar, Slide Canvas & 9-Anchor Grid Styles
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Script Input View (Landing / Intake)
+   -------------------------------------------------------------------------- */
+.script-input-view {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 20%, #012b28 0%, #001413 70%);
+  padding: 24px;
+}
+
+.script-input-card {
+  width: 100%;
+  max-width: 800px;
+  background: var(--bg-translucent);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  box-shadow: var(--shadow-card), 0 0 40px rgba(5, 255, 212, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.script-input-header h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-platinum);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  letter-spacing: -0.5px;
+}
+
+.script-input-header p {
+  color: var(--text-silver);
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+.script-textarea {
+  width: 100%;
+  height: 220px;
+  padding: 16px;
+  font-size: 15px;
+  line-height: 1.6;
+  resize: vertical;
+  background: rgba(0, 15, 14, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-platinum);
+}
+
+.script-actions-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-example {
+  font-size: 13px;
+  color: var(--accent-biolum);
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+}
+
+.btn-generate-slides {
+  background: linear-gradient(135deg, #05ffd4 0%, #00b497 100%);
+  color: #00221f;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 12px 28px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 18px var(--accent-biolum-glow);
+  transition: var(--transition-smooth);
+}
+
+.btn-generate-slides:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px var(--accent-biolum-glow);
+  filter: brightness(1.08);
+}
+
+.btn-generate-slides:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   2. Studio Workspace (Two-Zone Main Container)
+   -------------------------------------------------------------------------- */
+.studio-workspace {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  background-color: var(--bg-darkest);
+}
+
+/* --------------------------------------------------------------------------
+   3. Left Sidebar (380px Fixed Tools & Configuration Panel)
+   -------------------------------------------------------------------------- */
+.left-sidebar {
+  width: 380px;
+  min-width: 360px;
+  max-width: 420px;
+  height: 100vh;
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-header {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0, 20, 19, 0.4);
+}
+
+.sidebar-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-badge {
+  color: var(--accent-biolum);
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: -0.3px;
+}
+
+.btn-new-project {
+  font-size: 12px;
+  color: var(--text-silver);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-new-project:hover {
+  background: rgba(244, 63, 94, 0.15);
+  color: #f43f5e;
+  border-color: rgba(244, 63, 94, 0.3);
+}
+
+/* Tab Navigation */
+.sidebar-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-subtle);
+  background: rgba(0, 15, 14, 0.5);
+  overflow-x: auto;
+}
+
+.sidebar-tab-btn {
+  flex: 1;
+  padding: 12px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-silver);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+}
+
+.sidebar-tab-btn:hover {
+  color: var(--text-platinum);
+  background: rgba(5, 255, 212, 0.04);
+}
+
+.sidebar-tab-btn.active {
+  color: var(--accent-biolum);
+  border-bottom-color: var(--accent-biolum);
+  background: rgba(5, 255, 212, 0.08);
+}
+
+/* Sidebar Tab Content Area */
+.sidebar-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.section-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--accent-biolum);
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.control-card {
+  background: rgba(0, 30, 28, 0.6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Grid Anchor Selector (3x3 Matrix) */
+.grid-3x3-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  width: 140px;
+  margin: 8px 0;
+}
+
+.grid-anchor-btn {
+  aspect-ratio: 1 / 1;
+  background: rgba(0, 20, 19, 0.8);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  font-size: 10px;
+  color: var(--text-silver);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-anchor-btn:hover {
+  border-color: var(--accent-biolum);
+  color: var(--accent-biolum);
+}
+
+.grid-anchor-btn.active {
+  background: var(--accent-biolum);
+  color: #001a18;
+  border-color: var(--accent-biolum);
+  box-shadow: 0 0 10px var(--accent-biolum-glow);
+  font-weight: bold;
+}
+
+/* --------------------------------------------------------------------------
+   4. Right Canvas Area & Top Header
+   -------------------------------------------------------------------------- */
+.slides-canvas-container {
+  flex: 1;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-canvas);
+  position: relative;
+  overflow: hidden;
+}
+
+.workspace-top-bar {
+  height: 60px;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: rgba(0, 20, 19, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: 10;
+}
+
+.top-bar-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.slide-count-badge {
+  background: rgba(5, 255, 212, 0.1);
+  color: var(--accent-biolum);
+  border: 1px solid rgba(5, 255, 212, 0.25);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* Canvas Slides Viewport */
+.slides-stage {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: flex;
+  align-items: center;
+  padding: 40px;
+  gap: 32px;
+  scroll-behavior: smooth;
+}
+
+/* --------------------------------------------------------------------------
+   5. SlideCard Component Presentation
+   -------------------------------------------------------------------------- */
+.slide-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.slide-card-header-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-silver);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.slide-card {
+  width: 380px;
+  height: 475px; /* Proporção 4:5 (ex: 1080x1350) */
+  background: var(--slide-bg, radial-gradient(circle at top right, #004743 0%, #012624 50%, #001413 100%));
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.slide-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(5, 255, 212, 0.4);
+}
+
+.slide-card.active {
+  border-color: var(--accent-biolum);
+  box-shadow: 0 0 25px var(--accent-biolum-glow), 0 12px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Docking Layout Variants */
+.slide-card.dock-top {
+  flex-direction: column;
+}
+
+.slide-card.dock-bottom {
+  flex-direction: column-reverse;
+}
+
+.slide-card.dock-left {
+  flex-direction: row;
+}
+
+.slide-card.dock-right {
+  flex-direction: row-reverse;
+}
+
+/* Docked Media Box */
+.docked-image-container {
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.slide-card.dock-top .docked-image-container,
+.slide-card.dock-bottom .docked-image-container {
+  width: 100%;
+  height: 45%;
+}
+
+.slide-card.dock-left .docked-image-container,
+.slide-card.dock-right .docked-image-container {
+  width: 48%;
+  height: 100%;
+}
+
+.docked-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease-out;
+}
+
+/* Content Text Box */
+.slide-content-box {
+  flex: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.slide-tag {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--slide-accent, var(--accent-biolum));
+  background: var(--slide-tag-bg, rgba(5, 255, 212, 0.12));
+  padding: 3px 8px;
+  border-radius: 4px;
+  align-self: flex-start;
+  margin-bottom: 12px;
+}
+
+.slide-text-body {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--slide-text, var(--text-platinum));
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+/* --------------------------------------------------------------------------
+   6. 9-Point Overlay Positioning Rules
+   -------------------------------------------------------------------------- */
+.slide-overlay-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.overlay-item {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  transition: var(--transition-smooth);
+}
+
+.anchor-top-left {
+  top: 24px;
+  left: 24px;
+}
+
+.anchor-top-center {
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.anchor-top-right {
+  top: 24px;
+  right: 24px;
+}
+
+.anchor-center-left {
+  top: 50%;
+  left: 24px;
+  transform: translateY(-50%);
+}
+
+.anchor-center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.anchor-center-right {
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+}
+
+.anchor-bottom-left {
+  bottom: 24px;
+  left: 24px;
+}
+
+.anchor-bottom-center {
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.anchor-bottom-right {
+  bottom: 24px;
+  right: 24px;
+}
+
+/* --------------------------------------------------------------------------
+   7. Creator Signature / Branding Footer
+   -------------------------------------------------------------------------- */
+.slide-branding-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.branding-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--accent-biolum);
+}
+
+.branding-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.branding-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--slide-text, var(--text-platinum));
+}
+
+.branding-handle {
+  font-size: 10px;
+  color: var(--slide-subtext, var(--text-silver));
+}

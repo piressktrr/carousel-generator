@@ -1,0 +1,25 @@
+{
+  "name": "carrosseis-generator",
+  "version": "2.0.0",
+  "description": "Carousel Studio Workspace & Advanced Slide Customizer",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "file-saver": "^2.0.5",
+    "html-to-image": "^1.11.13",
+    "idb-keyval": "^6.3.0",
+    "jspdf": "^4.2.1",
+    "jszip": "^3.10.1",
+    "lucide-react": "^1.16.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.1",
+    "vite": "^8.2.2"
+  }
+}
