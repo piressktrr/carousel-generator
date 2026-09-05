@@ -39,8 +39,8 @@ Acesse no navegador: `http://localhost:3000/`.
    ```
 3. Clique no botão **"Gerar Slides"**.
 4. **Resultado Esperado**:
-   - O sistema divide o roteiro em 6 slides sequenciais (Capa, 4 Conteúdos e 1 CTA de fechamento).
-   - O ambiente transiciona para o **Studio Workspace**, com a **Barra Lateral de Ferramentas fixada à esquerda** e os **slides organizados no palco à direita**.
+   - O sistema analisa o roteiro e gera uma quantidade adaptativa de slides proporcional ao conteúdo (neste roteiro de teste com título, 4 tópicos e CTA, gera exatamente 6 slides: Capa, 4 Conteúdos e 1 CTA de fechamento). Caso um roteiro com 8 ou 12 tópicos seja fornecido, o sistema gerará dinamicamente 10 ou 14 slides correspondentes.
+   - O ambiente transiciona para o **Studio Workspace**, com a **Barra Lateral de Ferramentas fixada à esquerda** e os **slides organizados no palco à direita**, permitindo adicionar novos slides ou remover slides existentes via botões de ação.
 
 ---
 

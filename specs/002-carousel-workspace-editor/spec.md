@@ -11,7 +11,8 @@
 ## Clarifications
 
 ### Session 2026-09-05
-- Q: Como o roteiro inserido pelo usuário deve ser dividido e estruturado nos slides ao clicar no botão "Gerar Slides"? → A: Abordagem Híbrida Inteligente (IA analisa o roteiro, sugere títulos/ganchos de capa e distribui o conteúdo sintetizado nos slides, com fallback algorítmico local por parágrafos caso ocorra falha de rede/API).
+- Q: Como o roteiro inserido pelo usuário deve ser dividido e estruturado nos slides ao clicar no botão "Gerar Slides"? → A: Abordagem Híbrida Inteligente Adaptativa (IA analisa o roteiro, identifica os pontos-chave, sugere títulos/ganchos e distribui o conteúdo sintetizado em uma quantidade dinâmica de slides que melhor se encaixe na densidade do roteiro — sem fixar um número rígido como 6 slides —, com fallback algorítmico local por parágrafos/tópicos caso ocorra falha de rede/API).
+- Q: O número de slides gerados deve ser fixo ou adaptativo ao conteúdo do roteiro? → A: Quantidade Dinâmica e Adaptativa (O sistema NÃO deve limitar ou fixar a quantidade de slides; ele avalia a extensão e os argumentos do roteiro para gerar exatamente a quantidade necessária de slides que acomode as ideias confortavelmente, permitindo tanto carrosséis mais curtos quanto carrosséis mais longos, com botões para adicionar e remover slides manualmente a qualquer momento).
 - Q: Como deve funcionar o posicionamento e ajuste dos ícones e imagens menores adicionais sobre o slide? → A: Âncoras de Grade Pré-definidas (o usuário escolhe na barra esquerda a posição entre 9 regiões do slide — cantos, centros e bordas — e ajusta a escala via controle deslizante).
 - Q: A alteração da família tipográfica (fonte) selecionada na barra lateral esquerda deve ser aplicada a todos os slides do carrossel ou configurável individualmente por slide? → A: Global com Override Opcional (a fonte selecionada aplica-se a todo o carrossel por padrão, com opção de customização individual em slides específicos, como na capa).
 - Q: De onde virão os ícones disponibilizados no catálogo da barra esquerda para inserção nos slides? → A: Catálogo Curado Embutido + Upload Customizado (coleção nativa de ícones vetoriais frequentes para redes sociais combinada com suporte a upload de ícones e selos em PNG/SVG pelo usuário).
@@ -19,19 +20,20 @@
 
 ## User Scenarios & Testing *(mandatory)*
 
-### User Story 1 - Roteirização Inicial e Geração Automática de Slides (Priority: P1)
+### User Story 1 - Roteirização Inicial e Geração Dinâmica de Slides Adaptada ao Conteúdo (Priority: P1)
 
-Como criador de conteúdo, ao abrir a aplicação, quero dispor de um espaço dedicado para colar o meu roteiro bruto e um botão para "Gerar Slides", para que o texto seja estruturado e dividido instantaneamente em uma sequência ordenada de slides prontos para customização profunda.
+Como criador de conteúdo, ao abrir a aplicação, quero dispor de um espaço dedicado para colar o meu roteiro bruto e um botão para "Gerar Slides", para que o texto seja estruturado e dividido instantaneamente em uma sequência ordenada com a quantidade ideal de slides que melhor acomode as ideias do roteiro (sem imposição de quantidade fixa), prontos para customização profunda.
 
-**Why this priority**: É a porta de entrada indispensável. Sem a conversão do roteiro em slides, nenhuma personalização ou diagramação visual pode ocorrer.
+**Why this priority**: É a porta de entrada indispensável. Sem a conversão adaptativa do roteiro em slides, nenhuma personalização ou diagramação visual pode ocorrer.
 
-**Independent Test**: Pode ser testado colando um roteiro de múltiplos parágrafos e acionando o botão de geração; o sistema deve sintetizar e distribuir os blocos de texto nos respectivos quadros ordenados em tempo real.
+**Independent Test**: Pode ser testado colando roteiros de diferentes tamanhos (um curto com 3 pontos e um detalhado com 8 ou 10 pontos) e acionando o botão de geração; o sistema deve sintetizar e distribuir os blocos de texto dinamicamente gerando a quantidade proporcional de slides sem truncar conteúdo nem forçar número fixo.
 
 **Acceptance Scenarios**:
 
-1. **Given** a tela inicial da aplicação carregada, **When** o usuário insere seu roteiro textual e aciona "Gerar Slides", **Then** o sistema gera a sequência de slides correspondente exibindo os blocos de texto no palco de trabalho com assistência de IA para gancho de abertura e síntese.
-2. **Given** uma tentativa de submissão com campo de roteiro em branco, **When** o usuário clica em gerar, **Then** o sistema exibe um alerta orientador e mantém o usuário na tela de entrada.
-3. **Given** indisponibilidade de rede ou falha no serviço de IA, **When** o usuário aciona a geração, **Then** o sistema ativa o fallback algorítmico local particionando o texto por parágrafos sem travar o fluxo.
+1. **Given** a tela inicial da aplicação carregada, **When** o usuário insere seu roteiro textual e aciona "Gerar Slides", **Then** o sistema gera uma sequência dinâmica de slides correspondente à quantidade ideal de tópicos do roteiro (capa, pontos principais e fechamento) sem forçar uma quantidade fixa pré-definida.
+2. **Given** um roteiro longo com múltiplos argumentos distintos, **When** o usuário solicita a geração, **Then** o sistema gera tantos slides quantos forem necessários para expressar cada ideia com clareza, evitando aglomeração excessiva de texto em um único quadro.
+3. **Given** uma tentativa de submissão com campo de roteiro em branco, **When** o usuário clica em gerar, **Then** o sistema exibe um alerta orientador e mantém o usuário na tela de entrada.
+4. **Given** indisponibilidade de rede ou falha no serviço de IA, **When** o usuário aciona a geração, **Then** o sistema ativa o fallback algorítmico local particionando o texto de forma adaptativa pelos tópicos e quebras de parágrafo sem travar o fluxo.
 
 ---
 
@@ -129,7 +131,7 @@ Como criador, quero configurar minha foto de perfil e meu @handle, com liberdade
 ### Functional Requirements
 
 - **FR-001**: O sistema DEVE disponibilizar uma área inicial para inserção de roteiro em texto livre e um botão de ação para "Gerar Slides".
-- **FR-002**: O sistema DEVE utilizar um motor híbrido de estruturação: acionar inteligência artificial para sugerir títulos de gancho e sintetizar o conteúdo em slides ordenados, ativando automaticamente fallback algorítmico local por parágrafos em caso de indisponibilidade de rede ou erro na chamada.
+- **FR-002**: O sistema DEVE utilizar um motor híbrido de estruturação dinâmico e adaptativo: acionar inteligência artificial para sintetizar o conteúdo em uma quantidade flexível de slides que melhor acomode a densidade e os tópicos do roteiro (sem quantidade fixa pré-definida ou teto restritivo artificial), ativando automaticamente fallback algorítmico local por tópicos/parágrafos caso ocorra indisponibilidade de rede ou falha na chamada.
 - **FR-003**: O sistema DEVE estruturar a interface em duas zonas principais: **barra lateral de personalização e ferramentas à esquerda** e **palco interativo de visualização de slides ocupando o espaço principal**.
 - **FR-004**: O sistema DEVE permitir a seleção direta de qualquer slide do palco, sincronizando seus dados e propriedades imediatamente na barra lateral esquerda.
 - **FR-005**: O sistema DEVE permitir o upload e a vinculação de uma imagem principal individual para cada slide.
@@ -147,6 +149,7 @@ Como criador, quero configurar minha foto de perfil e meu @handle, com liberdade
 - **FR-013**: O sistema DEVE refletir qualquer alteração realizada na barra esquerda no palco de slides em tempo real (latência imperceptível).
 - **FR-014**: O sistema DEVE permitir a remoção da imagem principal de ancoragem, restaurando o layout textual do slide.
 - **FR-015**: O sistema DEVE implementar persistência híbrida offline-first: salvar automaticamente o projeto ativo no armazenamento local do navegador a cada modificação, restaurando-o no recarregamento, e disponibilizar comandos na barra lateral para iniciar novo projeto e resetar o roteiro de trabalho.
+- **FR-016**: O sistema DEVE permitir adicionar novos slides em branco e remover slides existentes a qualquer momento no estúdio, garantindo que o usuário ajuste livremente a extensão do carrossel conforme necessário.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -166,10 +169,12 @@ Como criador, quero configurar minha foto de perfil e meu @handle, com liberdade
 - **SC-003**: 95% dos usuários conseguem adicionar um ícone ou imagem menor adicional e posicioná-la no slide sem necessidade de tutoriais ou documentação externa.
 - **SC-004**: A alternância de visibilidade da foto e @handle opera com 100% de precisão granular, sem alterar os slides vizinhos quando acionada em um slide específico.
 - **SC-005**: O layout com barra esquerda fixa e palco à direita se adapta com clareza visual e ergonomia operacional em telas padrão de desktop e notebooks.
+- **SC-006**: A geração de slides a partir de roteiros gera uma quantidade fluida e adaptativa de slides (ex: roteiros com 3 tópicos geram ~5 slides, roteiros com 8 ou 12 tópicos geram 10 ou 14 slides), sem impor quantitativo fixo arbitrário e garantindo que cada bloco de conteúdo tenha legibilidade sem truncamento.
 
 ## Assumptions
 
 - A aplicação é pensada primariamente para ambientes desktop/web com espaço horizontal adequado para o layout de duas colunas (barra esquerda e palco de slides).
+- A quantidade de slides do carrossel varia organicamente conforme a extensão e complexidade do roteiro (podendo ir de 3 até 20+ slides), sem nenhuma quantidade fixa pré-definida de 6 slides, mantendo o usuário com autonomia para criar ou excluir slides adicionais.
 - Os elementos gráficos secundários (ícones e imagens menores) suportam formatos gráficos com canal alfa (transparência) como PNG e SVG para integração visual limpa.
 - O redimensionamento tanto da imagem principal quanto dos elementos secundários preserva as proporções originais (aspect ratio) para evitar deformações.
 - A biblioteca de ícones fornece um conjunto inicial curado de símbolos populares para redes sociais e apresentações.

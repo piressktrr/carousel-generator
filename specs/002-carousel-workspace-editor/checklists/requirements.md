@@ -32,10 +32,11 @@
 ## Notes
 
 - Todas as 16 verificações de qualidade foram aprovadas com êxito.
-- A especificação foi refinada para atender rigorosamente à orientação do usuário:
+- A especificação foi refinada para atender rigorosamente às orientações do usuário:
+  - **Quantidade Dinâmica e Adaptativa de Slides**: Sem número fixo (como 6 slides) ou teto artificial; o sistema ajusta a quantidade organicamente para melhor encaixar cada argumento/tópico do roteiro, além de permitir adicionar e excluir slides no estúdio;
   - **Barra de personalização fixada no lado esquerdo da tela**;
   - **Palco de slides interativo à direita**;
   - **Inserção e ancoragem de imagem principal (topo, base, metade esquerda, metade direita)**;
   - **Inserção de elementos visuais secundários (ícones e imagens menores além do fundo)**;
   - **Customização tipográfica e controle granular de visibilidade da foto e @handle**.
-- O documento está 100% pronto para a fase de planejamento (`/speckit-plan`).
+- O documento está 100% pronto para a fase de planejamento (`/speckit-plan`) e geração de tarefas (`/speckit-tasks`).
