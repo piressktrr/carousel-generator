@@ -43,7 +43,7 @@ Implementação de um espaço de trabalho visual dinâmico, elegante e ergonômi
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-- **Princípio I (Clean Architecture & SOLID)**: Aprovado. As regras de ancoragem de imagem, manipulação de overlays e cálculos de estado residem em serviços JavaScript puros (`src/services/workspaceService.js`), totalmente desacoplados dos componentes de interface React.
+- **Princípio I (Clean Architecture, Arquitetura Funcional & SRP)**: Aprovado. A aplicação adota formalmente **Arquitetura Funcional com Composição de Componentes** em React. O padrão SOLID é focado no **Princípio da Responsabilidade Única (SRP)** para cada módulo e componente, mantendo a lógica de domínio em funções puras (`src/services/workspaceService.js`, `textSegmenter.js`, `exportService.js`) sem classes burocráticas ou herança complexa de POO.
 - **Princípio II (Pragmatismo Técnico & KISS/YAGNI)**: Aprovado. A aplicação adiciona unicamente a biblioteca `lucide-react` para os ícones requisitados pelo usuário, sem introduzir frameworks pesados de animação (ex: Framer Motion) ou servidores desnecessários.
 - **Princípio III (Concorrência Segura & Resiliência)**: Aprovado. Chamadas assíncronas à IA possuem timeout de 10s e acionam automaticamente o fallback determinístico local por parágrafos. A persistência em IndexedDB utiliza operações atômicas assíncronas com debounce.
 - **Princípio IV (Dados & Infraestrutura)**: Aprovado. Persistência offline-first padronizada no IndexedDB com schema de objeto POJO estável e auditável.
