@@ -8,6 +8,15 @@
 
 **Input**: User description: "A ideia é deixar os slides personalizáveis ao máximo utilizando essa barra do lado esquerdo. Então, novamente, vou colocar o roteiro, ele vai gerar os slides para mim, e aí eu vou podendo alterar tudo e eu também vou poder inserir ícones, outras imagens menores que não sejam só do fundo do slide. Para caso eu quiser fazer alterações." (Complementando a visão anterior de espaço de trabalho, roteirização, tipografia e identidade visual).
 
+## Clarifications
+
+### Session 2026-09-05
+- Q: Como o roteiro inserido pelo usuário deve ser dividido e estruturado nos slides ao clicar no botão "Gerar Slides"? → A: Abordagem Híbrida Inteligente (IA analisa o roteiro, sugere títulos/ganchos de capa e distribui o conteúdo sintetizado nos slides, com fallback algorítmico local por parágrafos caso ocorra falha de rede/API).
+- Q: Como deve funcionar o posicionamento e ajuste dos ícones e imagens menores adicionais sobre o slide? → A: Âncoras de Grade Pré-definidas (o usuário escolhe na barra esquerda a posição entre 9 regiões do slide — cantos, centros e bordas — e ajusta a escala via controle deslizante).
+- Q: A alteração da família tipográfica (fonte) selecionada na barra lateral esquerda deve ser aplicada a todos os slides do carrossel ou configurável individualmente por slide? → A: Global com Override Opcional (a fonte selecionada aplica-se a todo o carrossel por padrão, com opção de customização individual em slides específicos, como na capa).
+- Q: De onde virão os ícones disponibilizados no catálogo da barra esquerda para inserção nos slides? → A: Catálogo Curado Embutido + Upload Customizado (coleção nativa de ícones vetoriais frequentes para redes sociais combinada com suporte a upload de ícones e selos em PNG/SVG pelo usuário).
+- Q: Como deve funcionar o salvamento e recuperação do carrossel em edição no estúdio caso a aba do navegador seja recarregada ou fechada? → A: Híbrido (autosave contínuo no armazenamento local do navegador para proteção do trabalho ativo, combinado com comandos na barra lateral para iniciar novo projeto do zero ou duplicar).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Roteirização Inicial e Geração Automática de Slides (Priority: P1)
@@ -20,8 +29,9 @@ Como criador de conteúdo, ao abrir a aplicação, quero dispor de um espaço de
 
 **Acceptance Scenarios**:
 
-1. **Given** a tela inicial da aplicação carregada, **When** o usuário insere seu roteiro textual e aciona "Gerar Slides", **Then** o sistema gera a sequência de slides correspondente exibindo os blocos de texto no palco de trabalho.
+1. **Given** a tela inicial da aplicação carregada, **When** o usuário insere seu roteiro textual e aciona "Gerar Slides", **Then** o sistema gera a sequência de slides correspondente exibindo os blocos de texto no palco de trabalho com assistência de IA para gancho de abertura e síntese.
 2. **Given** uma tentativa de submissão com campo de roteiro em branco, **When** o usuário clica em gerar, **Then** o sistema exibe um alerta orientador e mantém o usuário na tela de entrada.
+3. **Given** indisponibilidade de rede ou falha no serviço de IA, **When** o usuário aciona a geração, **Then** o sistema ativa o fallback algorítmico local particionando o texto por parágrafos sem travar o fluxo.
 
 ---
 
@@ -38,6 +48,7 @@ Como criador, quero que o espaço de trabalho apresente uma barra de ferramentas
 1. **Given** a transição para o ambiente de edição, **When** o estúdio é carregado, **Then** a barra de controles e personalização é fixada na lateral esquerda e o palco de slides ocupa o espaço principal adjacente.
 2. **Given** múltiplos slides exibidos no palco, **When** o usuário clica em um slide específico, **Then** a barra esquerda foca e sincroniza imediatamente os atributos (texto, imagens, ícones, fontes) daquele slide ativo.
 3. **Given** modificações efetuadas nos controles da barra esquerda, **When** qualquer parâmetro é ajustado, **Then** o slide correspondente atualiza sua exibição em tempo real sem recarregar a página.
+4. **Given** um projeto com edições ativas em andamento, **When** o usuário recarrega a página ou fecha o navegador, **Then** o estado do carrossel é restaurado integralmente via salvamento automático contínuo, com a barra lateral disponibilizando botão para "Iniciar Novo Projeto" a qualquer momento.
 
 ---
 
@@ -69,23 +80,24 @@ Como criador que busca personalização máxima, quero poder inserir ícones e i
 
 **Acceptance Scenarios**:
 
-1. **Given** a seção de elementos gráficos na barra esquerda, **When** o usuário adiciona um ícone do catálogo ou carrega uma imagem menor suplementar, **Then** o elemento é inserido sobre o slide como uma camada visual manipulável.
-2. **Given** um elemento secundário (ícone ou imagem menor) no slide, **When** o usuário ajusta seu tamanho e posição pelo menu esquerdo, **Then** o elemento redimensiona e se posiciona com precisão sobre o conteúdo.
+1. **Given** a seção de elementos gráficos na barra esquerda, **When** o usuário escolhe um ícone da biblioteca vetorial nativa ou carrega uma imagem/selo pessoal (PNG transparente/SVG), **Then** o elemento gráfico é inserido no slide como uma camada visual manipulável.
+2. **Given** um elemento secundário (ícone ou imagem menor) inserido no slide, **When** o usuário seleciona uma das 9 âncoras de grade no menu esquerdo e ajusta a escala, **Then** o elemento se ancora na região escolhida (ex: topo direito, centro, base esquerda) e redimensiona mantendo proporções seguras.
 3. **Given** a necessidade de adicionar múltiplos elementos de apoio em um slide, **When** o usuário insere novos ícones ou imagens menores, **Then** o sistema permite gerenciá-los individualmente com opção de remoção pontual.
 
 ---
 
 ### User Story 5 - Customização Tipográfica Ampla (Priority: P2)
 
-Como autor, quero selecionar diferentes famílias tipográficas para os textos dos slides a partir da barra esquerda, para que o estilo visual se adapte perfeitamente à personalidade da minha marca.
+Como autor, quero selecionar diferentes famílias tipográficas para os textos dos slides a partir da barra esquerda, para que o estilo visual se adapte perfeitamente à personalidade da minha marca de forma consistente ou com destaques pontuais.
 
 **Why this priority**: A tipografia é um pilar da identidade e da legibilidade em mídias sociais.
 
-**Independent Test**: Pode ser testado alternando entre as famílias tipográficas oferecidas no seletor da barra esquerda e atestando que os títulos e parágrafos do slide ativo ou global assumem a nova fonte instantaneamente.
+**Independent Test**: Pode ser testado alternando a fonte global no menu e verificando que todos os slides a adotam, e em seguida ativando uma fonte customizada em um slide individual (ex: capa) confirmando que apenas aquele slide sofre o override.
 
 **Acceptance Scenarios**:
 
-1. **Given** o seletor de fontes na barra esquerda, **When** o usuário escolhe uma família tipográfica, **Then** a nova fonte é aplicada aos textos dos slides mantendo pesos e hierarquias visuais preservados.
+1. **Given** o seletor de fontes na barra esquerda, **When** o usuário escolhe uma família tipográfica, **Then** a nova fonte é aplicada por padrão a todos os slides do carrossel mantendo a consistência visual.
+2. **Given** um slide ativo onde o usuário deseja uma tipografia diferenciada, **When** ativa o controle de fonte individual no painel esquerdo, **Then** apenas o slide selecionado adota a nova fonte sem alterar os demais slides do projeto.
 
 ---
 
@@ -117,7 +129,7 @@ Como criador, quero configurar minha foto de perfil e meu @handle, com liberdade
 ### Functional Requirements
 
 - **FR-001**: O sistema DEVE disponibilizar uma área inicial para inserção de roteiro em texto livre e um botão de ação para "Gerar Slides".
-- **FR-002**: O sistema DEVE estruturar o texto do roteiro em uma sequência ordenada de slides de carrossel prontos para edição.
+- **FR-002**: O sistema DEVE utilizar um motor híbrido de estruturação: acionar inteligência artificial para sugerir títulos de gancho e sintetizar o conteúdo em slides ordenados, ativando automaticamente fallback algorítmico local por parágrafos em caso de indisponibilidade de rede ou erro na chamada.
 - **FR-003**: O sistema DEVE estruturar a interface em duas zonas principais: **barra lateral de personalização e ferramentas à esquerda** e **palco interativo de visualização de slides ocupando o espaço principal**.
 - **FR-004**: O sistema DEVE permitir a seleção direta de qualquer slide do palco, sincronizando seus dados e propriedades imediatamente na barra lateral esquerda.
 - **FR-005**: O sistema DEVE permitir o upload e a vinculação de uma imagem principal individual para cada slide.
@@ -127,22 +139,23 @@ Como criador, quero configurar minha foto de perfil e meu @handle, com liberdade
   - Posição Inferior (Base do slide);
   - Metade Esquerda (Layout dividido horizontal - split esquerdo);
   - Metade Direita (Layout dividido horizontal - split direito).
-- **FR-008**: O sistema DEVE permitir a inserção de elementos gráficos secundários (ícones de catálogo e imagens menores adicionais) sobre o slide além da imagem principal/fundo.
-- **FR-009**: O sistema DEVE fornecer controles para ajustar tamanho, posicionamento e exclusão de cada elemento gráfico secundário adicionado ao slide.
-- **FR-010**: O sistema DEVE disponibilizar um seletor de famílias tipográficas na barra lateral esquerda para personalização do texto dos slides.
+- **FR-008**: O sistema DEVE disponibilizar uma biblioteca curada de ícones vetoriais nativos na barra lateral esquerda e permitir o upload de imagens menores complementares (PNG/SVG transparentes) pelo usuário para inserção nos slides.
+- **FR-009**: O sistema DEVE fornecer controles na barra lateral esquerda para ajustar tamanho (escala) e posicionamento estruturado baseado em âncoras de grade pré-definidas (9 regiões: cantos, bordas e centro) para cada elemento gráfico secundário adicionado ao slide.
+- **FR-010**: O sistema DEVE disponibilizar seleção tipográfica global com suporte a override individual: aplicar a família tipográfica escolhida a todos os slides por padrão, permitindo que o criador defina opcionalmente uma fonte alternativa especificamente para o slide ativo.
 - **FR-011**: O sistema DEVE permitir a configuração da identidade do criador (foto de perfil e @handle).
 - **FR-012**: O sistema DEVE disponibilizar controle de visibilidade (exibir/ocultar) para a assinatura do criador, com atuação independente por slide.
 - **FR-013**: O sistema DEVE refletir qualquer alteração realizada na barra esquerda no palco de slides em tempo real (latência imperceptível).
 - **FR-014**: O sistema DEVE permitir a remoção da imagem principal de ancoragem, restaurando o layout textual do slide.
+- **FR-015**: O sistema DEVE implementar persistência híbrida offline-first: salvar automaticamente o projeto ativo no armazenamento local do navegador a cada modificação, restaurando-o no recarregamento, e disponibilizar comandos na barra lateral para iniciar novo projeto e resetar o roteiro de trabalho.
 
 ### Key Entities *(include if feature involves data)*
 
 - **Roteiro (Carousel Script)**: Texto bruto inicial fornecido pelo usuário contendo os argumentos que serão particionados em slides.
-- **Slide do Carrossel (Carousel Slide)**: Unidade de exibição que reúne o texto particionado, imagem principal de ancoragem, lista de elementos gráficos secundários (ícones/imagens menores), tipografia selecionada e estado de visibilidade da assinatura.
+- **Slide do Carrossel (Carousel Slide)**: Unidade de exibição que reúne o texto particionado, imagem principal de ancoragem, lista de elementos gráficos secundários (ícones/imagens menores), tipografia ativa (herdada do projeto ou customizada via override) e estado de visibilidade da assinatura.
 - **Imagem Principal de Ancoragem (Docked Image)**: Mídia gráfica principal com atributos de escala e modalidade de posicionamento estruturado (Topo, Base, Metade Esquerda, Metade Direita).
-- **Elemento Gráfico Secundário (Graphic Overlay Item)**: Ícone ou imagem menor independente posicionada sobre o slide, contendo identificador, tipo (ícone/imagem), fator de escala e coordenadas relativas de posicionamento.
+- **Elemento Gráfico Secundário (Graphic Overlay Item)**: Ícone ou imagem menor independente posicionada sobre o slide, contendo identificador, tipo (ícone/imagem), fator de escala e âncora de grade selecionada (uma das 9 regiões pré-definidas).
 - **Perfil do Criador (Creator Profile)**: Foto de perfil e identificador @handle do autor.
-- **Ambiente de Trabalho (Studio Workspace)**: Estado geral da aplicação composto pela barra lateral esquerda de ferramentas, slide ativo selecionado e visualizador interativo de slides.
+- **Ambiente de Trabalho (Studio Workspace)**: Estado geral da aplicação composto pela barra lateral esquerda de ferramentas, slide ativo selecionado, tipografia padrão global e visualizador interativo de slides.
 
 ## Success Criteria *(mandatory)*
 
