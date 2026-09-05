@@ -1,4 +1,4 @@
-# Feature Specification: Carousel Studio Workspace & Slide Editor
+# Feature Specification: Carousel Studio Workspace & Advanced Slide Customizer
 
 **Feature Branch**: `002-carousel-workspace-editor`
 
@@ -6,142 +6,157 @@
 
 **Status**: Draft
 
-**Input**: User description: "Vou me informar um pouco como que esse roteiro, como que esse projeto vai funcionar. Bem, minha ideia é, assim que eu abrir a aplicação no site, ter um local para colocar o roteiro que eu criei para ser posto nos carrosséis. E aí, quando eu fizer isso, eu clico para gerar slides e aí os slides vão ser gerados com aquele roteiro. Em cada slide, eu quero ter a opção de poder colocar uma imagem, eu poder mudar o tamanho dessa imagem dentro daquele daquele daquele slide, e eu poder colocar ela tanto embaixo, tanto em cima, tanto só a metade de um lado, só a metade de outro. Eu poder mudar a fonte do texto e poder também alterar o meu arroba, minha fotinha ali, eu poder deixar eles aparecendo ou não. E, basicamente, por enquanto é isso. Eu quero que essas alterações fiquem no lado direito da tela. Então vai ter um menu onde eu posso ir alterando essas coisas e do lado, depois desse lado direito em diante, ser só os slides e aí eu poder ir interagindo com eles."
+**Input**: User description: "A ideia é deixar os slides personalizáveis ao máximo utilizando essa barra do lado esquerdo. Então, novamente, vou colocar o roteiro, ele vai gerar os slides para mim, e aí eu vou podendo alterar tudo e eu também vou poder inserir ícones, outras imagens menores que não sejam só do fundo do slide. Para caso eu quiser fazer alterações." (Complementando a visão anterior de espaço de trabalho, roteirização, tipografia e identidade visual).
 
 ## User Scenarios & Testing *(mandatory)*
 
-### User Story 1 - Roteirização Inicial e Geração Instantânea de Slides (Priority: P1)
+### User Story 1 - Roteirização Inicial e Geração Automática de Slides (Priority: P1)
 
-Como criador de conteúdo, ao acessar a aplicação, quero visualizar de imediato uma área clara e intuitiva para colar o meu roteiro e acionar a geração, para que o meu texto seja estruturado automaticamente em uma sequência de slides prontos para edição.
+Como criador de conteúdo, ao abrir a aplicação, quero dispor de um espaço dedicado para colar o meu roteiro bruto e um botão para "Gerar Slides", para que o texto seja estruturado e dividido instantaneamente em uma sequência ordenada de slides prontos para customização profunda.
 
-**Why this priority**: É o ponto de entrada primário da jornada do usuário. Sem a recepção do roteiro e a geração dos slides correspondentes, o fluxo de edição e customização não pode ser iniciado.
+**Why this priority**: É a porta de entrada indispensável. Sem a conversão do roteiro em slides, nenhuma personalização ou diagramação visual pode ocorrer.
 
-**Independent Test**: Pode ser testado colando um roteiro de múltiplos tópicos na tela inicial e acionando o botão de geração; o sistema deve criar e exibir imediatamente os slides ordenados com os textos distribuídos harmonicamente.
+**Independent Test**: Pode ser testado colando um roteiro de múltiplos parágrafos e acionando o botão de geração; o sistema deve sintetizar e distribuir os blocos de texto nos respectivos quadros ordenados em tempo real.
 
 **Acceptance Scenarios**:
 
-1. **Given** que o usuário acessa a tela principal da aplicação, **When** a interface é carregada, **Then** uma área proeminente para inserção do roteiro é exibida com um botão de ação claro para "Gerar Slides".
-2. **Given** um roteiro válido preenchido na área de entrada, **When** o usuário aciona o botão de geração, **Then** o sistema processa o texto e gera a sequência correspondente de slides no espaço de trabalho interativo.
-3. **Given** que o usuário tenta acionar a geração com o campo de roteiro em branco ou vazio, **When** clica em gerar, **Then** o sistema exibe um aviso orientador solicitando o preenchimento antes de prosseguir.
+1. **Given** a tela inicial da aplicação carregada, **When** o usuário insere seu roteiro textual e aciona "Gerar Slides", **Then** o sistema gera a sequência de slides correspondente exibindo os blocos de texto no palco de trabalho.
+2. **Given** uma tentativa de submissão com campo de roteiro em branco, **When** o usuário clica em gerar, **Then** o sistema exibe um alerta orientador e mantém o usuário na tela de entrada.
 
 ---
 
-### User Story 2 - Espaço de Trabalho Dividido (Menu Lateral à Direita e Palco Interativo) (Priority: P1)
+### User Story 2 - Espaço de Trabalho com Barra Lateral à Esquerda e Palco de Slides (Priority: P1)
 
-Como criador, quero um espaço de trabalho visualmente organizado onde um menu lateral à direita reúna todas as ferramentas de personalização e a área restante exiba os slides em tempo real, para que eu possa navegar, inspecionar e interagir diretamente com cada slide enquanto ajusto seus parâmetros.
+Como criador, quero que o espaço de trabalho apresente uma barra de ferramentas e configurações fixada no **lado esquerdo da tela** e o palco interativo com os slides ocupando o restante da área útil, para que eu tenha um fluxo ergonômico de edição onde seleciono controles à esquerda e vejo os reflexos imediatos nos slides à direita.
 
-**Why this priority**: A disposição espacial define a ergonomia do produto. O menu lateral à direita permite que os controles fiquem sempre acessíveis sem obstruir o palco visual de pré-visualização contínua dos slides.
+**Why this priority**: Estabelece o padrão de layout e navegação do estúdio. A barra esquerda ancora todos os comandos de personalização máxima mantendo o campo de visão dos slides limpo e desimpedido.
 
-**Independent Test**: Pode ser testado interagindo com a tela após a geração dos slides: verificar que o menu de ajustes está posicionado à direita e que clicar ou focar em um slide específico reflete suas configurações no painel correspondente em tempo real.
+**Independent Test**: Pode ser testado navegando pela aplicação após a geração dos slides: verificar que o menu lateral está situado no quadrante esquerdo e que clicar em qualquer slide do palco ativa seus parâmetros específicos no menu esquerdo instantaneamente.
 
 **Acceptance Scenarios**:
 
-1. **Given** uma sequência de slides gerados, **When** o espaço de trabalho é exibido, **Then** o menu de edição lateral é fixado no quadrante direito da tela e a área de visualização dos slides ocupa o restante do espaço útil.
-2. **Given** múltiplos slides no palco, **When** o usuário clica ou seleciona um slide específico, **Then** o menu da direita foca e reflete imediatamente as configurações e propriedades daquele slide selecionado.
-3. **Given** modificações realizadas nos controles do menu da direita, **When** qualquer valor é alterado, **Then** o slide ativo atualiza sua renderização instantaneamente sem necessidade de recarregar a tela.
+1. **Given** a transição para o ambiente de edição, **When** o estúdio é carregado, **Then** a barra de controles e personalização é fixada na lateral esquerda e o palco de slides ocupa o espaço principal adjacente.
+2. **Given** múltiplos slides exibidos no palco, **When** o usuário clica em um slide específico, **Then** a barra esquerda foca e sincroniza imediatamente os atributos (texto, imagens, ícones, fontes) daquele slide ativo.
+3. **Given** modificações efetuadas nos controles da barra esquerda, **When** qualquer parâmetro é ajustado, **Then** o slide correspondente atualiza sua exibição em tempo real sem recarregar a página.
 
 ---
 
-### User Story 3 - Inserção, Redimensionamento e Posicionamento Docking de Imagens por Slide (Priority: P1)
+### User Story 3 - Ancoragem Estruturada de Imagem de Destaque por Slide (Priority: P1)
 
-Como criador visual, quero ter a liberdade de inserir uma imagem individual em cada slide, controlar sua escala (tamanho) e definir seu posicionamento exato (acima, abaixo, metade esquerda ou metade direita), para enriquecer o apelo visual do carrossel com diagramações variadas e dinâmicas.
+Como usuário, quero poder vincular uma imagem principal em cada slide, controlar sua escala (tamanho) e escolher sua posição de ancoragem (em cima, embaixo, metade esquerda ou metade direita), para criar composições equilibradas de texto e imagem.
 
-**Why this priority**: É um requisito central expresso pelo usuário, essencial para transformar carrosséis puramente textuais em peças gráficas atrativas de alto engajamento.
+**Why this priority**: Atende diretamente à demanda por layouts dinâmicos, permitindo formatos de capa, layouts divididos (split) e ilustrações de topo/base.
 
-**Independent Test**: Pode ser testado selecionando um slide, carregando um arquivo de imagem, alterando o controle de escala e alternando entre os 4 modos de ancoragem (topo, base, split esquerdo, split direito), confirmando a reorganização fluida do texto ao redor da imagem.
+**Independent Test**: Pode ser testado carregando uma imagem para o slide selecionado e alternando os 4 modos de ancoragem (topo, base, split esquerdo, split direito) e o controle de escala, verificando o reposicionamento responsivo do texto.
 
 **Acceptance Scenarios**:
 
-1. **Given** um slide selecionado no menu da direita, **When** o usuário escolhe inserir uma imagem, **Then** a imagem é carregada e posicionada no slide com controles de ajuste disponíveis no painel.
-2. **Given** uma imagem inserida no slide, **When** o usuário ajusta o controle de dimensão (tamanho/escala), **Then** a imagem amplia ou reduz proporcionalmente dentro dos limites seguros do slide.
-3. **Given** uma imagem vinculada ao slide, **When** o usuário seleciona a posição "Superior" (em cima) ou "Inferior" (embaixo), **Then** a imagem se ancora verticalmente e o texto se acomoda no espaço complementar.
-4. **Given** uma imagem vinculada ao slide, **When** o usuário seleciona a posição "Metade Esquerda" ou "Metade Direita", **Then** o slide adota layout dividido lado a lado (split screen), ocupando a imagem uma metade e o texto a outra metade.
-5. **Given** um slide com imagem, **When** o usuário aciona a remoção da imagem, **Then** o slide volta a exibir o layout de texto integral com estética harmoniosa.
+1. **Given** um slide ativo no menu esquerdo, **When** o usuário faz o upload de uma imagem principal, **Then** ela é renderizada no slide de acordo com a posição de ancoragem selecionada.
+2. **Given** uma imagem vinculada ao slide, **When** o usuário altera a escala através do controle deslizante da barra esquerda, **Then** o tamanho da imagem aumenta ou diminui proporcionalmente.
+3. **Given** a escolha da opção "Superior" ou "Inferior", **When** aplicada, **Then** a imagem se ancora verticalmente e o texto se reacomoda no espaço restante.
+4. **Given** a escolha da opção "Metade Esquerda" ou "Metade Direita", **When** aplicada, **Then** o slide é dividido em duas colunas equivalentes (imagem de um lado, texto do outro).
+5. **Given** um slide com imagem principal, **When** o usuário aciona a remoção, **Then** o slide retorna ao arranjo visual de texto pleno.
 
 ---
 
-### User Story 4 - Customização Tipográfica (Seleção de Fontes) (Priority: P2)
+### User Story 4 - Inserção e Manipulação de Elementos Visuais Secundários (Ícones e Imagens Menores) (Priority: P1)
 
-Como usuário, quero poder alterar a família tipográfica (fonte) aplicada aos textos dos slides, para alinhar a estética do carrossel ao tom de voz e identidade visual da minha comunicação.
+Como criador que busca personalização máxima, quero poder inserir ícones e imagens menores adicionais (selos, setas, logotipos, emojis ou ilustrações complementares) sobre o slide além da imagem de fundo/destaque, ajustando seu tamanho e posicionamento, para destacar pontos-chave e enriquecer a narrativa visual.
 
-**Why this priority**: A escolha tipográfica confere personalidade e legibilidade editorial ao carrossel, permitindo adequar o estilo a nichos corporativos, informais ou educativos.
+**Why this priority**: Requisito explícito do usuário para transformar a ferramenta em um editor rico, permitindo acentuar ideias com recursos gráficos pontuais além do layout básico de fundo.
 
-**Independent Test**: Pode ser testado escolhendo diferentes opções no catálogo de fontes do menu lateral e confirmando que os títulos e parágrafos dos slides assumem a nova fonte em tempo real.
+**Independent Test**: Pode ser testado selecionando um slide, adicionando um ícone a partir do catálogo ou fazendo upload de uma imagem menor (PNG transparente/SVG), ajustando seu tamanho e reposicionando-o dentro do quadro.
 
 **Acceptance Scenarios**:
 
-1. **Given** o menu lateral da direita aberto, **When** o usuário visualiza o seletor de fontes, **Then** uma lista de famílias tipográficas curadas e de alta legibilidade é disponibilizada.
-2. **Given** uma família tipográfica selecionada pelo usuário, **When** a opção é confirmada, **Then** os textos dos slides passam a ser renderizados com a nova tipografia preservando o espaçamento e hierarquia.
+1. **Given** a seção de elementos gráficos na barra esquerda, **When** o usuário adiciona um ícone do catálogo ou carrega uma imagem menor suplementar, **Then** o elemento é inserido sobre o slide como uma camada visual manipulável.
+2. **Given** um elemento secundário (ícone ou imagem menor) no slide, **When** o usuário ajusta seu tamanho e posição pelo menu esquerdo, **Then** o elemento redimensiona e se posiciona com precisão sobre o conteúdo.
+3. **Given** a necessidade de adicionar múltiplos elementos de apoio em um slide, **When** o usuário insere novos ícones ou imagens menores, **Then** o sistema permite gerenciá-los individualmente com opção de remoção pontual.
 
 ---
 
-### User Story 5 - Controle Granular de Identidade do Criador (Foto, @Handle e Visibilidade) (Priority: P2)
+### User Story 5 - Customização Tipográfica Ampla (Priority: P2)
 
-Como profissional ou autor, quero poder cadastrar minha foto de perfil e meu identificador de rede social (@handle), com a opção de ativar ou desativar a exibição desses elementos (deixando-os visíveis ou ocultos) de forma global ou individual por slide.
+Como autor, quero selecionar diferentes famílias tipográficas para os textos dos slides a partir da barra esquerda, para que o estilo visual se adapte perfeitamente à personalidade da minha marca.
 
-**Why this priority**: Oferece controle total sobre a assinatura visual do autor, viabilizando designs limpos em slides que necessitam de foco absoluto na mensagem ou de encerramento sem redundâncias.
+**Why this priority**: A tipografia é um pilar da identidade e da legibilidade em mídias sociais.
 
-**Independent Test**: Pode ser testado configurando nome, @handle e foto no menu e alternando a chave de visibilidade (exibir/ocultar) no slide ativo, verificando o desaparecimento imediato do bloco de assinatura naquele slide específico enquanto permanece ativo nos demais.
+**Independent Test**: Pode ser testado alternando entre as famílias tipográficas oferecidas no seletor da barra esquerda e atestando que os títulos e parágrafos do slide ativo ou global assumem a nova fonte instantaneamente.
 
 **Acceptance Scenarios**:
 
-1. **Given** o formulário de identidade no menu da direita, **When** o usuário altera a imagem de avatar ou digita um novo @handle, **Then** as informações de assinatura são atualizadas instantaneamente.
-2. **Given** o controle de visibilidade da assinatura, **When** o usuário alterna a opção para "Ocultar", **Then** a foto e o @handle deixam de ser exibidos no slide selecionado.
-3. **Given** um slide com assinatura oculta, **When** o usuário reativa a visibilidade, **Then** a foto e o @handle reaparecem na posição configurada com alinhamento refinado.
+1. **Given** o seletor de fontes na barra esquerda, **When** o usuário escolhe uma família tipográfica, **Then** a nova fonte é aplicada aos textos dos slides mantendo pesos e hierarquias visuais preservados.
+
+---
+
+### User Story 6 - Controle Granular de Identidade do Criador (Foto, @Handle e Visibilidade) (Priority: P2)
+
+Como criador, quero configurar minha foto de perfil e meu @handle, com liberdade total para ligar ou desligar a visibilidade desses elementos (deixando-os visíveis ou ocultos) por slide, para que slides de impacto ou capas possam ter foco exclusivo no conteúdo quando desejado.
+
+**Why this priority**: Permite flexibilidade de branding sem forçar a repetição da assinatura em slides onde ela seja indesejada.
+
+**Independent Test**: Pode ser testado cadastrando foto e @handle na barra esquerda e desmarcando a chave de visibilidade no slide 1 (capa), confirmando que a assinatura desaparece do slide 1 mas permanece visível nos slides seguintes.
+
+**Acceptance Scenarios**:
+
+1. **Given** os campos de perfil na barra esquerda, **When** o usuário altera a foto ou o identificador (@handle), **Then** as credenciais de assinatura são atualizadas em todos os slides ativos.
+2. **Given** o controle de visibilidade da assinatura, **When** o usuário desativa a exibição para o slide selecionado, **Then** a foto e o @handle são imediatamente ocultados naquele quadro sem afetar os demais.
 
 ---
 
 ### Edge Cases
 
-- **Roteiro com volume assimétrico de texto entre tópicos:** O gerador inicial equilibra a quebra de frases para evitar slides superlotados ou excessivamente vazios.
-- **Imagem de alta resolução ou proporção extrema (panorâmica/vertical estreita):** Ao ancorar na metade lateral ou topo/base, o sistema aplica enquadramento inteligente com corte seguro (object-fit) sem distorcer as proporções originais do arquivo.
-- **Combinação de imagem grande com texto longo no modo dividido (Split):** O sistema previne transbordamento ajustando a escala tipográfica proporcionalmente ou alertando sobre limite de caracteres.
-- **Alternância rápida entre slides durante edição:** O menu lateral da direita deve sincronizar o estado imediatamente, sem manter valores residuais do slide anterior.
-- **Ausência de foto ou @handle configurados:** Se o usuário optar por manter a visibilidade ativa sem ter feito upload de foto, o sistema exibe um marcador neutro ou apenas o texto do @handle sem quebrar o layout.
+- **Múltiplos ícones ou imagens menores sobrepostos:** O sistema fornece ordenação clara ou remoção independente para cada elemento gráfico inserido.
+- **Inserção de imagens com proporções atípicas (muito largas ou muito estreitas):** As opções de ancoragem estruturada aplicam ajuste seguro sem distorcer as proporções (aspect ratio) originais do arquivo.
+- **Textos extensos combinados com imagem na metade lateral (Split):** O sistema previne transbordamento ajustando a margem de segurança e a quebra de linha harmoniosa do texto.
+- **Remoção de elementos secundários:** Excluir um ícone ou imagem menor não altera o posicionamento da imagem principal de ancoragem nem o texto do slide.
+- **Alternância rápida de slides pelo palco:** A barra esquerda sincroniza o painel instantaneamente com o slide em foco, prevenindo discrepâncias entre os controles e a visualização.
 
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
 
-- **FR-001**: O sistema DEVE disponibilizar uma área de entrada dedicada na tela inicial para inserção de roteiro de conteúdo em texto livre.
-- **FR-002**: O sistema DEVE fornecer um mecanismo de acionamento ("Gerar Slides") que converte o roteiro em uma sequência estruturada e ordenada de slides de carrossel.
-- **FR-003**: O sistema DEVE organizar o espaço de trabalho em um layout de duas zonas complementares: menu lateral de edição posicionado à direita da tela e palco interativo de slides ocupando a área adjacente.
-- **FR-004**: O sistema DEVE permitir a seleção individual de qualquer slide no palco para edição direcionada de seus atributos no menu da direita.
-- **FR-005**: O sistema DEVE permitir o upload e inserção de uma imagem personalizada independente para cada slide da sequência.
-- **FR-006**: O sistema DEVE fornecer um controle de ajuste de escala/tamanho para a imagem vinculada ao slide.
-- **FR-007**: O sistema DEVE fornecer opções de posicionamento e ancoragem estruturada da imagem no slide, suportando minimamente:
+- **FR-001**: O sistema DEVE disponibilizar uma área inicial para inserção de roteiro em texto livre e um botão de ação para "Gerar Slides".
+- **FR-002**: O sistema DEVE estruturar o texto do roteiro em uma sequência ordenada de slides de carrossel prontos para edição.
+- **FR-003**: O sistema DEVE estruturar a interface em duas zonas principais: **barra lateral de personalização e ferramentas à esquerda** e **palco interativo de visualização de slides ocupando o espaço principal**.
+- **FR-004**: O sistema DEVE permitir a seleção direta de qualquer slide do palco, sincronizando seus dados e propriedades imediatamente na barra lateral esquerda.
+- **FR-005**: O sistema DEVE permitir o upload e a vinculação de uma imagem principal individual para cada slide.
+- **FR-006**: O sistema DEVE fornecer um controle de ajuste de escala/tamanho para a imagem principal do slide.
+- **FR-007**: O sistema DEVE fornecer 4 opções de posicionamento estruturado (docking) para a imagem principal:
   - Posição Superior (Topo do slide);
   - Posição Inferior (Base do slide);
-  - Metade Esquerda (Layout dividido lateral esquerdo);
-  - Metade Direita (Layout dividido lateral direito).
-- **FR-008**: O sistema DEVE permitir a personalização da família tipográfica dos slides através de um catálogo de fontes selecionável no menu lateral.
-- **FR-009**: O sistema DEVE permitir a configuração da identidade do criador, incluindo foto de perfil (avatar) e identificador de rede social (@handle).
-- **FR-010**: O sistema DEVE fornecer controle de visibilidade (exibir/ocultar) para a assinatura do criador (foto e @handle), operável de forma específica por slide.
-- **FR-011**: O sistema DEVE atualizar a visualização dos slides no palco em tempo real conforme qualquer propriedade é modificada no menu lateral.
-- **FR-012**: O sistema DEVE permitir a remoção da imagem de um slide, restaurando o arranjo visual padrão de texto.
+  - Metade Esquerda (Layout dividido horizontal - split esquerdo);
+  - Metade Direita (Layout dividido horizontal - split direito).
+- **FR-008**: O sistema DEVE permitir a inserção de elementos gráficos secundários (ícones de catálogo e imagens menores adicionais) sobre o slide além da imagem principal/fundo.
+- **FR-009**: O sistema DEVE fornecer controles para ajustar tamanho, posicionamento e exclusão de cada elemento gráfico secundário adicionado ao slide.
+- **FR-010**: O sistema DEVE disponibilizar um seletor de famílias tipográficas na barra lateral esquerda para personalização do texto dos slides.
+- **FR-011**: O sistema DEVE permitir a configuração da identidade do criador (foto de perfil e @handle).
+- **FR-012**: O sistema DEVE disponibilizar controle de visibilidade (exibir/ocultar) para a assinatura do criador, com atuação independente por slide.
+- **FR-013**: O sistema DEVE refletir qualquer alteração realizada na barra esquerda no palco de slides em tempo real (latência imperceptível).
+- **FR-014**: O sistema DEVE permitir a remoção da imagem principal de ancoragem, restaurando o layout textual do slide.
 
 ### Key Entities *(include if feature involves data)*
 
-- **Roteiro Bruto (Carousel Script)**: Conteúdo textual inserido inicialmente pelo usuário contendo ideias, frases ou tópicos que darão origem à sequência de slides.
-- **Slide de Carrossel (Carousel Slide)**: Unidade visual que compõe o carrossel. Atributos: identificador único, ordem sequencial, conteúdo de texto, configuração da imagem vinculada (arquivo, tamanho, posição de ancoragem), família tipográfica ativa e indicador de visibilidade do branding.
-- **Imagem de Slide (Slide Image Asset)**: Atributos de representação da mídia gráfica inserida no slide: referência de dados da imagem, fator de escala e modalidade de ancoragem (Topo, Base, Metade Esquerda, Metade Direita).
-- **Identidade do Criador (Creator Profile)**: Credenciais de atribuição do autor contendo imagem de perfil e texto do @handle.
-- **Espaço de Trabalho (Studio Workspace)**: Estado global da interface organizando o slide atualmente selecionado, o estado do menu lateral direito e a coleção de slides interativos.
+- **Roteiro (Carousel Script)**: Texto bruto inicial fornecido pelo usuário contendo os argumentos que serão particionados em slides.
+- **Slide do Carrossel (Carousel Slide)**: Unidade de exibição que reúne o texto particionado, imagem principal de ancoragem, lista de elementos gráficos secundários (ícones/imagens menores), tipografia selecionada e estado de visibilidade da assinatura.
+- **Imagem Principal de Ancoragem (Docked Image)**: Mídia gráfica principal com atributos de escala e modalidade de posicionamento estruturado (Topo, Base, Metade Esquerda, Metade Direita).
+- **Elemento Gráfico Secundário (Graphic Overlay Item)**: Ícone ou imagem menor independente posicionada sobre o slide, contendo identificador, tipo (ícone/imagem), fator de escala e coordenadas relativas de posicionamento.
+- **Perfil do Criador (Creator Profile)**: Foto de perfil e identificador @handle do autor.
+- **Ambiente de Trabalho (Studio Workspace)**: Estado geral da aplicação composto pela barra lateral esquerda de ferramentas, slide ativo selecionado e visualizador interativo de slides.
 
 ## Success Criteria *(mandatory)*
 
 ### Measurable Outcomes
 
-- **SC-001**: O usuário consegue colar seu roteiro e visualizar todos os slides gerados no espaço de trabalho em menos de 5 segundos após o clique em "Gerar Slides".
-- **SC-002**: 100% das alterações realizadas no menu da direita (troca de fonte, ancoragem de imagem, ajuste de tamanho e visibilidade da assinatura) refletem visualmente no slide ativo em menos de 100 milissegundos (percepção de tempo real).
-- **SC-003**: 95% dos usuários conseguem carregar uma imagem e alternar entre as 4 posições de ancoragem (topo, base, metade esquerda e metade direita) sem necessidade de treinamento ou instruções adicionais.
-- **SC-004**: A alternância de visibilidade da assinatura (ocultar/exibir foto e @) em um slide não altera a visibilidade dos demais slides, garantindo autonomia granular com 100% de confiabilidade.
-- **SC-005**: O layout do espaço de trabalho mantém a separação visual clara entre o menu lateral direito e a área dos slides em resoluções de desktop e telas amplas sem sobreposição de controles.
+- **SC-001**: O usuário consegue inserir seu roteiro e iniciar a personalização no estúdio de slides em menos de 5 segundos após clicar em "Gerar Slides".
+- **SC-002**: 100% das personalizações acionadas na barra esquerda (posição/tamanho de imagens, adição de ícones, troca de fontes e alternância de visibilidade de assinatura) atualizam o slide correspondente no palco em menos de 100 milissegundos.
+- **SC-003**: 95% dos usuários conseguem adicionar um ícone ou imagem menor adicional e posicioná-la no slide sem necessidade de tutoriais ou documentação externa.
+- **SC-004**: A alternância de visibilidade da foto e @handle opera com 100% de precisão granular, sem alterar os slides vizinhos quando acionada em um slide específico.
+- **SC-005**: O layout com barra esquerda fixa e palco à direita se adapta com clareza visual e ergonomia operacional em telas padrão de desktop e notebooks.
 
 ## Assumptions
 
-- A aplicação é prioritariamente voltada para uso em telas de desktop / laptops, onde o espaço horizontal comporta confortavelmente o menu lateral à direita e a visualização dos slides lado a lado.
-- As fontes tipográficas disponibilizadas no catálogo são fontes web de livre distribuição e renderização consistente em múltiplos sistemas operacionais.
-- O redimensionamento de imagens opera respeitando a integridade das proporções originais (proporção aspecto preservada) para evitar distorções anamórficas.
-- O texto do roteiro colado pode ser automaticamente segmentado por parágrafos ou marcadores de quebra lógica estabelecidos na entrada inicial.
-- Toda a manipulação de imagens (redimensionamento e posicionamento) ocorre diretamente no cliente em memória durante a sessão de edição.
+- A aplicação é pensada primariamente para ambientes desktop/web com espaço horizontal adequado para o layout de duas colunas (barra esquerda e palco de slides).
+- Os elementos gráficos secundários (ícones e imagens menores) suportam formatos gráficos com canal alfa (transparência) como PNG e SVG para integração visual limpa.
+- O redimensionamento tanto da imagem principal quanto dos elementos secundários preserva as proporções originais (aspect ratio) para evitar deformações.
+- A biblioteca de ícones fornece um conjunto inicial curado de símbolos populares para redes sociais e apresentações.

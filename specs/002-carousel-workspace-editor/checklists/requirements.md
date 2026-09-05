@@ -1,4 +1,4 @@
-# Specification Quality Checklist: Carousel Studio Workspace & Slide Editor
+# Specification Quality Checklist: Carousel Studio Workspace & Advanced Slide Customizer
 
 **Purpose**: Validate specification completeness and quality before proceeding to planning
 **Created**: 2026-09-05
@@ -31,7 +31,11 @@
 
 ## Notes
 
-- Todas as 16 verificações de qualidade foram rigorosamente atendidas e validadas.
-- O documento não vaza detalhes técnicos de implementação (sem frameworks, bibliotecas ou linguagens citadas).
-- Todos os requisitos expressos pelo usuário (roteiro inicial, menu à direita, palco de slides, controle de escala e ancoragem em 4 posições de imagem, catálogo de fontes e alternância de visibilidade da foto e @arroba) foram transformados em critérios de aceitação independentes e testáveis.
-- O artefato está 100% pronto para o planejamento arquitetural (`/speckit-plan`).
+- Todas as 16 verificações de qualidade foram aprovadas com êxito.
+- A especificação foi refinada para atender rigorosamente à orientação do usuário:
+  - **Barra de personalização fixada no lado esquerdo da tela**;
+  - **Palco de slides interativo à direita**;
+  - **Inserção e ancoragem de imagem principal (topo, base, metade esquerda, metade direita)**;
+  - **Inserção de elementos visuais secundários (ícones e imagens menores além do fundo)**;
+  - **Customização tipográfica e controle granular de visibilidade da foto e @handle**.
+- O documento está 100% pronto para a fase de planejamento (`/speckit-plan`).
