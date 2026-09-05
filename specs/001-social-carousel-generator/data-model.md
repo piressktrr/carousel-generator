@@ -28,13 +28,16 @@ const carouselState = {
     isVisible: true
   },
 
-  // Tema visual ativo (Cores e Tipografia)
+  // Tema visual ativo (Cores e Tipografia baseadas no DESIGN.md)
   theme: {
-    id: "dark-modern",
-    name: "Dark Modern",
-    backgroundColor: "#0F172A",
-    textColor: "#F8FAFC",
-    accentColor: "#38BDF8",
+    id: "abyssal-glow",
+    name: "Abyssal Glow (Assinatura)",
+    backgroundColor: "#012624", // Liquid Abyss
+    surfaceColor: "#003734",    // Liquid Kelp
+    textColor: "#ffffff",        // Platinum (títulos/ganchos)
+    bodyColor: "#bbc7c6",        // Silver Mist (leitura)
+    accentColor: "#00827c",      // Teal/Cyan
+    highlightColor: "#fde9ff",   // Lavender Phosphor (contadores)
     fontFamily: "Inter, sans-serif"
   },
 
