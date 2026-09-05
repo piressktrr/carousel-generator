@@ -1,0 +1,22 @@
+:root {
+  --color-abyssal: #012624;
+  --color-kelp: #003734;
+  --color-platinum: #ffffff;
+  --color-silver-mist: #bbc7c6;
+  --color-lavender: #fde9ff;
+  
+  --gradient-bioluminescent: linear-gradient(135deg, #012624 0%, #003734 100%);
+  
+  --font-family-primary: 'Inter', sans-serif;
+  
+  --radius-button: 6px;
+  --radius-card: 16px;
+}
+
+[data-theme="abyssal-glow"] {
+  --bg-primary: var(--color-abyssal);
+  --bg-secondary: var(--color-kelp);
+  --text-primary: var(--color-platinum);
+  --text-secondary: var(--color-silver-mist);
+  --accent: var(--color-lavender);
+}
