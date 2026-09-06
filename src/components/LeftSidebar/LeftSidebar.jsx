@@ -6,7 +6,6 @@ import { OverlaysTab } from './OverlaysTab.jsx';
 import { TypographyTab } from './TypographyTab.jsx';
 import { BrandingTab } from './BrandingTab.jsx';
 import { FileText, Image, Sparkles, Type, User, RefreshCw, Palette, X } from 'lucide-react';
-import { AVAILABLE_THEMES } from '../../services/workspaceConstants.js';
 
 export function LeftSidebar({
   isOpen = true,
@@ -76,40 +75,6 @@ export function LeftSidebar({
         </div>
       </div>
 
-      {/* Seletor de Tema Visual Rápido */}
-      <div
-        style={{
-          padding: '8px 16px',
-          background: 'rgba(0, 15, 14, 0.4)',
-          borderBottom: '1px solid var(--border-subtle)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between'
-        }}
-      >
-        <span style={{ fontSize: '11px', color: 'var(--text-silver)', display: 'flex', alignItems: 'center', gap: '5px' }}>
-          <Palette size={13} color="var(--accent-biolum)" /> Tema:
-        </span>
-        <div style={{ display: 'flex', gap: '6px' }}>
-          {AVAILABLE_THEMES.map(theme => (
-            <div
-              key={theme.id}
-              onClick={() => onSelectTheme && onSelectTheme(theme.id)}
-              style={{
-                width: '18px',
-                height: '18px',
-                borderRadius: '50%',
-                backgroundColor: theme.preview,
-                cursor: 'pointer',
-                border: currentTheme === theme.id ? '2px solid white' : '1px solid rgba(0,0,0,0.5)',
-                boxShadow: currentTheme === theme.id ? '0 0 8px ' + theme.preview : 'none'
-              }}
-              title={theme.name}
-            />
-          ))}
-        </div>
-      </div>
-
       {/* Navegação por Abas */}
       <nav className="sidebar-tabs">
         {tabs.map((tab) => {
@@ -155,6 +120,23 @@ export function LeftSidebar({
             globalFont={globalFont}
             onUpdateGlobalFont={onUpdateGlobalFont}
             onUpdateSlide={onUpdateSlide}
+          />
+        )}
+
+        {activeTab === 'image' && (
+          <ImageDockingTab
+            activeSlide={activeSlide}
+            onSetDockedImage={onSetDockedImage}
+            onRemoveDockedImage={onRemoveDockedImage}
+          />
+        )}
+
+        {activeTab === 'overlays' && (
+          <OverlaysTab
+            activeSlide={activeSlide}
+            onAddOverlay={onAddOverlay}
+            onUpdateOverlay={onUpdateOverlay}
+            onRemoveOverlay={onRemoveOverlay}
           />
         )}
 
