@@ -1,7 +1,7 @@
 # Contract: Workspace Service (Feature 003 Updates)
 
 **Module**: `src/services/workspaceService.js`
-**Scope**: New and modified pure functional contracts for feature 003.
+**Scope**: Pure functional contracts for feature 003.
 
 ---
 
@@ -17,21 +17,15 @@ function regenerateSlidesFromRawScript(
 ```
 
 ### Parameters
-- `rawScript` (`string`): The full raw markdown/text script entered in the LeftSidebar.
+- `rawScript` (`string`): The full raw script entered in the RightSidebar.
 - `existingSlides` (`Slide[]`): The current array of slides in the workspace before regeneration.
 
 ### Returns
 - `Slide[]`: A newly constructed array of slides conforming to the new text segmentation, where for each index `i`:
   - `slide.dockedImage = existingSlides[i]?.dockedImage || null`
-  - `slide.imagePosition = existingSlides[i]?.imagePosition || 'none'`
-  - `slide.splitRatio = existingSlides[i]?.splitRatio || 50`
-  - `slide.overlays = existingSlides[i]?.overlays || Array(9).fill(null)`
+  - `slide.overlays = existingSlides[i]?.overlays || []`
   - `slide.slideTemplate = existingSlides[i]?.slideTemplate || 'classic'`
-  - `slide.subtext = segment.subtext || existingSlides[i]?.subtext || ''`
-
-### Invariants
-- Pure function: does not mutate `existingSlides`.
-- Safe against empty string: if `rawScript` is empty, returns at least 1 fallback slide.
+  - `slide.subtext = existingSlides[i]?.subtext || ''`
 
 ---
 
@@ -46,13 +40,6 @@ function updateCreatorBranding(
 ): CreatorProfile;
 ```
 
-### Parameters
-- `currentBranding` (`CreatorProfile`): Existing profile.
-- `updates` (`Partial<CreatorProfile>`): Fields to update (`name`, `handle`, `avatarUrl`, `hasVerifiedBadge`, `avatarShape`).
-
-### Returns
-- `CreatorProfile`: New frozen/sanitized profile object with updated attributes.
-
 ---
 
 ## 3. `updateSlideTemplate` & `applyTemplateToAllSlides`
@@ -60,15 +47,16 @@ function updateCreatorBranding(
 ```typescript
 function updateSlideTemplate(
   slides: Slide[],
-  slideIndex: number,
-  templateId: 'classic' | 'quote' | 'bullets' | 'stat' | 'minimalist'
+  slideId: string,
+  templateId: 'classic' | 'quote' | 'minimalist'
 ): Slide[];
 
 function applyTemplateToAllSlides(
   slides: Slide[],
-  templateId: 'classic' | 'quote' | 'bullets' | 'stat' | 'minimalist'
+  templateId: 'classic' | 'quote' | 'minimalist'
 ): Slide[];
 ```
 
 ### Invariants
-- Non-destructive: text content (`title`, `body`, `subtext`) and media (`dockedImage`, `overlays`) remain strictly intact.
+- Supported template IDs are strictly `'classic'`, `'quote'`, `'minimalist'`.
+- Text content and docked media remain intact.
