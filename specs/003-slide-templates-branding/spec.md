@@ -85,6 +85,22 @@ Como usuário, quero selecionar entre diferentes **templates visuais de slide** 
 
 ---
 
+### User Story 5 - Opções de Cores Mais Cleans & Refatoração para Azul Celestial (Priority: P1)
+
+Como criador de conteúdo visual, quero poder escolher novos temas de cores minimalistas e limpos (mais *clean*, com contraste suave e moderno), mantendo as opções existentes, além de dispor de um tema azul reformulado com um autêntico **Azul Celestial** vívido e brilhante (em vez de um azul opaco), para produzir carrosséis com estética contemporânea e acabamento visual de alto impacto.
+
+**Why this priority**: Solicitado explicitamente pelo usuário para elevar a sofisticação gráfica da ferramenta, garantindo paletas *clean* profissionais e um azul verdadeiramente vivo e celestial.
+
+**Independent Test**: Pode ser testado selecionando os novos temas *clean* no seletor de temas e o tema *Celestial Blue*, verificando visualmente que o azul se destaca com vivacidade bioluminescente e que os slides mantêm legibilidade primorosa.
+
+**Acceptance Scenarios**:
+
+1. **Given** o seletor de temas visuais na barra lateral, **When** o usuário examina as opções, **Then** encontra as opções preexistentes preservadas mais novos temas de design *clean* (ex: *Clean Ivory*, *Minimalist Slate*, *Celestial Azure*).
+2. **Given** a seleção do tema azul refatorado, **When** aplicado aos slides, **Then** o tom de azul exibido é um Azul Celestial luminoso, vivo e vibrante (`#00A3FF` / `#00D2FF` com realce de brilho e contraste de texto refinado).
+3. **Given** a preparação para referência de imagem, **When** uma imagem é fornecida como inspiração visual, **Then** a arquitetura de temas permite acomodar e sincronizar uma paleta derivada dessa referência sem alterar o código base do editor.
+
+---
+
 ## Edge Cases
 
 - **Colagem de roteiro com formatação caótica no editor bruto:** O motor de regeneração limpa quebras de linha triplas, normaliza espaçamentos e preserva a estrutura de blocos coerente.
@@ -116,6 +132,9 @@ Como usuário, quero selecionar entre diferentes **templates visuais de slide** 
   - *Minimalist Focus* (Layout amplo com respiro visual e foco essencial no argumento).
 - **FR-011**: O sistema DEVE permitir aplicar o template selecionado exclusivamente ao slide ativo ou, opcionalmente, estendê-lo a todos os slides do carrossel com um clique.
 - **FR-012**: O sistema DEVE persistir as novas propriedades (texto bruto atualizado, subtexto de cada slide, template de cada slide, selo verificado e formato do avatar) continuamente no IndexedDB local do navegador.
+- **FR-013**: O sistema DEVE disponibilizar opções adicionais de temas de cores com estética *Clean* e minimalista (ex: *Clean Ivory/Paper*, *Minimalist Slate*, *Dark Clean Minimal*), mantendo todas as opções de temas já existentes disponíveis para seleção.
+- **FR-014**: O sistema DEVE refatorar a paleta de cor azul dos slides para um **Azul Celestial** autêntico, vivo e luminoso (celestial sky blue vibrante), garantindo presença marcante e contraste nítido em vez de tons opacos/acinzentados.
+- **FR-015**: O sistema DEVE disponibilizar arquitetura e slot de tema personalizável/predefinido preparado para paletas harmonizadas inspiradas em referências visuais e imagens de exemplo.
 
 ---
 
