@@ -1,5 +1,5 @@
 import React from 'react';
-import { Type, AlignLeft, ArrowUp, ArrowDown, Plus, Trash2, Layout, Quote, ListOrdered, BarChart3, Sparkles, Check } from 'lucide-react';
+import { Type, AlignLeft, ArrowUp, ArrowDown, Plus, Trash2, Layout, Quote, Sparkles, Check } from 'lucide-react';
 import { SLIDE_TEMPLATES } from '../../services/workspaceConstants.js';
 
 export function SlideContentTab({
@@ -31,10 +31,6 @@ export function SlideContentTab({
     onUpdateSlide(activeSlide.id, { subtext: e.target.value });
   };
 
-  const handleTypeChange = (e) => {
-    onUpdateSlide(activeSlide.id, { type: e.target.value });
-  };
-
   const handleTemplateSelect = (templateId) => {
     onUpdateSlide(activeSlide.id, { slideTemplate: templateId });
   };
@@ -48,8 +44,6 @@ export function SlideContentTab({
   const getTemplateIcon = (iconName) => {
     switch (iconName) {
       case 'Quote': return <Quote size={14} />;
-      case 'ListOrdered': return <ListOrdered size={14} />;
-      case 'BarChart3': return <BarChart3 size={14} />;
       case 'Sparkles': return <Sparkles size={14} />;
       case 'Layout':
       default:
@@ -110,21 +104,6 @@ export function SlideContentTab({
               resize: 'vertical'
             }}
           />
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '8px' }}>
-          <label style={{ fontSize: '12px', color: 'var(--text-silver)' }}>
-            Tipo de Slide:
-          </label>
-          <select
-            value={activeSlide.type || 'content'}
-            onChange={handleTypeChange}
-            style={{ padding: '6px 10px', fontSize: '12px' }}
-          >
-            <option value="cover">Capa / Gancho</option>
-            <option value="content">Conteúdo Principal</option>
-            <option value="cta">Chamada para Ação (CTA)</option>
-          </select>
         </div>
       </div>
 

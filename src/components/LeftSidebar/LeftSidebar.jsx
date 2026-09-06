@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { RawScriptTab } from './RawScriptTab.jsx';
 import { SlideContentTab } from './SlideContentTab.jsx';
+import { ThemesTab } from './ThemesTab.jsx';
 import { ImageDockingTab } from './ImageDockingTab.jsx';
 import { OverlaysTab } from './OverlaysTab.jsx';
 import { TypographyTab } from './TypographyTab.jsx';
 import { BrandingTab } from './BrandingTab.jsx';
-import { AlignLeft, FileText, Image, Sparkles, Type, User, RefreshCw, Palette } from 'lucide-react';
+import { FileText, Image, Sparkles, Type, User, RefreshCw, Palette, X } from 'lucide-react';
 import { AVAILABLE_THEMES } from '../../services/workspaceConstants.js';
 
 export function LeftSidebar({
+  isOpen = true,
+  onClose,
   activeSlide,
   slides = [],
-  rawScript = '',
   globalFont = 'Inter',
   profile = null,
   currentTheme = 'abyssal-glow',
@@ -27,23 +28,22 @@ export function LeftSidebar({
   onUpdateGlobalFont,
   onUpdateProfile,
   onSelectTheme,
-  onRegenerateFromScript,
   onApplyTemplateToAll,
   onNewProject
 }) {
   const [activeTab, setActiveTab] = useState('content');
 
   const tabs = [
-    { id: 'script', label: 'Roteiro', icon: AlignLeft },
     { id: 'content', label: 'Slide', icon: FileText },
+    { id: 'themes', label: 'Cores', icon: Palette },
+    { id: 'typography', label: 'Fonte', icon: Type },
     { id: 'image', label: 'Imagem', icon: Image },
     { id: 'overlays', label: 'Ícones', icon: Sparkles },
-    { id: 'typography', label: 'Fonte', icon: Type },
     { id: 'branding', label: 'Perfil', icon: User }
   ];
 
   return (
-    <aside className="left-sidebar">
+    <aside className={`left-sidebar ${!isOpen ? 'collapsed' : ''}`}>
       {/* Cabeçalho da Barra Esquerda */}
       <div className="sidebar-header">
         <div className="sidebar-title-group">
@@ -51,15 +51,29 @@ export function LeftSidebar({
           <span className="brand-badge">Carousel Studio</span>
         </div>
 
-        <button
-          type="button"
-          className="btn-new-project"
-          onClick={onNewProject}
-          title="Resetar workspace e colar novo roteiro"
-        >
-          <RefreshCw size={13} />
-          Novo Projeto
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <button
+            type="button"
+            className="btn-new-project"
+            onClick={onNewProject}
+            title="Resetar workspace e colar novo roteiro"
+          >
+            <RefreshCw size={13} />
+            Novo Projeto
+          </button>
+
+          {onClose && (
+            <button
+              type="button"
+              className="sidebar-toggle-btn"
+              onClick={onClose}
+              title="Ocultar barra lateral esquerda"
+              style={{ padding: '5px 8px' }}
+            >
+              <X size={15} />
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Seletor de Tema Visual Rápido */}
@@ -116,14 +130,6 @@ export function LeftSidebar({
 
       {/* Conteúdo da Aba Ativa */}
       <div className="sidebar-content">
-        {activeTab === 'script' && (
-          <RawScriptTab
-            rawScript={rawScript}
-            slidesCount={slides.length}
-            onRegenerateFromScript={onRegenerateFromScript}
-          />
-        )}
-
         {activeTab === 'content' && (
           <SlideContentTab
             activeSlide={activeSlide}
@@ -136,20 +142,10 @@ export function LeftSidebar({
           />
         )}
 
-        {activeTab === 'image' && (
-          <ImageDockingTab
-            activeSlide={activeSlide}
-            onSetDockedImage={onSetDockedImage}
-            onRemoveDockedImage={onRemoveDockedImage}
-          />
-        )}
-
-        {activeTab === 'overlays' && (
-          <OverlaysTab
-            activeSlide={activeSlide}
-            onAddOverlay={onAddOverlay}
-            onUpdateOverlay={onUpdateOverlay}
-            onRemoveOverlay={onRemoveOverlay}
+        {activeTab === 'themes' && (
+          <ThemesTab
+            currentTheme={currentTheme}
+            onSelectTheme={onSelectTheme}
           />
         )}
 
@@ -157,8 +153,6 @@ export function LeftSidebar({
           <TypographyTab
             activeSlide={activeSlide}
             globalFont={globalFont}
-            currentTheme={currentTheme}
-            onSelectTheme={onSelectTheme}
             onUpdateGlobalFont={onUpdateGlobalFont}
             onUpdateSlide={onUpdateSlide}
           />

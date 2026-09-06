@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { SlideCard } from './SlideCard.jsx';
-import { Layers, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Layers, ChevronLeft, ChevronRight, PanelLeft, AlignLeft } from 'lucide-react';
 
 export function SlidesCanvas({
   slides = [],
@@ -9,7 +9,11 @@ export function SlidesCanvas({
   profile = null,
   currentTheme = 'abyssal-glow',
   onSelectSlide,
-  renderTopRight = null
+  renderTopRight = null,
+  isLeftSidebarOpen = true,
+  onToggleLeftSidebar,
+  isRightSidebarOpen = false,
+  onToggleRightSidebar
 }) {
   const stageRef = useRef(null);
 
@@ -36,6 +40,18 @@ export function SlidesCanvas({
       {/* Barra de Topo do Palco */}
       <header className="workspace-top-bar">
         <div className="top-bar-meta">
+          {onToggleLeftSidebar && (
+            <button
+              type="button"
+              className={`sidebar-toggle-btn ${isLeftSidebarOpen ? 'active' : ''}`}
+              onClick={onToggleLeftSidebar}
+              title={isLeftSidebarOpen ? "Ocultar barra de ferramentas esquerda" : "Exibir barra de ferramentas esquerda"}
+            >
+              <PanelLeft size={15} />
+              <span>Barra Esquerda</span>
+            </button>
+          )}
+
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-platinum)' }}>
             <Layers size={18} color="var(--accent-biolum)" />
             <span style={{ fontWeight: '700', fontSize: '14px' }}>Palco de Slides</span>
@@ -45,9 +61,21 @@ export function SlidesCanvas({
           </span>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           {/* Ações adicionais (ex: ExportToolbar) */}
           {renderTopRight}
+
+          {onToggleRightSidebar && (
+            <button
+              type="button"
+              className={`sidebar-toggle-btn ${isRightSidebarOpen ? 'active' : ''}`}
+              onClick={onToggleRightSidebar}
+              title={isRightSidebarOpen ? "Ocultar roteiro" : "Exibir roteiro na barra lateral direita"}
+            >
+              <AlignLeft size={15} />
+              <span>Roteiro</span>
+            </button>
+          )}
         </div>
       </header>
 

@@ -39,8 +39,6 @@ export const GRID_ANCHORS = [
 export const SLIDE_TEMPLATES = [
   { id: 'classic', name: 'Cartão Clássico', description: 'Layout balanceado para leitura direta', icon: 'Layout' },
   { id: 'quote', name: 'Citação Editorial', description: 'Aspas de destaque e tipografia editorial', icon: 'Quote' },
-  { id: 'bullets', name: 'Lista com Marcadores', description: 'Pontos destacados com marcadores luminosos', icon: 'ListOrdered' },
-  { id: 'stat', name: 'Destaque Numérico (Big Stat)', description: 'Ênfase em métricas, números e resultados', icon: 'BarChart3' },
   { id: 'minimalist', name: 'Minimalista Foco', description: 'Espaço generoso com foco essencial na ideia', icon: 'Sparkles' }
 ];
 

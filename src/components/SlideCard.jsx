@@ -53,48 +53,29 @@ export function SlideCard({
     return `Slide ${index + 1}`;
   };
 
-  // Renderizador adaptativo para templates de conteúdo
+  // Renderizador adaptativo para os 3 templates de conteúdo estáveis
   const renderTemplateContent = () => {
     const template = slide.slideTemplate || 'classic';
     const content = slide.content || 'Sem texto...';
 
     if (template === 'quote') {
       return (
-        <div>
+        <div className="slide-template-quote-body">
           <div className="template-quote-glyph">“</div>
-          <div>{content}</div>
+          <div className="template-quote-text">{content}</div>
         </div>
       );
     }
 
-    if (template === 'bullets') {
-      const lines = content.split('\n').map(l => l.trim()).filter(Boolean);
-      if (lines.length > 1) {
-        return (
-          <div className="template-bullets-container">
-            {lines.map((line, i) => (
-              <div key={i} className="template-bullet-item">
-                <span className="template-bullet-dot" />
-                <span>{line.replace(/^[-*•\d+.)]\s*/, '')}</span>
-              </div>
-            ))}
-          </div>
-        );
-      }
+    if (template === 'minimalist') {
+      return (
+        <div className="slide-template-minimalist-body">
+          {content}
+        </div>
+      );
     }
 
-    if (template === 'stat') {
-      const match = content.match(/^([+\-~]?\s*(?:R\$\s*|\$\s*)?\d+[.,]?\d*\s*[%xXkKMmB]?)\s*(?:[-:—\n]\s*|\s+)(.*)$/s);
-      if (match) {
-        return (
-          <div>
-            <div className="template-stat-number">{match[1]}</div>
-            <div style={{ fontSize: '15px', opacity: 0.95, lineHeight: 1.4 }}>{match[2]}</div>
-          </div>
-        );
-      }
-    }
-
+    // Default: 'classic'
     return content;
   };
 

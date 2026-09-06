@@ -15,9 +15,9 @@
 
 **Purpose**: Theme constants, template definitions (3 curated layouts), and dual-sidebar CSS layout
 
-- [ ] T001 Register updated `SLIDE_TEMPLATES` (strictly 3 templates: `classic`, `quote`, `minimalist`) in `src/services/workspaceConstants.js`
-- [ ] T002 [P] Configure CSS variables for Celestial Blue (`--slide-heading: #00D2FF`, `--slide-accent: #00A3FF`), Clean Ivory, and Scandinavian Slate in `src/styles/themes.css`
-- [ ] T003 [P] Configure CSS styles for dual collapsible sidebar drawers, edge toggle buttons, and 3 template layouts in `src/styles/workspace.css`
+- [x] T001 Register updated `SLIDE_TEMPLATES` (strictly 3 templates: `classic`, `quote`, `minimalist`) in `src/services/workspaceConstants.js`
+- [x] T002 [P] Configure CSS variables for Celestial Blue (`--slide-heading: #00D2FF`, `--slide-accent: #00A3FF`), Clean Ivory, and Scandinavian Slate in `src/styles/themes.css`
+- [x] T003 [P] Configure CSS styles for dual collapsible sidebar drawers, edge toggle buttons, and 3 template layouts in `src/styles/workspace.css`
 
 ---
 
@@ -27,8 +27,8 @@
 
 **⚠️ CRITICAL**: Must be completed before user story UI implementation begins
 
-- [ ] T004 Ensure `workspaceService.js` restricts template updates strictly to `'classic'`, `'quote'`, `'minimalist'` and preserves media posicionalmente
-- [ ] T005 [P] Update storage schema rehydration in `src/services/storageService.js` with defaults for `isLeftSidebarOpen` and `isRightSidebarOpen`
+- [x] T004 Ensure `workspaceService.js` restricts template updates strictly to `'classic'`, `'quote'`, `'minimalist'` and preserves media posicionalmente
+- [x] T005 [P] Update storage schema rehydration in `src/services/storageService.js` with defaults for `isLeftSidebarOpen` and `isRightSidebarOpen`
 
 **Checkpoint**: Foundation ready - user story implementation can begin independently
 
@@ -42,10 +42,10 @@
 
 ### Implementation for User Story 1
 
-- [ ] T006 [P] [US1] Create `src/components/RightSidebar/RightSidebar.jsx` with full script textarea, word/character counter, and bulk update action
-- [ ] T007 [US1] Remove raw script tab from `src/components/LeftSidebar/LeftSidebar.jsx` (relocated to right sidebar)
-- [ ] T008 [US1] Implement independent toggle buttons and state (`isLeftSidebarOpen`, `isRightSidebarOpen`) in `src/components/StudioWorkspace.jsx`
-- [ ] T009 [US1] Connect raw script bulk regeneration handler and responsive canvas adjustment in `src/components/StudioWorkspace.jsx`
+- [x] T006 [P] [US1] Create `src/components/RightSidebar/RightSidebar.jsx` with full script textarea, word/character counter, and bulk update action
+- [x] T007 [US1] Remove raw script tab from `src/components/LeftSidebar/LeftSidebar.jsx` (relocated to right sidebar)
+- [x] T008 [US1] Implement independent toggle buttons and state (`isLeftSidebarOpen`, `isRightSidebarOpen`) in `src/components/StudioWorkspace.jsx`
+- [x] T009 [US1] Connect raw script bulk regeneration handler and responsive canvas adjustment in `src/components/StudioWorkspace.jsx`
 
 **Checkpoint**: User Story 1 provides ergonomic full-width editing with independent collapsible sidebars.
 
@@ -59,8 +59,8 @@
 
 ### Implementation for User Story 2
 
-- [ ] T010 [P] [US2] Verify toggle for `hasVerifiedBadge` and avatar shape selector (circle vs squircle) in `src/components/LeftSidebar/BrandingTab.jsx`
-- [ ] T011 [US2] Verify bioluminescent verified badge and squircle avatar class binding in `src/components/SlideCard.jsx`
+- [x] T010 [P] [US2] Verify toggle for `hasVerifiedBadge` and avatar shape selector (circle vs squircle) in `src/components/LeftSidebar/BrandingTab.jsx`
+- [x] T011 [US2] Verify bioluminescent verified badge and squircle avatar class binding in `src/components/SlideCard.jsx`
 
 **Checkpoint**: User Story 2 operates smoothly with persistent local state.
 
@@ -74,8 +74,8 @@
 
 ### Implementation for User Story 3
 
-- [ ] T012 [P] [US3] Remove "Tipo de Slide" dropdown from `src/components/LeftSidebar/SlideContentTab.jsx`, keeping only Main Text, Subtext, and organization actions
-- [ ] T013 [US3] Verify `<p className="slide-subtext">` rendering with hierarchical typography and no ghost spacing in `src/components/SlideCard.jsx`
+- [x] T012 [P] [US3] Remove "Tipo de Slide" dropdown from `src/components/LeftSidebar/SlideContentTab.jsx`, keeping only Main Text, Subtext, and organization actions
+- [x] T013 [US3] Verify `<p className="slide-subtext">` rendering with hierarchical typography and no ghost spacing in `src/components/SlideCard.jsx`
 
 **Checkpoint**: User Story 3 eliminates clutter and delivers crisp content editing.
 
@@ -89,9 +89,9 @@
 
 ### Implementation for User Story 4
 
-- [ ] T014 [P] [US4] Update template selector in `src/components/LeftSidebar/SlideContentTab.jsx` to render exactly the 3 curated templates (*Classic, Quote, Minimalist*)
-- [ ] T015 [US4] Streamline template rendering in `src/components/SlideCard.jsx` to support the 3 curated templates with high visual fidelity
-- [ ] T016 [US4] Verify "Aplicar este template a todos os slides" uniformly applies across all slides in `src/components/StudioWorkspace.jsx`
+- [x] T014 [P] [US4] Update template selector in `src/components/LeftSidebar/SlideContentTab.jsx` to render exactly the 3 curated templates (*Classic, Quote, Minimalist*)
+- [x] T015 [US4] Streamline template rendering in `src/components/SlideCard.jsx` to support the 3 curated templates with high visual fidelity
+- [x] T016 [US4] Verify "Aplicar este template a todos os slides" uniformly applies across all slides in `src/components/StudioWorkspace.jsx`
 
 **Checkpoint**: User Story 4 delivers 100% reliable layout variations without broken list/stat parsing.
 
@@ -105,9 +105,9 @@
 
 ### Implementation for User Story 5
 
-- [ ] T017 [P] [US5] Create dedicated `src/components/LeftSidebar/ThemesTab.jsx` with visual theme cards, categories, and active indicator
-- [ ] T018 [US5] Add `themes` tab with Palette icon to `src/components/LeftSidebar/LeftSidebar.jsx` and decouple color palette picker from `src/components/LeftSidebar/TypographyTab.jsx`
-- [ ] T019 [US5] Connect theme selection in `src/components/StudioWorkspace.jsx` and verify *Azul Celestial*, *Clean Ivory*, and *Scandinavian Slate*
+- [x] T017 [P] [US5] Create dedicated `src/components/LeftSidebar/ThemesTab.jsx` with visual theme cards, categories, and active indicator
+- [x] T018 [US5] Add `themes` tab with Palette icon to `src/components/LeftSidebar/LeftSidebar.jsx` and decouple color palette picker from `src/components/LeftSidebar/TypographyTab.jsx`
+- [x] T019 [US5] Connect theme selection in `src/components/StudioWorkspace.jsx` and verify *Azul Celestial*, *Clean Ivory*, and *Scandinavian Slate*
 
 **Checkpoint**: User Story 5 provides clean separation between typography and color palettes.
 
@@ -121,8 +121,8 @@
 
 ### Implementation for User Story 6
 
-- [ ] T020 [P] [US6] Remove PDF export button and handlers from `src/components/ExportToolbar.jsx`, keeping exclusively "Baixar PNGs (ZIP)"
-- [ ] T021 [US6] Verify export layout and clean header presentation in `src/components/ExportToolbar.jsx`
+- [x] T020 [P] [US6] Remove PDF export button and handlers from `src/components/ExportToolbar.jsx`, keeping exclusively "Baixar PNGs (ZIP)"
+- [x] T021 [US6] Verify export layout and clean header presentation in `src/components/ExportToolbar.jsx`
 
 **Checkpoint**: User Story 6 provides a clean, single-action export experience.
 
@@ -132,9 +132,9 @@
 
 **Purpose**: Build validation, E2E verification, and code cleanup
 
-- [ ] T022 [P] Verify production build and asset bundling via `cmd /c "npm run build"`
-- [ ] T023 Execute all 8 validation scenarios defined in `specs/003-slide-templates-branding/quickstart.md`
-- [ ] T024 Code cleanup, comment integrity check, and documentation synchronization
+- [x] T022 [P] Verify production build and asset bundling via `cmd /c "npm run build"`
+- [x] T023 Execute all 8 validation scenarios defined in `specs/003-slide-templates-branding/quickstart.md`
+- [x] T024 Code cleanup, comment integrity check, and documentation synchronization
 
 ---
 

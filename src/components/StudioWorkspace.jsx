@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { LeftSidebar } from './LeftSidebar/LeftSidebar.jsx';
+import { RightSidebar } from './RightSidebar/RightSidebar.jsx';
 import { SlidesCanvas } from './SlidesCanvas.jsx';
 import { ExportToolbar } from './ExportToolbar.jsx';
 import { workspaceService } from '../services/workspaceService.js';
@@ -19,6 +20,12 @@ export function StudioWorkspace({
   const [profile, setProfile] = useState(
     initialWorkspace?.profile || { name: '', handle: '', avatar: null, hasVerifiedBadge: false, avatarShape: 'circle' }
   );
+  const [isLeftSidebarOpen, setIsLeftSidebarOpen] = useState(
+    initialWorkspace?.isLeftSidebarOpen !== undefined ? initialWorkspace.isLeftSidebarOpen : true
+  );
+  const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(
+    initialWorkspace?.isRightSidebarOpen !== undefined ? initialWorkspace.isRightSidebarOpen : false
+  );
 
   const activeSlide = slides.find(s => s.id === activeSlideId) || slides[0] || null;
   const autosaveTimerRef = useRef(null);
@@ -35,6 +42,8 @@ export function StudioWorkspace({
       const stateToSave = {
         id: initialWorkspace?.id || `proj-${Date.now()}`,
         title: initialWorkspace?.title || 'Carrossel em Edição',
+        isLeftSidebarOpen,
+        isRightSidebarOpen,
         rawScript,
         activeSlideId,
         globalFont,
@@ -52,7 +61,7 @@ export function StudioWorkspace({
         clearTimeout(autosaveTimerRef.current);
       }
     };
-  }, [slides, activeSlideId, rawScript, globalFont, currentTheme, profile]);
+  }, [slides, activeSlideId, rawScript, globalFont, currentTheme, profile, isLeftSidebarOpen, isRightSidebarOpen]);
 
   // 2. Atalhos de Teclado (Navegação com Setas e Esc)
   useEffect(() => {
@@ -172,6 +181,14 @@ export function StudioWorkspace({
     setSlides(updated);
   };
 
+  const handleToggleLeftSidebar = () => {
+    setIsLeftSidebarOpen(prev => !prev);
+  };
+
+  const handleToggleRightSidebar = () => {
+    setIsRightSidebarOpen(prev => !prev);
+  };
+
   const handlePromptNewProject = () => {
     if (window.confirm('Deseja iniciar um novo projeto? As alterações atuais serão arquivadas para dar lugar ao novo roteiro.')) {
       onNewProject();
@@ -182,9 +199,10 @@ export function StudioWorkspace({
     <div className="studio-workspace" data-theme={currentTheme}>
       {/* Barra Lateral de Ferramentas Fixada no Lado Esquerdo */}
       <LeftSidebar
+        isOpen={isLeftSidebarOpen}
+        onClose={() => setIsLeftSidebarOpen(false)}
         activeSlide={activeSlide}
         slides={slides}
-        rawScript={rawScript}
         globalFont={globalFont}
         profile={profile}
         currentTheme={currentTheme}
@@ -200,12 +218,11 @@ export function StudioWorkspace({
         onUpdateGlobalFont={setGlobalFont}
         onUpdateProfile={setProfile}
         onSelectTheme={setCurrentTheme}
-        onRegenerateFromScript={handleRegenerateFromScript}
         onApplyTemplateToAll={handleApplyTemplateToAll}
         onNewProject={handlePromptNewProject}
       />
 
-      {/* Palco Interativo de Slides Ocupando o Quadrante Direito */}
+      {/* Palco Interativo de Slides Ocupando o Quadrante Central */}
       <SlidesCanvas
         slides={slides}
         activeSlideId={activeSlideId}
@@ -214,6 +231,19 @@ export function StudioWorkspace({
         currentTheme={currentTheme}
         onSelectSlide={setActiveSlideId}
         renderTopRight={<ExportToolbar slides={slides} />}
+        isLeftSidebarOpen={isLeftSidebarOpen}
+        onToggleLeftSidebar={handleToggleLeftSidebar}
+        isRightSidebarOpen={isRightSidebarOpen}
+        onToggleRightSidebar={handleToggleRightSidebar}
+      />
+
+      {/* Barra Lateral Direita para Edição Completa do Roteiro */}
+      <RightSidebar
+        isOpen={isRightSidebarOpen}
+        onClose={() => setIsRightSidebarOpen(false)}
+        rawScript={rawScript}
+        slidesCount={slides.length}
+        onRegenerateFromScript={handleRegenerateFromScript}
       />
     </div>
   );

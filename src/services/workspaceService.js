@@ -44,13 +44,16 @@ export const workspaceService = {
     }
 
     // Preservação Posicional: transfere dockedImage, overlays e personalizações conforme índice ordinal
+    const validTemplates = ['classic', 'quote', 'minimalist'];
     return parsedSlides.map((slide, index) => {
       const prev = existingSlides[index];
+      const prevTemplate = prev?.slideTemplate;
+      const sanitizedTemplate = validTemplates.includes(prevTemplate) ? prevTemplate : 'classic';
       return {
         ...slide,
         id: prev?.id || slide.id,
         subtext: prev?.subtext || '',
-        slideTemplate: prev?.slideTemplate || 'classic',
+        slideTemplate: sanitizedTemplate,
         dockedImage: prev?.dockedImage || null,
         overlays: prev?.overlays || [],
         fontOverride: prev?.fontOverride || null,
@@ -83,18 +86,21 @@ export const workspaceService = {
 
   /**
    * Atualiza o template visual de um slide específico.
+   * Restringe estritamente aos 3 templates estáveis: 'classic' | 'quote' | 'minimalist'.
    * @param {Array<Object>} slides - Lista atual
    * @param {string} slideId - ID do slide
-   * @param {string} templateId - ID do template ('classic'|'quote'|'bullets'|'stat'|'minimalist')
+   * @param {string} templateId - ID do template ('classic'|'quote'|'minimalist')
    * @returns {Array<Object>}
    */
   updateSlideTemplate(slides, slideId, templateId) {
     if (!Array.isArray(slides)) return [];
+    const validTemplates = ['classic', 'quote', 'minimalist'];
+    const sanitizedTemplate = validTemplates.includes(templateId) ? templateId : 'classic';
     return slides.map(slide => {
       if (slide.id === slideId) {
         return {
           ...slide,
-          slideTemplate: templateId
+          slideTemplate: sanitizedTemplate
         };
       }
       return slide;
@@ -103,15 +109,18 @@ export const workspaceService = {
 
   /**
    * Aplica um template visual a todos os slides do carrossel uniformemente.
+   * Restringe estritamente aos 3 templates estáveis: 'classic' | 'quote' | 'minimalist'.
    * @param {Array<Object>} slides - Lista atual
-   * @param {string} templateId - ID do template
+   * @param {string} templateId - ID do template ('classic'|'quote'|'minimalist')
    * @returns {Array<Object>}
    */
   applyTemplateToAllSlides(slides, templateId) {
     if (!Array.isArray(slides)) return [];
+    const validTemplates = ['classic', 'quote', 'minimalist'];
+    const sanitizedTemplate = validTemplates.includes(templateId) ? templateId : 'classic';
     return slides.map(slide => ({
       ...slide,
-      slideTemplate: templateId
+      slideTemplate: sanitizedTemplate
     }));
   },
 

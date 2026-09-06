@@ -33,8 +33,11 @@ export const storageService = {
     try {
       const data = await get(WORKSPACE_KEY);
       if (!data) return null;
+      const validTemplates = ['classic', 'quote', 'minimalist'];
       return {
         ...data,
+        isLeftSidebarOpen: data.isLeftSidebarOpen ?? true,
+        isRightSidebarOpen: data.isRightSidebarOpen ?? false,
         rawScript: data.rawScript || '',
         branding: {
           ...data.branding,
@@ -45,7 +48,7 @@ export const storageService = {
           ? data.slides.map(s => ({
               ...s,
               subtext: s.subtext || '',
-              slideTemplate: s.slideTemplate || 'classic'
+              slideTemplate: validTemplates.includes(s.slideTemplate) ? s.slideTemplate : 'classic'
             }))
           : []
       };
