@@ -32,7 +32,23 @@ export const storageService = {
   async getWorkspace() {
     try {
       const data = await get(WORKSPACE_KEY);
-      return data || null;
+      if (!data) return null;
+      return {
+        ...data,
+        rawScript: data.rawScript || '',
+        branding: {
+          ...data.branding,
+          hasVerifiedBadge: data.branding?.hasVerifiedBadge ?? false,
+          avatarShape: data.branding?.avatarShape || 'circle'
+        },
+        slides: Array.isArray(data.slides)
+          ? data.slides.map(s => ({
+              ...s,
+              subtext: s.subtext || '',
+              slideTemplate: s.slideTemplate || 'classic'
+            }))
+          : []
+      };
     } catch (err) {
       console.error('[storageService] Erro ao recuperar workspace do IndexedDB:', err);
       return null;
@@ -72,7 +88,12 @@ export const storageService = {
   async getProfile() {
     try {
       const profile = await get(PROFILE_KEY);
-      return profile || null;
+      if (!profile) return null;
+      return {
+        ...profile,
+        hasVerifiedBadge: profile.hasVerifiedBadge ?? false,
+        avatarShape: profile.avatarShape || 'circle'
+      };
     } catch (err) {
       console.error('[storageService] Erro ao carregar perfil do IndexedDB:', err);
       return null;

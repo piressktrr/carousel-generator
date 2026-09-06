@@ -3,7 +3,7 @@
 **Input**: Design documents from `specs/003-slide-templates-branding/`
 **Prerequisites**: [plan.md](file:///D:/Carrosseis-Generator/specs/003-slide-templates-branding/plan.md), [spec.md](file:///D:/Carrosseis-Generator/specs/003-slide-templates-branding/spec.md), [research.md](file:///D:/Carrosseis-Generator/specs/003-slide-templates-branding/research.md), [data-model.md](file:///D:/Carrosseis-Generator/specs/003-slide-templates-branding/data-model.md), [contracts/](file:///D:/Carrosseis-Generator/specs/003-slide-templates-branding/contracts/)
 
-## Format: `- [ ] [TaskID] [P?] [Story?] Description with file path`
+## Format: `- [x] [TaskID] [P?] [Story?] Description with file path`
 
 - **[P]**: Can run in parallel (different files, no dependencies)
 - **[Story]**: Which user story this task belongs to ([US1], [US2], [US3], [US4], [US5])
@@ -15,9 +15,9 @@
 
 **Purpose**: Theme constants, template identifiers, and CSS token initialization
 
-- [ ] T001 Register new theme definitions, template IDs, and constants in `src/services/workspaceConstants.js`
-- [ ] T002 Configure CSS variables for Celestial Blue (`--slide-heading: #00D2FF`, `--slide-accent: #00A3FF`), Clean Ivory, and Scandinavian Slate in `src/styles/themes.css`
-- [ ] T003 [P] Configure base CSS classes and layout mixins for template variants, squircle avatars, and verified badges in `src/styles/workspace.css`
+- [x] T001 Register new theme definitions, template IDs, and constants in `src/services/workspaceConstants.js`
+- [x] T002 Configure CSS variables for Celestial Blue (`--slide-heading: #00D2FF`, `--slide-accent: #00A3FF`), Clean Ivory, and Scandinavian Slate in `src/styles/themes.css`
+- [x] T003 [P] Configure base CSS classes and layout mixins for template variants, squircle avatars, and verified badges in `src/styles/workspace.css`
 
 ---
 
@@ -27,9 +27,9 @@
 
 **⚠️ CRITICAL**: Must be completed before user story UI implementation begins
 
-- [ ] T004 Implement pure functional `regenerateSlidesFromRawScript` with positional media preservation in `src/services/workspaceService.js`
-- [ ] T005 [P] Implement branding updater `updateCreatorBranding` and template updaters (`updateSlideTemplate`, `applyTemplateToAllSlides`) in `src/services/workspaceService.js`
-- [ ] T006 [P] Update storage schema rehydration with safe defaults for `subtext`, `slideTemplate`, `hasVerifiedBadge`, `avatarShape`, and `rawScript` in `src/services/storageService.js`
+- [x] T004 Implement pure functional `regenerateSlidesFromRawScript` with positional media preservation in `src/services/workspaceService.js`
+- [x] T005 [P] Implement branding updater `updateCreatorBranding` and template updaters (`updateSlideTemplate`, `applyTemplateToAllSlides`) in `src/services/workspaceService.js`
+- [x] T006 [P] Update storage schema rehydration with safe defaults for `subtext`, `slideTemplate`, `hasVerifiedBadge`, `avatarShape`, and `rawScript` in `src/services/storageService.js`
 
 **Checkpoint**: Foundation ready - user story implementation can begin independently
 
@@ -43,10 +43,10 @@
 
 ### Implementation for User Story 1
 
-- [ ] T007 [P] [US1] Create full raw script editor component with character count and regenerate action in `src/components/LeftSidebar/RawScriptTab.jsx`
-- [ ] T008 [US1] Integrate `RawScriptTab` navigation item and icon into `src/components/LeftSidebar/LeftSidebar.jsx`
-- [ ] T009 [US1] Connect raw script bulk regeneration handler and state sync in `src/components/StudioWorkspace.jsx`
-- [ ] T010 [US1] Verify positional media preservation and edge case error handling on bulk regeneration in `src/components/StudioWorkspace.jsx`
+- [x] T007 [P] [US1] Create full raw script editor component with character count and regenerate action in `src/components/LeftSidebar/RawScriptTab.jsx`
+- [x] T008 [US1] Integrate `RawScriptTab` navigation item and icon into `src/components/LeftSidebar/LeftSidebar.jsx`
+- [x] T009 [US1] Connect raw script bulk regeneration handler and state sync in `src/components/StudioWorkspace.jsx`
+- [x] T010 [US1] Verify positional media preservation and edge case error handling on bulk regeneration in `src/components/StudioWorkspace.jsx`
 
 **Checkpoint**: User Story 1 is fully functional and testable independently as the core MVP increment.
 
@@ -60,9 +60,9 @@
 
 ### Implementation for User Story 2
 
-- [ ] T011 [P] [US2] Add verified badge toggle switch and avatar shape selector (circle vs squircle) in `src/components/LeftSidebar/BrandingTab.jsx`
-- [ ] T012 [US2] Implement verified badge SVG/icon rendering and squircle (`rounded-xl`) avatar class binding in `src/components/SlideCard.jsx`
-- [ ] T013 [US2] Wire branding updates to workspace state and verify instant reactive update (<50ms) in `src/components/StudioWorkspace.jsx`
+- [x] T011 [P] [US2] Add verified badge toggle switch and avatar shape selector (circle vs squircle) in `src/components/LeftSidebar/BrandingTab.jsx`
+- [x] T012 [US2] Implement verified badge SVG/icon rendering and squircle (`rounded-xl`) avatar class binding in `src/components/SlideCard.jsx`
+- [x] T013 [US2] Wire branding updates to workspace state and verify instant reactive update (<50ms) in `src/components/StudioWorkspace.jsx`
 
 **Checkpoint**: User Stories 1 and 2 operate independently with persistent local state.
 
@@ -76,9 +76,9 @@
 
 ### Implementation for User Story 3
 
-- [ ] T014 [P] [US3] Add subtext input textarea with character counter in `src/components/LeftSidebar/SlideContentTab.jsx`
-- [ ] T015 [US3] Render `<p className="slide-subtext">` conditionally with hierarchical typography in `src/components/SlideCard.jsx`
-- [ ] T016 [US3] Validate subtext responsiveness and spatial accommodation alongside docked images in `src/components/SlideCard.jsx`
+- [x] T014 [P] [US3] Add subtext input textarea with character counter in `src/components/LeftSidebar/SlideContentTab.jsx`
+- [x] T015 [US3] Render `<p className="slide-subtext">` conditionally with hierarchical typography in `src/components/SlideCard.jsx`
+- [x] T016 [US3] Validate subtext responsiveness and spatial accommodation alongside docked images in `src/components/SlideCard.jsx`
 
 **Checkpoint**: User Story 3 is testable independently and coexists seamlessly with media docking.
 
@@ -92,9 +92,9 @@
 
 ### Implementation for User Story 4
 
-- [ ] T017 [P] [US4] Implement template selector grid (5 templates) with "Aplicar a todos os slides" action in `src/components/LeftSidebar/SlideContentTab.jsx`
-- [ ] T018 [US4] Implement template layout rendering rules (quote marks, list bullets, stat metrics, minimalist spacing) in `src/components/SlideCard.jsx`
-- [ ] T019 [US4] Wire single-slide and global template state dispatchers in `src/components/StudioWorkspace.jsx`
+- [x] T017 [P] [US4] Implement template selector grid (5 templates) with "Aplicar a todos os slides" action in `src/components/LeftSidebar/SlideContentTab.jsx`
+- [x] T018 [US4] Implement template layout rendering rules (quote marks, list bullets, stat metrics, minimalist spacing) in `src/components/SlideCard.jsx`
+- [x] T019 [US4] Wire single-slide and global template state dispatchers in `src/components/StudioWorkspace.jsx`
 
 **Checkpoint**: User Story 4 provides non-destructive layout variety across all slides.
 
@@ -108,9 +108,9 @@
 
 ### Implementation for User Story 5
 
-- [ ] T020 [P] [US5] Add CSS classes and tokens for `celestial-azure`, `clean-ivory`, `clean-slate`, and `reference-aesthetic` in `src/styles/themes.css`
-- [ ] T021 [P] [US5] Update theme selector with Clean categories, Celestial Blue preview, and extensible reference slot in `src/components/LeftSidebar/TypographyTab.jsx`
-- [ ] T022 [US5] Verify theme application across canvas slides, export rendering, and local persistence in `src/components/StudioWorkspace.jsx`
+- [x] T020 [P] [US5] Add CSS classes and tokens for `celestial-azure`, `clean-ivory`, `clean-slate`, and `reference-aesthetic` in `src/styles/themes.css`
+- [x] T021 [P] [US5] Update theme selector with Clean categories, Celestial Blue preview, and extensible reference slot in `src/components/LeftSidebar/TypographyTab.jsx`
+- [x] T022 [US5] Verify theme application across canvas slides, export rendering, and local persistence in `src/components/StudioWorkspace.jsx`
 
 **Checkpoint**: All 5 user stories are fully integrated, styled, and independently functional.
 
@@ -120,9 +120,9 @@
 
 **Purpose**: End-to-end validation, performance check, and build verification
 
-- [ ] T023 [P] Verify production build and asset bundling via `cmd /c "npm run build"`
-- [ ] T024 Execute all 6 end-to-end validation scenarios defined in `specs/003-slide-templates-branding/quickstart.md`
-- [ ] T025 Code cleanup, comment integrity check, and documentation synchronization
+- [x] T023 [P] Verify production build and asset bundling via `cmd /c "npm run build"`
+- [x] T024 Execute all 6 end-to-end validation scenarios defined in `specs/003-slide-templates-branding/quickstart.md`
+- [x] T025 Code cleanup, comment integrity check, and documentation synchronization
 
 ---
 

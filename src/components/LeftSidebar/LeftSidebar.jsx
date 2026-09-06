@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
+import { RawScriptTab } from './RawScriptTab.jsx';
 import { SlideContentTab } from './SlideContentTab.jsx';
 import { ImageDockingTab } from './ImageDockingTab.jsx';
 import { OverlaysTab } from './OverlaysTab.jsx';
 import { TypographyTab } from './TypographyTab.jsx';
 import { BrandingTab } from './BrandingTab.jsx';
-import { FileText, Image, Sparkles, Type, User, RefreshCw, Palette } from 'lucide-react';
+import { AlignLeft, FileText, Image, Sparkles, Type, User, RefreshCw, Palette } from 'lucide-react';
 import { AVAILABLE_THEMES } from '../../services/workspaceConstants.js';
 
 export function LeftSidebar({
   activeSlide,
   slides = [],
+  rawScript = '',
   globalFont = 'Inter',
   profile = null,
   currentTheme = 'abyssal-glow',
@@ -25,12 +27,15 @@ export function LeftSidebar({
   onUpdateGlobalFont,
   onUpdateProfile,
   onSelectTheme,
+  onRegenerateFromScript,
+  onApplyTemplateToAll,
   onNewProject
 }) {
   const [activeTab, setActiveTab] = useState('content');
 
   const tabs = [
-    { id: 'content', label: 'Texto', icon: FileText },
+    { id: 'script', label: 'Roteiro', icon: AlignLeft },
+    { id: 'content', label: 'Slide', icon: FileText },
     { id: 'image', label: 'Imagem', icon: Image },
     { id: 'overlays', label: 'Ícones', icon: Sparkles },
     { id: 'typography', label: 'Fonte', icon: Type },
@@ -111,6 +116,14 @@ export function LeftSidebar({
 
       {/* Conteúdo da Aba Ativa */}
       <div className="sidebar-content">
+        {activeTab === 'script' && (
+          <RawScriptTab
+            rawScript={rawScript}
+            slidesCount={slides.length}
+            onRegenerateFromScript={onRegenerateFromScript}
+          />
+        )}
+
         {activeTab === 'content' && (
           <SlideContentTab
             activeSlide={activeSlide}
@@ -119,6 +132,7 @@ export function LeftSidebar({
             onAddSlide={onAddSlide}
             onRemoveSlide={onRemoveSlide}
             onReorderSlide={onReorderSlide}
+            onApplyTemplateToAll={onApplyTemplateToAll}
           />
         )}
 
@@ -143,6 +157,8 @@ export function LeftSidebar({
           <TypographyTab
             activeSlide={activeSlide}
             globalFont={globalFont}
+            currentTheme={currentTheme}
+            onSelectTheme={onSelectTheme}
             onUpdateGlobalFont={onUpdateGlobalFont}
             onUpdateSlide={onUpdateSlide}
           />

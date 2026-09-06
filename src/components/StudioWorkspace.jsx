@@ -13,10 +13,11 @@ export function StudioWorkspace({
   const [activeSlideId, setActiveSlideId] = useState(
     initialWorkspace?.activeSlideId || initialWorkspace?.slides?.[0]?.id || null
   );
+  const [rawScript, setRawScript] = useState(initialWorkspace?.rawScript || '');
   const [globalFont, setGlobalFont] = useState(initialWorkspace?.globalFont || 'Inter');
   const [currentTheme, setCurrentTheme] = useState(initialWorkspace?.currentTheme || 'abyssal-glow');
   const [profile, setProfile] = useState(
-    initialWorkspace?.profile || { name: '', handle: '', avatar: null }
+    initialWorkspace?.profile || { name: '', handle: '', avatar: null, hasVerifiedBadge: false, avatarShape: 'circle' }
   );
 
   const activeSlide = slides.find(s => s.id === activeSlideId) || slides[0] || null;
@@ -34,7 +35,7 @@ export function StudioWorkspace({
       const stateToSave = {
         id: initialWorkspace?.id || `proj-${Date.now()}`,
         title: initialWorkspace?.title || 'Carrossel em Edição',
-        rawScript: initialWorkspace?.rawScript || '',
+        rawScript,
         activeSlideId,
         globalFont,
         currentTheme,
@@ -51,7 +52,7 @@ export function StudioWorkspace({
         clearTimeout(autosaveTimerRef.current);
       }
     };
-  }, [slides, activeSlideId, globalFont, currentTheme, profile]);
+  }, [slides, activeSlideId, rawScript, globalFont, currentTheme, profile]);
 
   // 2. Atalhos de Teclado (Navegação com Setas e Esc)
   useEffect(() => {
@@ -153,6 +154,24 @@ export function StudioWorkspace({
     handleUpdateSlide(slideId, updatedSlide);
   };
 
+  const handleRegenerateFromScript = (newScript) => {
+    if (!newScript || !newScript.trim()) return;
+    setRawScript(newScript);
+    const regenerated = workspaceService.regenerateSlidesFromRawScript(newScript, slides);
+    setSlides(regenerated);
+    if (regenerated.length > 0) {
+      const exists = regenerated.some(s => s.id === activeSlideId);
+      if (!exists) {
+        setActiveSlideId(regenerated[0].id);
+      }
+    }
+  };
+
+  const handleApplyTemplateToAll = (templateId) => {
+    const updated = workspaceService.applyTemplateToAllSlides(slides, templateId);
+    setSlides(updated);
+  };
+
   const handlePromptNewProject = () => {
     if (window.confirm('Deseja iniciar um novo projeto? As alterações atuais serão arquivadas para dar lugar ao novo roteiro.')) {
       onNewProject();
@@ -165,6 +184,7 @@ export function StudioWorkspace({
       <LeftSidebar
         activeSlide={activeSlide}
         slides={slides}
+        rawScript={rawScript}
         globalFont={globalFont}
         profile={profile}
         currentTheme={currentTheme}
@@ -180,6 +200,8 @@ export function StudioWorkspace({
         onUpdateGlobalFont={setGlobalFont}
         onUpdateProfile={setProfile}
         onSelectTheme={setCurrentTheme}
+        onRegenerateFromScript={handleRegenerateFromScript}
+        onApplyTemplateToAll={handleApplyTemplateToAll}
         onNewProject={handlePromptNewProject}
       />
 

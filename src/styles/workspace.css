@@ -547,3 +547,100 @@
   font-size: 10px;
   color: var(--slide-subtext, var(--text-silver));
 }
+
+.branding-avatar.avatar-square {
+  border-radius: 8px;
+}
+
+.branding-avatar.avatar-circle {
+  border-radius: 50%;
+}
+
+.branding-name-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.verified-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--slide-accent, #00A3FF);
+  filter: drop-shadow(0 0 6px rgba(0, 163, 255, 0.45));
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   8. Subtext & Slide Layout Templates
+   -------------------------------------------------------------------------- */
+.slide-subtext {
+  font-size: 0.925rem;
+  line-height: 1.5;
+  color: var(--slide-subtext, var(--text-silver));
+  margin-top: 8px;
+  font-weight: 400;
+  opacity: 0.92;
+  letter-spacing: -0.01em;
+}
+
+/* Template: Quote */
+.slide-template-quote {
+  position: relative;
+}
+
+.template-quote-glyph {
+  font-family: Georgia, serif;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--slide-accent, var(--accent-biolum));
+  opacity: 0.4;
+  margin-bottom: -10px;
+  user-select: none;
+}
+
+.slide-template-quote .slide-title {
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+/* Template: Bullets */
+.slide-template-bullets .template-bullet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.template-bullet-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--slide-accent, var(--accent-biolum));
+  box-shadow: 0 0 8px var(--slide-accent, var(--accent-biolum));
+  margin-top: 8px;
+  flex-shrink: 0;
+}
+
+/* Template: Big Stat */
+.slide-template-stat .template-stat-number {
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--slide-heading, var(--accent-biolum));
+  text-shadow: 0 0 20px rgba(0, 163, 255, 0.3);
+  margin-bottom: 8px;
+}
+
+/* Template: Minimalist */
+.slide-template-minimalist {
+  padding: 32px 28px !important;
+}
+
+.slide-template-minimalist .slide-title {
+  letter-spacing: -0.02em;
+}
+
