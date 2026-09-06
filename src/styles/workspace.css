@@ -116,8 +116,7 @@
    -------------------------------------------------------------------------- */
 .left-sidebar {
   width: 380px;
-  min-width: 360px;
-  max-width: 420px;
+  min-width: 380px;
   height: 100vh;
   background: var(--bg-sidebar);
   border-right: 1px solid var(--border-subtle);
@@ -125,6 +124,103 @@
   flex-direction: column;
   z-index: 20;
   box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+  transition: margin-left 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.left-sidebar.collapsed {
+  margin-left: -380px;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   3.1 Right Sidebar (380px Drawer dedicated to Raw Script)
+   -------------------------------------------------------------------------- */
+.right-sidebar {
+  width: 380px;
+  min-width: 380px;
+  height: 100vh;
+  background: var(--bg-sidebar);
+  border-left: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+  transition: margin-right 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.right-sidebar.collapsed {
+  margin-right: -380px;
+  pointer-events: none;
+}
+
+.right-sidebar-header {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0, 20, 19, 0.4);
+}
+
+.right-sidebar-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.right-sidebar-textarea {
+  flex: 1;
+  min-height: 280px;
+  width: 100%;
+  padding: 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  resize: vertical;
+  background: rgba(0, 15, 14, 0.6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-platinum);
+  font-family: inherit;
+}
+
+.right-sidebar-textarea:focus {
+  outline: none;
+  border-color: var(--accent-biolum);
+  box-shadow: 0 0 10px var(--accent-biolum-glow);
+}
+
+.sidebar-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-silver);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.sidebar-toggle-btn:hover {
+  color: var(--text-platinum);
+  background: rgba(5, 255, 212, 0.1);
+  border-color: rgba(5, 255, 212, 0.3);
+}
+
+.sidebar-toggle-btn.active {
+  color: var(--accent-biolum);
+  background: rgba(5, 255, 212, 0.12);
+  border-color: var(--accent-biolum);
 }
 
 .sidebar-header {
@@ -547,3 +643,110 @@
   font-size: 10px;
   color: var(--slide-subtext, var(--text-silver));
 }
+
+.branding-avatar.avatar-square {
+  border-radius: 8px;
+}
+
+.branding-avatar.avatar-circle {
+  border-radius: 50%;
+}
+
+.branding-name-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.verified-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--slide-accent, #00A3FF);
+  filter: drop-shadow(0 0 6px rgba(0, 163, 255, 0.45));
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   8. Subtext & Slide Layout Templates
+   -------------------------------------------------------------------------- */
+.slide-subtext {
+  font-size: 0.925rem;
+  line-height: 1.5;
+  color: var(--slide-subtext, var(--text-silver));
+  margin-top: 8px;
+  font-weight: 400;
+  opacity: 0.92;
+  letter-spacing: -0.01em;
+}
+
+/* Template: Quote */
+.slide-template-quote {
+  position: relative;
+}
+
+.template-quote-glyph {
+  font-family: Georgia, serif;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--slide-accent, var(--accent-biolum));
+  opacity: 0.4;
+  margin-bottom: -10px;
+  user-select: none;
+}
+
+.slide-template-quote .slide-title {
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+/* Template: Classic */
+.slide-template-classic {
+  /* Default balanced editorial layout */
+}
+
+/* Template: Quote */
+.slide-template-quote {
+  position: relative;
+}
+
+.template-quote-glyph {
+  font-family: Georgia, serif;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--slide-accent, var(--accent-biolum));
+  opacity: 0.4;
+  margin-bottom: -10px;
+  user-select: none;
+}
+
+.slide-template-quote .slide-title,
+.slide-template-quote .slide-text-body {
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+/* Template: Minimalist */
+.slide-template-minimalist {
+  padding: 36px 30px !important;
+}
+
+.slide-template-minimalist .slide-content-box {
+  justify-content: center;
+  text-align: center;
+}
+
+.slide-template-minimalist .slide-text-body {
+  letter-spacing: -0.02em;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.slide-template-minimalist .slide-subtext {
+  margin-top: 14px;
+  opacity: 0.85;
+}
+

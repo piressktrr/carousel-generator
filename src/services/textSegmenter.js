@@ -84,6 +84,8 @@ export function segmentTextToSlides(rawScript) {
       order: index + 1,
       type,
       content: blockContent,
+      subtext: '',
+      slideTemplate: 'classic',
       fontOverride: null,
       showBranding: true,
       dockedImage: null,

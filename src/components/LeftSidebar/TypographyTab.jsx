@@ -29,6 +29,7 @@ export function TypographyTab({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+
       {/* Tipografia Global do Carrossel */}
       <div className="control-card">
         <label className="section-label">

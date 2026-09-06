@@ -1,6 +1,6 @@
 /**
  * Workspace Constants & Registries
- * Curated typography fonts, Lucide icons, 9-anchor grid definitions, and themes.
+ * Curated typography fonts, Lucide icons, 9-anchor grid definitions, slide templates, and themes.
  */
 
 export const AVAILABLE_FONTS = [
@@ -36,11 +36,33 @@ export const GRID_ANCHORS = [
   { id: 'bottom-right', label: 'BR', title: 'Base Direita' }
 ];
 
+export const SLIDE_TEMPLATES = [
+  { id: 'classic', name: 'Cartão Clássico', description: 'Layout balanceado para leitura direta', icon: 'Layout' },
+  { id: 'quote', name: 'Citação Editorial', description: 'Aspas de destaque e tipografia editorial', icon: 'Quote' },
+  { id: 'minimalist', name: 'Minimalista Foco', description: 'Espaço generoso com foco essencial na ideia', icon: 'Sparkles' }
+];
+
+export const AVATAR_SHAPES = [
+  { id: 'circle', label: 'Redonda' },
+  { id: 'square', label: 'Quadrada' }
+];
+
 export const AVAILABLE_THEMES = [
-  { id: 'abyssal-glow', name: 'Abyssal Glow', preview: '#05ffd4' },
-  { id: 'light-clean', name: 'Light Clean', preview: '#0284c7' },
-  { id: 'minimalist-obsidian', name: 'Obsidian Black', preview: '#38bdf8' },
-  { id: 'sunset-nebula', name: 'Sunset Nebula', preview: '#f43f5e' }
+  // Temas Originais & Bioluminescentes
+  { id: 'abyssal-glow', name: 'Abyssal Glow', preview: '#05ffd4', category: 'bioluminescent' },
+  { id: 'minimalist-obsidian', name: 'Obsidian Black', preview: '#38bdf8', category: 'dark' },
+  { id: 'sunset-nebula', name: 'Sunset Nebula', preview: '#f43f5e', category: 'vibrant' },
+  
+  // Novo: Azul Celestial Autêntico & Luminoso
+  { id: 'celestial-azure', name: 'Azul Celestial', preview: '#00A3FF', category: 'vibrant' },
+  
+  // Novos: Temas Clean & Minimalistas
+  { id: 'clean-ivory', name: 'Clean Ivory (Editorial)', preview: '#FAF8F5', category: 'clean' },
+  { id: 'clean-slate', name: 'Scandinavian Slate', preview: '#0E1117', category: 'clean' },
+  { id: 'light-clean', name: 'Light Clean (Vivid Sky)', preview: '#00A3FF', category: 'clean' },
+  
+  // Slot Extensível para Referência Visual / Imagem
+  { id: 'reference-aesthetic', name: 'Reference Aesthetic', preview: '#38BDF8', category: 'clean' }
 ];
 
 export const SAMPLE_SCRIPT = `5 Hábitos para Turbinar sua Produtividade em 2026

@@ -1,19 +1,127 @@
 /**
  * Workspace Service
- * Core domain operations for slides, docking, 9-point grid overlays, and project state.
+ * Core domain operations for slides, docking, 9-point grid overlays, raw script regeneration, and project state.
  * Implements pure functions respecting immutability and Single Responsibility Principle (SRP).
  */
 import { aiService } from './aiService.js';
+import { segmentTextToSlides } from './textSegmenter.js';
 
 export const workspaceService = {
   /**
-   * Converte o roteiro bruto em uma sequência estruturada e adaptativa de slides.
+   * Converte o roteiro bruto em uma sequência estruturada e adaptativa de slides via IA.
    * @param {string} rawScript - Texto livre do roteiro
    * @param {string|null} [apiKey] - Chave opcional da API do Gemini
    * @returns {Promise<Array<Object>>} Lista de slides gerados
    */
   async generateSlidesFromScript(rawScript, apiKey = null) {
     return await aiService.generateSlides(rawScript, apiKey);
+  },
+
+  /**
+   * Regenera em lote a lista de slides pelo roteiro bruto completo com preservação posicional.
+   * Transfere imagens ancoradas (docking) e overlays secundários para o novo slide do mesmo índice.
+   * @param {string} rawScript - Texto bruto do roteiro
+   * @param {Array<Object>} [existingSlides=[]] - Lista atual de slides antes da regeneração
+   * @returns {Array<Object>} Nova lista de slides re-segmentados com mídias preservadas
+   */
+  regenerateSlidesFromRawScript(rawScript, existingSlides = []) {
+    const parsedSlides = segmentTextToSlides(rawScript);
+    if (!parsedSlides || parsedSlides.length === 0) {
+      return existingSlides.length > 0 ? existingSlides : [
+        {
+          id: 'slide-1',
+          order: 1,
+          type: 'cover',
+          content: rawScript ? rawScript.trim() : 'Slide inicial pronto para personalização...',
+          subtext: '',
+          slideTemplate: 'classic',
+          fontOverride: null,
+          showBranding: true,
+          dockedImage: null,
+          overlays: []
+        }
+      ];
+    }
+
+    // Preservação Posicional: transfere dockedImage, overlays e personalizações conforme índice ordinal
+    const validTemplates = ['classic', 'quote', 'minimalist'];
+    return parsedSlides.map((slide, index) => {
+      const prev = existingSlides[index];
+      const prevTemplate = prev?.slideTemplate;
+      const sanitizedTemplate = validTemplates.includes(prevTemplate) ? prevTemplate : 'classic';
+      return {
+        ...slide,
+        id: prev?.id || slide.id,
+        subtext: prev?.subtext || '',
+        slideTemplate: sanitizedTemplate,
+        dockedImage: prev?.dockedImage || null,
+        overlays: prev?.overlays || [],
+        fontOverride: prev?.fontOverride || null,
+        showBranding: prev?.showBranding !== undefined ? prev.showBranding : true
+      };
+    });
+  },
+
+  /**
+   * Atualiza as propriedades de autoria do criador (incluindo selo verificado e formato do avatar).
+   * @param {Object} currentBranding - Perfil atual
+   * @param {Object} updates - Novos atributos
+   * @returns {Object} Perfil atualizado
+   */
+  updateCreatorBranding(currentBranding, updates = {}) {
+    const current = currentBranding || {
+      name: 'Seu Nome',
+      handle: '@seuperfil',
+      avatarUrl: null,
+      hasVerifiedBadge: false,
+      avatarShape: 'circle'
+    };
+    return {
+      ...current,
+      ...updates,
+      hasVerifiedBadge: updates.hasVerifiedBadge !== undefined ? Boolean(updates.hasVerifiedBadge) : Boolean(current.hasVerifiedBadge),
+      avatarShape: updates.avatarShape || current.avatarShape || 'circle'
+    };
+  },
+
+  /**
+   * Atualiza o template visual de um slide específico.
+   * Restringe estritamente aos 3 templates estáveis: 'classic' | 'quote' | 'minimalist'.
+   * @param {Array<Object>} slides - Lista atual
+   * @param {string} slideId - ID do slide
+   * @param {string} templateId - ID do template ('classic'|'quote'|'minimalist')
+   * @returns {Array<Object>}
+   */
+  updateSlideTemplate(slides, slideId, templateId) {
+    if (!Array.isArray(slides)) return [];
+    const validTemplates = ['classic', 'quote', 'minimalist'];
+    const sanitizedTemplate = validTemplates.includes(templateId) ? templateId : 'classic';
+    return slides.map(slide => {
+      if (slide.id === slideId) {
+        return {
+          ...slide,
+          slideTemplate: sanitizedTemplate
+        };
+      }
+      return slide;
+    });
+  },
+
+  /**
+   * Aplica um template visual a todos os slides do carrossel uniformemente.
+   * Restringe estritamente aos 3 templates estáveis: 'classic' | 'quote' | 'minimalist'.
+   * @param {Array<Object>} slides - Lista atual
+   * @param {string} templateId - ID do template ('classic'|'quote'|'minimalist')
+   * @returns {Array<Object>}
+   */
+  applyTemplateToAllSlides(slides, templateId) {
+    if (!Array.isArray(slides)) return [];
+    const validTemplates = ['classic', 'quote', 'minimalist'];
+    const sanitizedTemplate = validTemplates.includes(templateId) ? templateId : 'classic';
+    return slides.map(slide => ({
+      ...slide,
+      slideTemplate: sanitizedTemplate
+    }));
   },
 
   /**
@@ -50,6 +158,8 @@ export const workspaceService = {
       order: list.length + 1,
       type: 'content',
       content: 'Novo slide pronto para personalização...',
+      subtext: '',
+      slideTemplate: 'classic',
       fontOverride: null,
       showBranding: true,
       dockedImage: null,

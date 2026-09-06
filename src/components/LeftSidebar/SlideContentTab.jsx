@@ -1,5 +1,6 @@
 import React from 'react';
-import { Type, ArrowUp, ArrowDown, Plus, Trash2 } from 'lucide-react';
+import { Type, AlignLeft, ArrowUp, ArrowDown, Plus, Trash2, Layout, Quote, Sparkles, Check } from 'lucide-react';
+import { SLIDE_TEMPLATES } from '../../services/workspaceConstants.js';
 
 export function SlideContentTab({
   activeSlide,
@@ -7,7 +8,8 @@ export function SlideContentTab({
   onUpdateSlide,
   onAddSlide,
   onRemoveSlide,
-  onReorderSlide
+  onReorderSlide,
+  onApplyTemplateToAll
 }) {
   if (!activeSlide) {
     return (
@@ -19,28 +21,50 @@ export function SlideContentTab({
 
   const currentIndex = slides.findIndex(s => s.id === activeSlide.id);
   const totalSlides = slides.length;
+  const currentTemplate = activeSlide.slideTemplate || 'classic';
 
   const handleTextChange = (e) => {
     onUpdateSlide(activeSlide.id, { content: e.target.value });
   };
 
-  const handleTypeChange = (e) => {
-    onUpdateSlide(activeSlide.id, { type: e.target.value });
+  const handleSubtextChange = (e) => {
+    onUpdateSlide(activeSlide.id, { subtext: e.target.value });
+  };
+
+  const handleTemplateSelect = (templateId) => {
+    onUpdateSlide(activeSlide.id, { slideTemplate: templateId });
+  };
+
+  const handleApplyToAll = (templateId) => {
+    if (onApplyTemplateToAll) {
+      onApplyTemplateToAll(templateId);
+    }
+  };
+
+  const getTemplateIcon = (iconName) => {
+    switch (iconName) {
+      case 'Quote': return <Quote size={14} />;
+      case 'Sparkles': return <Sparkles size={14} />;
+      case 'Layout':
+      default:
+        return <Layout size={14} />;
+    }
   };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      {/* Texto Principal do Slide */}
       <div className="control-card">
         <label className="section-label">
           <Type size={14} />
-          Texto do Slide {currentIndex + 1} de {totalSlides}
+          Texto Principal (Slide {currentIndex + 1} de {totalSlides})
         </label>
         
         <textarea
-          rows={6}
+          rows={5}
           value={activeSlide.content || ''}
           onChange={handleTextChange}
-          placeholder="Conteúdo do slide..."
+          placeholder="Texto principal ou gancho do slide..."
           style={{
             width: '100%',
             padding: '12px',
@@ -51,22 +75,99 @@ export function SlideContentTab({
           }}
         />
 
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '6px' }}>
-          <label style={{ fontSize: '12px', color: 'var(--text-silver)' }}>
-            Tipo de Slide:
-          </label>
-          <select
-            value={activeSlide.type || 'content'}
-            onChange={handleTypeChange}
-            style={{ padding: '6px 10px', fontSize: '12px' }}
-          >
-            <option value="cover">Capa / Gancho</option>
-            <option value="content">Conteúdo Principal</option>
-            <option value="cta">Chamada para Ação (CTA)</option>
-          </select>
+        {/* Campo de Subtexto Independente (Hierarquia Tipográfica) */}
+        <div style={{ marginTop: '10px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+            <label style={{ fontSize: '12px', color: 'var(--text-silver)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <AlignLeft size={13} /> Subtexto / Detalhamento (Opcional):
+            </label>
+            <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>
+              {(activeSlide.subtext || '').length}/280
+            </span>
+          </div>
+
+          <textarea
+            rows={3}
+            value={activeSlide.subtext || ''}
+            onChange={handleSubtextChange}
+            placeholder="Subtítulo, explicação de apoio ou nota de contexto..."
+            maxLength={280}
+            style={{
+              width: '100%',
+              padding: '8px 10px',
+              fontSize: '12px',
+              lineHeight: 1.4,
+              color: 'var(--text-silver)',
+              background: 'rgba(0, 15, 14, 0.4)',
+              border: '1px solid var(--border-subtle)',
+              borderRadius: 'var(--radius-sm)',
+              resize: 'vertical'
+            }}
+          />
         </div>
       </div>
 
+      {/* Catálogo de Templates Visuais de Slide */}
+      <div className="control-card">
+        <label className="section-label">
+          <Layout size={14} />
+          Template do Slide
+        </label>
+        
+        <p style={{ fontSize: '11px', color: 'var(--text-silver)', marginTop: '2px', marginBottom: '8px' }}>
+          Selecione uma diagramação visual específica para este slide:
+        </p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '6px' }}>
+          {SLIDE_TEMPLATES.map((tmpl) => {
+            const isSelected = currentTemplate === tmpl.id;
+            return (
+              <div
+                key={tmpl.id}
+                onClick={() => handleTemplateSelect(tmpl.id)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '8px 12px',
+                  borderRadius: 'var(--radius-sm)',
+                  background: isSelected ? 'rgba(0, 163, 255, 0.12)' : 'rgba(0, 20, 19, 0.5)',
+                  border: isSelected ? '1px solid #00A3FF' : '1px solid rgba(255, 255, 255, 0.08)',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ color: isSelected ? '#00A3FF' : 'var(--text-silver)' }}>
+                    {getTemplateIcon(tmpl.icon)}
+                  </span>
+                  <div>
+                    <div style={{ fontSize: '12px', fontWeight: isSelected ? 600 : 500, color: isSelected ? '#F0F7FF' : 'var(--text-platinum)' }}>
+                      {tmpl.name}
+                    </div>
+                    <div style={{ fontSize: '10px', color: 'var(--text-silver)' }}>
+                      {tmpl.description}
+                    </div>
+                  </div>
+                </div>
+
+                {isSelected && <Check size={14} color="#00A3FF" />}
+              </div>
+            );
+          })}
+        </div>
+
+        <button
+          type="button"
+          onClick={() => handleApplyToAll(currentTemplate)}
+          className="btn-new-project"
+          style={{ width: '100%', justifyContent: 'center', marginTop: '10px', fontSize: '11px' }}
+        >
+          Aplicar este template a todos os slides
+        </button>
+      </div>
+
+      {/* Organização & Ações do Slide */}
       <div className="control-card">
         <label className="section-label">
           Organização & Ações do Slide

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { exportService } from '../services/exportService.js';
-import { Download, FileDown, Loader2 } from 'lucide-react';
+import { Download, Loader2 } from 'lucide-react';
 
 export function ExportToolbar({ slides = [] }) {
   const [isExporting, setIsExporting] = useState(false);
@@ -13,19 +13,6 @@ export function ExportToolbar({ slides = [] }) {
       await exportService.exportAsZip(slides, 'carrossel', (msg) => setProgressMsg(msg));
     } catch (err) {
       alert(`Falha na exportação ZIP: ${err.message}`);
-    } finally {
-      setIsExporting(false);
-      setProgressMsg('');
-    }
-  };
-
-  const handleExportPdf = async () => {
-    if (isExporting || slides.length === 0) return;
-    setIsExporting(true);
-    try {
-      await exportService.exportAsPdf(slides, 'carrossel-linkedin.pdf', (msg) => setProgressMsg(msg));
-    } catch (err) {
-      alert(`Falha na exportação PDF: ${err.message}`);
     } finally {
       setIsExporting(false);
       setProgressMsg('');
@@ -62,29 +49,6 @@ export function ExportToolbar({ slides = [] }) {
       >
         <Download size={14} />
         Baixar PNGs (ZIP)
-      </button>
-
-      <button
-        type="button"
-        onClick={handleExportPdf}
-        disabled={isExporting || slides.length === 0}
-        style={{
-          background: 'rgba(192, 132, 252, 0.15)',
-          border: '1px solid rgba(192, 132, 252, 0.35)',
-          color: 'var(--phosphor-lavender)',
-          borderRadius: 'var(--radius-sm)',
-          padding: '6px 12px',
-          fontSize: '12px',
-          fontWeight: '600',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '6px',
-          cursor: isExporting ? 'not-allowed' : 'pointer'
-        }}
-        title="Gerar documento PDF para publicação no LinkedIn"
-      >
-        <FileDown size={14} />
-        Exportar PDF
       </button>
     </div>
   );

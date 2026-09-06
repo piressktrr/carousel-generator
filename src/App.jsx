@@ -19,7 +19,7 @@ export function App() {
         if (savedWorkspace && Array.isArray(savedWorkspace.slides) && savedWorkspace.slides.length > 0) {
           setWorkspace({
             ...savedWorkspace,
-            profile: savedProfile || savedWorkspace.profile || { name: '', handle: '', avatar: null }
+            profile: savedProfile || savedWorkspace.profile || { name: '', handle: '', avatar: null, hasVerifiedBadge: false, avatarShape: 'circle' }
           });
         }
       } catch (err) {
@@ -37,7 +37,7 @@ export function App() {
     setIsGenerating(true);
     try {
       const generatedSlides = await workspaceService.generateSlidesFromScript(rawScript, apiKey);
-      const savedProfile = (await storageService.getProfile()) || { name: '', handle: '', avatar: null };
+      const savedProfile = (await storageService.getProfile()) || { name: '', handle: '', avatar: null, hasVerifiedBadge: false, avatarShape: 'circle' };
 
       const newWorkspace = {
         id: `proj-${Date.now()}`,

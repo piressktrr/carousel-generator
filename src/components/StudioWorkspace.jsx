@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { LeftSidebar } from './LeftSidebar/LeftSidebar.jsx';
+import { RightSidebar } from './RightSidebar/RightSidebar.jsx';
 import { SlidesCanvas } from './SlidesCanvas.jsx';
 import { ExportToolbar } from './ExportToolbar.jsx';
 import { workspaceService } from '../services/workspaceService.js';
@@ -13,10 +14,17 @@ export function StudioWorkspace({
   const [activeSlideId, setActiveSlideId] = useState(
     initialWorkspace?.activeSlideId || initialWorkspace?.slides?.[0]?.id || null
   );
+  const [rawScript, setRawScript] = useState(initialWorkspace?.rawScript || '');
   const [globalFont, setGlobalFont] = useState(initialWorkspace?.globalFont || 'Inter');
   const [currentTheme, setCurrentTheme] = useState(initialWorkspace?.currentTheme || 'abyssal-glow');
   const [profile, setProfile] = useState(
-    initialWorkspace?.profile || { name: '', handle: '', avatar: null }
+    initialWorkspace?.profile || { name: '', handle: '', avatar: null, hasVerifiedBadge: false, avatarShape: 'circle' }
+  );
+  const [isLeftSidebarOpen, setIsLeftSidebarOpen] = useState(
+    initialWorkspace?.isLeftSidebarOpen !== undefined ? initialWorkspace.isLeftSidebarOpen : true
+  );
+  const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(
+    initialWorkspace?.isRightSidebarOpen !== undefined ? initialWorkspace.isRightSidebarOpen : false
   );
 
   const activeSlide = slides.find(s => s.id === activeSlideId) || slides[0] || null;
@@ -34,7 +42,9 @@ export function StudioWorkspace({
       const stateToSave = {
         id: initialWorkspace?.id || `proj-${Date.now()}`,
         title: initialWorkspace?.title || 'Carrossel em Edição',
-        rawScript: initialWorkspace?.rawScript || '',
+        isLeftSidebarOpen,
+        isRightSidebarOpen,
+        rawScript,
         activeSlideId,
         globalFont,
         currentTheme,
@@ -51,7 +61,7 @@ export function StudioWorkspace({
         clearTimeout(autosaveTimerRef.current);
       }
     };
-  }, [slides, activeSlideId, globalFont, currentTheme, profile]);
+  }, [slides, activeSlideId, rawScript, globalFont, currentTheme, profile, isLeftSidebarOpen, isRightSidebarOpen]);
 
   // 2. Atalhos de Teclado (Navegação com Setas e Esc)
   useEffect(() => {
@@ -153,6 +163,32 @@ export function StudioWorkspace({
     handleUpdateSlide(slideId, updatedSlide);
   };
 
+  const handleRegenerateFromScript = (newScript) => {
+    if (!newScript || !newScript.trim()) return;
+    setRawScript(newScript);
+    const regenerated = workspaceService.regenerateSlidesFromRawScript(newScript, slides);
+    setSlides(regenerated);
+    if (regenerated.length > 0) {
+      const exists = regenerated.some(s => s.id === activeSlideId);
+      if (!exists) {
+        setActiveSlideId(regenerated[0].id);
+      }
+    }
+  };
+
+  const handleApplyTemplateToAll = (templateId) => {
+    const updated = workspaceService.applyTemplateToAllSlides(slides, templateId);
+    setSlides(updated);
+  };
+
+  const handleToggleLeftSidebar = () => {
+    setIsLeftSidebarOpen(prev => !prev);
+  };
+
+  const handleToggleRightSidebar = () => {
+    setIsRightSidebarOpen(prev => !prev);
+  };
+
   const handlePromptNewProject = () => {
     if (window.confirm('Deseja iniciar um novo projeto? As alterações atuais serão arquivadas para dar lugar ao novo roteiro.')) {
       onNewProject();
@@ -163,6 +199,8 @@ export function StudioWorkspace({
     <div className="studio-workspace" data-theme={currentTheme}>
       {/* Barra Lateral de Ferramentas Fixada no Lado Esquerdo */}
       <LeftSidebar
+        isOpen={isLeftSidebarOpen}
+        onClose={() => setIsLeftSidebarOpen(false)}
         activeSlide={activeSlide}
         slides={slides}
         globalFont={globalFont}
@@ -180,10 +218,11 @@ export function StudioWorkspace({
         onUpdateGlobalFont={setGlobalFont}
         onUpdateProfile={setProfile}
         onSelectTheme={setCurrentTheme}
+        onApplyTemplateToAll={handleApplyTemplateToAll}
         onNewProject={handlePromptNewProject}
       />
 
-      {/* Palco Interativo de Slides Ocupando o Quadrante Direito */}
+      {/* Palco Interativo de Slides Ocupando o Quadrante Central */}
       <SlidesCanvas
         slides={slides}
         activeSlideId={activeSlideId}
@@ -192,6 +231,19 @@ export function StudioWorkspace({
         currentTheme={currentTheme}
         onSelectSlide={setActiveSlideId}
         renderTopRight={<ExportToolbar slides={slides} />}
+        isLeftSidebarOpen={isLeftSidebarOpen}
+        onToggleLeftSidebar={handleToggleLeftSidebar}
+        isRightSidebarOpen={isRightSidebarOpen}
+        onToggleRightSidebar={handleToggleRightSidebar}
+      />
+
+      {/* Barra Lateral Direita para Edição Completa do Roteiro */}
+      <RightSidebar
+        isOpen={isRightSidebarOpen}
+        onClose={() => setIsRightSidebarOpen(false)}
+        rawScript={rawScript}
+        slidesCount={slides.length}
+        onRegenerateFromScript={handleRegenerateFromScript}
       />
     </div>
   );
