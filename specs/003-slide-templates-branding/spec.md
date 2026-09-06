@@ -12,6 +12,7 @@
 
 ### Session 2026-09-05
 - Q: Como deve funcionar a substituição do texto bruto completo a partir da barra lateral esquerda? → A: Editor de Roteiro Bruto Integrado (o usuário pode visualizar e editar o roteiro original ou colar um roteiro totalmente novo dentro de uma aba dedicada na barra esquerda, e ao clicar em "Atualizar / Regenerar Slides", todos os slides são reestruturados adaptativamente de uma vez só, preservando as credenciais de branding e tema).
+- Q: Ao colar um novo roteiro bruto na barra lateral e acionar a regeneração em lote, como o sistema deve tratar imagens e ícones secundários que já haviam sido adicionados aos slides anteriores? → A: Preservação Posicional (as imagens ancoradas, ícones na grade 3x3 e customizações visuais são transferidas e preservadas nos novos slides correspondentes ao mesmo índice ordinal).
 - Q: Quais formatos de foto de perfil devem ser disponibilizados e onde o selo verificado deve ser exibido? → A: Seletor de Formato (Redonda vs. Quadrada com cantos suaves) e Selo Verificado em Destaque (ao lado do nome do criador, com ícone de verificado azul/ciano bioluminescente, ativável via chave seletora na barra lateral).
 - Q: Como o campo de subtexto deve se integrar com o texto principal nos slides? → A: Campo Independente com Hierarquia Tipográfica (cada slide possui um campo de subtexto opcional com estilo visual secundário — tamanho ligeiramente menor, opacidade equilibrada ou cor de destaque —, complementando o título/gancho principal).
 - Q: Quais templates de slide devem ser oferecidos inicialmente? → A: Catálogo Curado de Layouts Essenciais para Mídias Sociais (Padrão/Classic, Destaque com Aspas/Editorial, Lista com Marcadores/Bullets, Big Stat/Numérico e Minimalista Foco).
@@ -26,12 +27,12 @@ Como criador de conteúdo que já está trabalhando no estúdio, quero dispor de
 
 **Why this priority**: Elimina atrito no processo criativo. Permite iterações instantâneas de roteiro mantendo o usuário imerso no estúdio com seus temas e configurações já definidos.
 
-**Independent Test**: Pode ser testado abrindo o estúdio com um carrossel ativo, acessando a aba de Roteiro na barra esquerda, colando um texto novo e clicando em "Atualizar Slides"; o palco de slides deve reconstruir a sequência inteira instantaneamente conforme a nova estrutura textual.
+**Independent Test**: Pode ser testado abrindo o estúdio com um carrossel ativo, acessando a aba de Roteiro na barra esquerda, colando um texto novo e clicando em "Atualizar Slides"; o palco de slides deve reconstruir a sequência inteira instantaneamente conforme a nova estrutura textual preservando imagens e ícones dos índices correspondentes.
 
 **Acceptance Scenarios**:
 
 1. **Given** o estúdio de trabalho com slides já carregados, **When** o usuário acessa a seção de Roteiro na barra esquerda, **Then** o texto bruto original está visível e editável em um campo de texto amplo.
-2. **Given** o usuário colando um roteiro completamente novo no editor de texto bruto da barra esquerda, **When** aciona a ação de "Atualizar / Regenerar Slides", **Then** o sistema gera uma nova sequência completa de slides adaptada ao novo conteúdo sem forçar quantidade fixa e sem resetar a identidade do criador ou tema selecionado.
+2. **Given** o usuário colando um roteiro completamente novo no editor de texto bruto da barra esquerda, **When** aciona a ação de "Atualizar / Regenerar Slides", **Then** o sistema gera uma nova sequência completa de slides adaptada ao novo conteúdo sem forçar quantidade fixa, preservando imagens ancoradas e overlays por posição ordinal, além de manter a identidade do criador e tema visual.
 3. **Given** uma edição de texto bruto acidental, **When** o usuário cancela ou não confirma a regeneração, **Then** os slides em exibição no palco continuam preservados intactos.
 
 ---
