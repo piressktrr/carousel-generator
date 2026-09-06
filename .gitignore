@@ -1,25 +1,74 @@
-# Agent and AI instructions
+# ==============================================================================
+# Git Ignore Configuration (Carrosseis-Generator)
+# ==============================================================================
+
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Production Builds & Caches
+dist/
+dist-ssr/
+build/
+out/
+.cache/
+.vite/
+.parcel-cache/
+.turbo/
+
+# Logs & Diagnostics
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment Variables, Secrets & Local Overrides
+.env
+.env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+!.env.example
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# IDE, Text Editors & Workspace Tooling
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# Testing & Coverage
+coverage/
+.nyc_output/
+
+# Temporary / Scratch Files
+tmp/
+temp/
+*.tmp
+
+# Agent and AI Instructions (Spec Kit & Local Agent Context)
 .agents/
 
-# Spec Kit internal directories
+# Spec Kit Internal Directories
 .specify/integrations/
 .specify/scripts/
 .specify/templates/
 .specify/workflows/
 .specify/memory/*
 !.specify/memory/constitution.md
-
-# Operating System
-.DS_Store
-Thumbs.db
-
-# IDE & Editor files
-.idea/
-.vscode/
-*.swp
-*.swo
-
-# Environment variables & local configuration
-.env
-.env.*
-!.env.example

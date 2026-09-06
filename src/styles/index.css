@@ -1,0 +1,77 @@
+/* ==========================================================================
+   Base CSS Resets & Typography Fundamentals
+   ========================================================================== */
+
+@import './themes.css';
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-darkest);
+  color: var(--text-platinum);
+  font-family: var(--font-inter);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  transition: var(--transition-smooth);
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  outline: none;
+  border: 1px solid var(--border-subtle);
+  background: rgba(0, 20, 19, 0.6);
+  border-radius: var(--radius-sm);
+  transition: var(--transition-smooth);
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--accent-biolum);
+  box-shadow: 0 0 10px var(--accent-biolum-glow);
+}
+
+/* Translucent Minimalist Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(5, 255, 212, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(5, 255, 212, 0.45);
+}

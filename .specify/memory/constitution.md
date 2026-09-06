@@ -1,12 +1,10 @@
 <!--
 Sync Impact Report:
-- Version change: 2.0.0 → 2.1.0
-- List of modified principles: None
-- Added principles:
-  - VI. Isolamento de Features via Branches (Git Workflow): proibição expressa de commits diretos na branch principal (main/master) e obrigatoriedade de criação de branches dedicadas para cada feature.
-- Added sections / subsections:
-  - Diretriz de Fluxo de Branches e Proteção da Main em Processo de Design Arquitetural e Governança Técnica.
-  - Regra de proteção de branch na seção de Governance.
+- Version change: 2.1.0 → 2.2.0
+- List of modified principles:
+  - I. Clean Architecture, Paradigma Funcional e Responsabilidade Única (SRP): formalização do uso de arquitetura funcional e composição de componentes, retendo o Princípio da Responsabilidade Única (SRP) e desestimulando heranças e burocracias de POO clássica.
+- Added principles: None
+- Added sections / subsections: None
 - Removed sections: None
 - Follow-up TODOs: None
 -->
@@ -15,12 +13,13 @@ Sync Impact Report:
 
 ## Core Principles
 
-### I. Clean Architecture & Domain-Driven Design (DDD)
-O código de domínio e as regras de negócio centrais DEVEM ser estritamente agnósticos em relação a linguagens específicas, frameworks, bibliotecas de terceiros ou mecanismos de persistência.
-- Toda implementação DEVE respeitar os princípios SOLID (Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation e Dependency Inversion).
-- A camada de domínio não DEVE possuir dependências diretas de bibliotecas externas de entrega, interfaces de usuário ou drivers de banco de dados.
-- O desacoplamento DEVE ser assegurado por meio de contratos de interface e injeção/inversão de dependências.
-- **Rationale**: Garante total longevidade e portabilidade das regras de negócio, permitindo que a stack tecnológica seja selecionada ou substituída sem contaminar a lógica central.
+### I. Clean Architecture, Paradigma Funcional e Responsabilidade Única (SRP)
+O código de domínio e as regras de negócio centrais DEVEM ser estritamente agnósticos em relação a frameworks visuais ou mecanismos de persistência de dados.
+- A aplicação adota formalmente **Arquitetura Funcional com Composição de Componentes** em React.
+- Do acrônimo SOLID, o **Princípio da Responsabilidade Única (SRP)** DEVE ser rigorosamente cumprido: cada módulo de serviço, utilitário, hook ou componente visual deve possuir uma responsabilidade única, coesa e claramente delimitada.
+- Regras de negócio, manipulação de estado, fatiamento de texto e cálculos de layout geométrico DEVEM ser implementados como **funções puras** e sem efeitos colaterais na camada de serviços (`src/services/`).
+- O uso de hierarquias pesadas de classes, padrões de herança profunda e abstrações corporativas de POO é expressamente desencorajado em favor da simplicidade funcional e composição modular (KISS).
+- **Rationale**: Garante total longevidade, previsibilidade e testabilidade das regras de negócio, eliminando o inchaço de boilerplate e mantendo o código intuitivo e performático no navegador.
 
 ### II. Pragmatismo Técnico e Combate ao Overengineering (KISS/YAGNI)
 A equipe DEVE adotar a solução mais simples e direta que satisfaça com segurança e eficiência os requisitos funcionais e não funcionais validados.
@@ -86,4 +85,4 @@ Commits diretos na branch principal (`main` ou `master`) são ESTRITAMENTE PROIB
   - **MINOR (2.X.0):** Adição de novos princípios (como o Princípio VI de Branching), formalização da stack tecnológica aprovada ou expansão material de diretrizes existentes.
   - **PATCH (2.0.X):** Correções ortográficas, esclarecimentos de redação ou refinamentos não-semânticos.
 
-**Version**: 2.1.0 | **Ratified**: 2026-09-03 | **Last Amended**: 2026-09-04
+**Version**: 2.2.0 | **Ratified**: 2026-09-03 | **Last Amended**: 2026-09-05
