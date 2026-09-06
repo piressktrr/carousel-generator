@@ -1,7 +1,7 @@
-# Specification Quality Checklist: Slide Templates, Subtext & Enhanced Creator Branding
+# Specification Quality Checklist: Slide Templates, Subtext, Enhanced Creator Branding & Studio Layout Refinement
 
 **Purpose**: Validate specification completeness and quality before proceeding to planning
-**Created**: 2026-09-05
+**Created**: 2026-09-05 | **Updated**: 2026-09-06
 **Feature**: [spec.md](file:///D:/Carrosseis-Generator/specs/003-slide-templates-branding/spec.md)
 
 ## Content Quality
@@ -32,10 +32,10 @@
 ## Notes
 
 - Todas as 16 verificações de qualidade foram aprovadas com êxito.
-- A especificação atende diretamente a todos os requisitos solicitados:
-  1. **Edição do texto bruto completo na barra lateral esquerda** com ação para atualizar/regenerar todos os slides de uma só vez;
-  2. **Identidade do criador** com opção de ligar/desligar **Selo Verificado** ao lado do nome;
-  3. **Formato da foto de perfil**: alternância entre **Redonda** e **Quadrada**;
-  4. **Subtexto independente por slide** para hierarquia visual refinada;
-  5. **Catálogo de Templates Visuais de Slide** (*Classic, Quote, Bullets, Stat, Minimalist*) com aplicação individual ou global.
-- O documento está 100% pronto para a fase de planejamento (`/speckit-plan`).
+- A especificação atende diretamente a todos os requisitos refinados:
+  1. **Roteiro Bruto transferido para a Barra Lateral Direita** com botão de ação em lote e preservação posicional;
+  2. **Recolhimento/Ocultação independente das barras laterais** (esquerda e direita);
+  3. **Remoção do botão de exportação para PDF**, mantendo exclusivamente PNGs em ZIP;
+  4. **Remoção do dropdown "Tipo de Slide"**, simplificando a aba de conteúdo;
+  5. **Separação de Paleta de Cores & Temas em aba dedicada na barra esquerda**, desacoplada de Fontes;
+  6. **Catálogo focado nos 3 templates estáveis**: *Cartão Clássico*, *Citação Editorial* e *Minimalista Foco*.
