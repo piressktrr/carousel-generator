@@ -30,6 +30,9 @@ export function StudioWorkspace({
   const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(
     initialWorkspace?.isRightSidebarOpen !== undefined ? initialWorkspace.isRightSidebarOpen : false
   );
+  const [aspectRatio, setAspectRatio] = useState(
+    initialWorkspace?.aspectRatio || '4:5'
+  );
 
   const activeSlide = slides.find(s => s.id === activeSlideId) || slides[0] || null;
   const autosaveTimerRef = useRef(null);
@@ -79,6 +82,7 @@ export function StudioWorkspace({
         title: initialWorkspace?.title || 'Carrossel em Edição',
         isLeftSidebarOpen,
         isRightSidebarOpen,
+        aspectRatio,
         rawScript,
         activeSlideId,
         globalFont,
@@ -295,8 +299,10 @@ export function StudioWorkspace({
         profile={profile}
         currentTheme={currentTheme}
         themeInlineStyles={themeInlineStyles}
+        aspectRatio={aspectRatio}
+        onToggleAspectRatio={setAspectRatio}
         onSelectSlide={setActiveSlideId}
-        renderTopRight={<ExportToolbar slides={slides} />}
+        renderTopRight={<ExportToolbar slides={slides} aspectRatio={aspectRatio} />}
         isLeftSidebarOpen={isLeftSidebarOpen}
         onToggleLeftSidebar={handleToggleLeftSidebar}
         isRightSidebarOpen={isRightSidebarOpen}

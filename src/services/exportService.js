@@ -61,14 +61,14 @@ export const exportService = {
    * @param {Function} [onProgress]
    * @returns {Promise<void>}
    */
-  async exportAsPdf(slides = [], filename = 'carrossel-linkedin.pdf', onProgress = null) {
+  async exportAsPdf(slides = [], filename = 'carrossel-linkedin.pdf', onProgress = null, aspectRatio = '4:5') {
     if (!Array.isArray(slides) || slides.length === 0) {
       throw new Error('Nenhum slide disponível para exportação.');
     }
 
-    // Proporção padrão 4:5 (1080 x 1350)
+    // Dimensões adaptativas por proporção (4:5 -> 1080x1350 | 1:1 -> 1080x1080)
     const pdfWidth = 1080;
-    const pdfHeight = 1350;
+    const pdfHeight = aspectRatio === '1:1' ? 1080 : 1350;
 
     const pdf = new jsPDF({
       orientation: 'portrait',

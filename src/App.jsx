@@ -46,6 +46,7 @@ export function App() {
         activeSlideId: generatedSlides[0]?.id || null,
         globalFont: 'Inter',
         currentTheme: 'abyssal-glow',
+        aspectRatio: '4:5',
         apiKey: apiKey || '',
         profile: savedProfile,
         slides: generatedSlides,

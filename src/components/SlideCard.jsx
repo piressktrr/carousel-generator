@@ -9,6 +9,7 @@ export function SlideCard({
   profile = null,
   themeInlineStyles = {},
   isActive = false,
+  aspectRatio = '4:5',
   onSelect
 }) {
   if (!slide) return null;
@@ -81,9 +82,10 @@ export function SlideCard({
       </div>
 
       <div
-        className={`slide-card ${isActive ? 'active' : ''} ${dockingClass} ${templateClass}`}
+        className={`slide-card ${isActive ? 'active' : ''} ratio-${aspectRatio === '1:1' ? '1-1' : '4-5'} ${dockingClass} ${templateClass}`}
         onClick={onSelect}
         data-slide-id={slide.id}
+        data-aspect-ratio={aspectRatio}
         style={themeInlineStyles}
       >
         {/* Camada de Imagem Principal Ancorada */}

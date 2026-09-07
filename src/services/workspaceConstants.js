@@ -76,6 +76,13 @@ export const AVAILABLE_THEMES = [
 
 export const DEFAULT_THEME_FALLBACK = 'abyssal-glow';
 
+export const DEFAULT_ASPECT_RATIO = '4:5';
+
+export const ASPECT_RATIOS = [
+  { id: '4:5', label: '4:5 Retrato', ratioLabel: '4:5', canvasWidth: 380, canvasHeight: 475, exportWidth: 1080, exportHeight: 1350 },
+  { id: '1:1', label: '1:1 Quadrado', ratioLabel: '1:1', canvasWidth: 380, canvasHeight: 380, exportWidth: 1080, exportHeight: 1080 }
+];
+
 export const THEME_CATEGORIES = [
   { id: 'custom', label: 'Temas Personalizados' },
   { id: 'bioluminescent', label: 'Bioluminescente' },

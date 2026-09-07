@@ -11,10 +11,10 @@ description: "Task list for clean and dynamic carousel UI redesign implementatio
 
 **Purpose**: Update root CSS variables, design tokens, and state defaults
 
-- [ ] T001 [P] Refine root design tokens, borders, and transitions in `src/styles/index.css`
-- [ ] T002 [P] Update color themes and surface opacities in `src/styles/themes.css`
-- [ ] T003 [P] Add default aspect ratio (`4:5`) to workspace constants in `src/services/workspaceConstants.js`
-- [ ] T004 Ensure `aspectRatio` is persisted and retrieved in `src/services/storageService.js`
+- [x] T001 [P] Refine root design tokens, borders, and transitions in `src/styles/index.css`
+- [x] T002 [P] Update color themes and surface opacities in `src/styles/themes.css`
+- [x] T003 [P] Add default aspect ratio (`4:5`) to workspace constants in `src/services/workspaceConstants.js`
+- [x] T004 Ensure `aspectRatio` is persisted and retrieved in `src/services/storageService.js`
 
 ---
 
@@ -22,8 +22,8 @@ description: "Task list for clean and dynamic carousel UI redesign implementatio
 
 **Purpose**: Core workspace state and layout foundation for aspect ratio and dynamic navigation
 
-- [ ] T005 Add `aspectRatio` state management and handler in `src/components/StudioWorkspace.jsx`
-- [ ] T006 [P] Update `src/styles/workspace.css` base layout variables for 4:5 and 1:1 aspect ratios and glassmorphic surfaces
+- [x] T005 Add `aspectRatio` state management and handler in `src/components/StudioWorkspace.jsx`
+- [x] T006 [P] Update `src/styles/workspace.css` base layout variables for 4:5 and 1:1 aspect ratios and glassmorphic surfaces
 
 **Checkpoint**: Foundation ready - User Story implementation can proceed
 
@@ -37,11 +37,11 @@ description: "Task list for clean and dynamic carousel UI redesign implementatio
 
 ### Implementation for User Story 1
 
-- [ ] T007 [P] [US1] Update `src/components/SlideCard.jsx` to support dynamic aspect ratio (`4:5` vs `1:1`) and active focal styling
-- [ ] T008 [US1] Update `src/components/SlidesCanvas.jsx` to add aspect ratio selector, slide position counter, and keyboard arrow navigation
-- [ ] T009 [US1] Update `src/components/ExportToolbar.jsx` to support exporting high-resolution images according to active aspect ratio (1080×1350 for 4:5, 1080×1080 for 1:1)
-- [ ] T010 [US1] Wire aspect ratio state and navigation handlers from `src/components/StudioWorkspace.jsx` to `src/components/SlidesCanvas.jsx`
-- [ ] T011 [US1] Refactor canvas, slide stage, and navigation arrow styles in `src/styles/workspace.css` for smooth horizontal tracking and active slide elevation
+- [x] T007 [P] [US1] Update `src/components/SlideCard.jsx` to support dynamic aspect ratio (`4:5` vs `1:1`) and active focal styling
+- [x] T008 [US1] Update `src/components/SlidesCanvas.jsx` to add aspect ratio selector, slide position counter, and keyboard arrow navigation
+- [x] T009 [US1] Update `src/components/ExportToolbar.jsx` to support exporting high-resolution images according to active aspect ratio (1080×1350 for 4:5, 1080×1080 for 1:1)
+- [x] T010 [US1] Wire aspect ratio state and navigation handlers from `src/components/StudioWorkspace.jsx` to `src/components/SlidesCanvas.jsx`
+- [x] T011 [US1] Refactor canvas, slide stage, and navigation arrow styles in `src/styles/workspace.css` for smooth horizontal tracking and active slide elevation
 
 **Checkpoint**: User Story 1 is fully functional and independently testable as the core MVP.
 
@@ -55,13 +55,13 @@ description: "Task list for clean and dynamic carousel UI redesign implementatio
 
 ### Implementation for User Story 2
 
-- [ ] T012 [US2] Refactor `src/components/LeftSidebar/LeftSidebar.jsx` to organize tools into 4 semantic tabs (Lâminas & Conteúdo, Design & Temas, Tipografia, Marca & Elementos)
-- [ ] T013 [P] [US2] Refine slide sequencing and content editor controls in `src/components/LeftSidebar/SlideContentTab.jsx`
-- [ ] T014 [P] [US2] Refine theme selector and custom builder integration in `src/components/LeftSidebar/ThemesTab.jsx`
-- [ ] T015 [P] [US2] Polish typography controls and font family selector in `src/components/LeftSidebar/TypographyTab.jsx`
-- [ ] T016 [P] [US2] Polish profile signature, 6-anchor selector, image docking, and overlays in `src/components/LeftSidebar/BrandingTab.jsx`
-- [ ] T017 [US2] Update `src/components/RightSidebar/RightSidebar.jsx` with clean glassmorphic drawer styling and accessible form controls
-- [ ] T018 [US2] Update sidebar layout, tab indicator, and collapse/expand transition styles in `src/styles/workspace.css`
+- [x] T012 [US2] Refactor `src/components/LeftSidebar/LeftSidebar.jsx` to organize tools into 4 semantic tabs (Lâminas & Conteúdo, Design & Temas, Tipografia, Marca & Elementos)
+- [x] T013 [P] [US2] Refine slide sequencing and content editor controls in `src/components/LeftSidebar/SlideContentTab.jsx`
+- [x] T014 [P] [US2] Refine theme selector and custom builder integration in `src/components/LeftSidebar/ThemesTab.jsx`
+- [x] T015 [P] [US2] Polish typography controls and font family selector in `src/components/LeftSidebar/TypographyTab.jsx`
+- [x] T016 [P] [US2] Polish profile signature, 6-anchor selector, image docking, and overlays in `src/components/LeftSidebar/BrandingTab.jsx`
+- [x] T017 [US2] Update `src/components/RightSidebar/RightSidebar.jsx` with clean glassmorphic drawer styling and accessible form controls
+- [x] T018 [US2] Update sidebar layout, tab indicator, and collapse/expand transition styles in `src/styles/workspace.css`
 
 **Checkpoint**: User Stories 1 and 2 are functional together with clean chrome and semantic tool grouping.
 
@@ -75,8 +75,8 @@ description: "Task list for clean and dynamic carousel UI redesign implementatio
 
 ### Implementation for User Story 3
 
-- [ ] T019 [US3] Refactor `src/components/ScriptInputView.jsx` with streamlined copy, clean glassmorphic card layout, and smooth loading indicator
-- [ ] T020 [US3] Update intake view styles, radial dark backdrop, and glowing primary action button in `src/styles/workspace.css`
+- [x] T019 [US3] Refactor `src/components/ScriptInputView.jsx` with streamlined copy, clean glassmorphic card layout, and smooth loading indicator
+- [x] T020 [US3] Update intake view styles, radial dark backdrop, and glowing primary action button in `src/styles/workspace.css`
 
 **Checkpoint**: All three user stories are complete and integrated.
 
@@ -86,9 +86,9 @@ description: "Task list for clean and dynamic carousel UI redesign implementatio
 
 **Purpose**: Validate visual quality, accessibility, transitions, and run the quickstart verification guide.
 
-- [ ] T021 [P] Verify WCAG AA contrast ratio (≥4.5:1) and touch targets (≥40px) across all interactive controls in `src/styles/workspace.css`
-- [ ] T022 Execute quickstart validation scenarios in `specs/006-clean-carousel-ui-redesign/quickstart.md`
-- [ ] T023 Run build verification (`npm run build`) to ensure zero compile warnings or errors
+- [x] T021 [P] Verify WCAG AA contrast ratio (≥4.5:1) and touch targets (≥40px) across all interactive controls in `src/styles/workspace.css`
+- [x] T022 Execute quickstart validation scenarios in `specs/006-clean-carousel-ui-redesign/quickstart.md`
+- [x] T023 Run build verification (`npm run build`) to ensure zero compile warnings or errors
 
 ---
 

@@ -40,6 +40,7 @@ export const storageService = {
         ...data,
         isLeftSidebarOpen: data.isLeftSidebarOpen ?? true,
         isRightSidebarOpen: data.isRightSidebarOpen ?? false,
+        aspectRatio: data.aspectRatio === '1:1' ? '1:1' : '4:5',
         rawScript: data.rawScript || '',
         currentTheme: data.currentTheme || 'abyssal-glow',
         customThemes: Array.isArray(data.customThemes) ? data.customThemes : [],

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SAMPLE_SCRIPT } from '../services/workspaceConstants.js';
 import { storageService } from '../services/storageService.js';
-import { Sparkles, Key, ArrowRight, Loader2, Eye, EyeOff, Check } from 'lucide-react';
+import { Sparkles, Key, ArrowRight, Loader2, Eye, EyeOff, Check, FileText } from 'lucide-react';
 
 export function ScriptInputView({ onGenerate, isGenerating = false }) {
   const [scriptText, setScriptText] = useState('');
@@ -49,46 +49,64 @@ export function ScriptInputView({ onGenerate, isGenerating = false }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!scriptText.trim()) {
-      setErrorMsg('Por favor, cole ou digite o roteiro do seu carrossel antes de gerar os slides.');
+      setErrorMsg('Por favor, cole ou digite o roteiro do seu carrossel antes de gerar as lâminas.');
       return;
     }
     setErrorMsg('');
     onGenerate(scriptText.trim(), apiKey.trim() || null);
   };
 
+  const wordCount = scriptText.trim() ? scriptText.trim().split(/\s+/).length : 0;
+  const charCount = scriptText.length;
+
   return (
     <div className="script-input-view">
       <div className="script-input-card">
+        {/* Cabeçalho Elegante */}
         <div className="script-input-header">
-          <h1>
-            <Sparkles className="brand-badge" size={28} />
-            Carousel Studio Workspace
-          </h1>
+          <div className="brand-badge-row">
+            <Sparkles className="brand-badge" size={24} />
+            <span className="brand-title">Carousel Studio</span>
+          </div>
+          <h1>Crie carrosséis memoráveis em segundos</h1>
           <p>
-            Cole seu roteiro bruto abaixo. O sistema estruturará automaticamente o conteúdo em uma sequência dinâmica e adaptativa de slides prontos para personalização.
+            Cole seu roteiro ou ideias abaixo. O estúdio estruturará automaticamente o conteúdo em lâminas balanceadas e prontas para personalização visual.
           </p>
         </div>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <textarea
-            className="script-textarea"
-            placeholder="Cole aqui o seu roteiro... Ex: Título chamativo, pontos essenciais numerados ou divididos em parágrafos, e chamada para ação final."
-            value={scriptText}
-            onChange={(e) => {
-              setScriptText(e.target.value);
-              if (errorMsg) setErrorMsg('');
-            }}
-            disabled={isGenerating}
-          />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <label style={{ fontSize: '11.5px', fontWeight: '600', color: 'var(--accent-biolum)', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                <FileText size={13} />
+                Roteiro de Entrada
+              </label>
+              <span style={{ fontSize: '11px', color: 'var(--text-silver)' }}>
+                {wordCount} {wordCount === 1 ? 'palavra' : 'palavras'} • {charCount} carac.
+              </span>
+            </div>
+
+            <textarea
+              className="script-textarea"
+              placeholder="Cole aqui seu roteiro... Ex: Título chamativo, pontos essenciais numerados ou divididos em parágrafos, e chamada para ação final."
+              value={scriptText}
+              onChange={(e) => {
+                setScriptText(e.target.value);
+                if (errorMsg) setErrorMsg('');
+              }}
+              disabled={isGenerating}
+            />
+          </div>
 
           {errorMsg && (
-            <div style={{ color: '#f43f5e', fontSize: '13px', fontWeight: '500' }}>
+            <div className="script-error-msg" role="alert">
               ⚠️ {errorMsg}
             </div>
           )}
 
+          {/* Barra de Ações Rápidas & Botão Primário */}
           <div className="script-actions-bar">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
               <button
                 type="button"
                 className="btn-example"
@@ -100,23 +118,14 @@ export function ScriptInputView({ onGenerate, isGenerating = false }) {
 
               <button
                 type="button"
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: showApiKeySection ? 'var(--accent-biolum)' : 'var(--text-silver)',
-                  fontSize: '12px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '5px',
-                  cursor: 'pointer'
-                }}
+                className={`btn-api-key-toggle ${showApiKeySection ? 'active' : ''}`}
                 onClick={() => setShowApiKeySection(!showApiKeySection)}
               >
-                <Key size={14} />
-                {showApiKeySection ? 'Ocultar Gemini API Key' : 'Configurar Gemini API Key (Opcional)'}
+                <Key size={13} />
+                <span>{showApiKeySection ? 'Ocultar Gemini API Key' : 'Gemini API Key (Opcional)'}</span>
                 {isKeySaved && !showApiKeySection && (
-                  <span style={{ color: 'var(--accent-biolum)', fontSize: '11px', display: 'inline-flex', alignItems: 'center', gap: '2px' }}>
-                    <Check size={12} /> Salva
+                  <span className="key-saved-tag">
+                    <Check size={11} /> Salva
                   </span>
                 )}
               </button>
@@ -129,38 +138,28 @@ export function ScriptInputView({ onGenerate, isGenerating = false }) {
             >
               {isGenerating ? (
                 <>
-                  <Loader2 size={18} className="animate-spin" style={{ animation: 'spin 1s linear infinite' }} />
-                  Gerando Slides...
+                  <Loader2 size={16} className="animate-spin" />
+                  <span>Gerando Lâminas...</span>
                 </>
               ) : (
                 <>
-                  Gerar Slides
-                  <ArrowRight size={18} />
+                  <span>Gerar Carrossel</span>
+                  <ArrowRight size={16} />
                 </>
               )}
             </button>
           </div>
 
+          {/* Painel Expansível de Chave do Gemini */}
           {showApiKeySection && (
-            <div
-              style={{
-                marginTop: '10px',
-                padding: '12px 16px',
-                background: 'rgba(0, 20, 19, 0.6)',
-                borderRadius: '8px',
-                border: '1px solid var(--border-subtle)',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '8px'
-              }}
-            >
+            <div className="api-key-panel">
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <label style={{ fontSize: '11px', color: 'var(--text-silver)', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '4px' }}>
                   <Key size={12} /> CHAVE DE API DO GOOGLE GEMINI (OPCIONAL)
                 </label>
                 {isKeySaved && (
                   <span style={{ fontSize: '11px', color: 'var(--accent-biolum)', display: 'flex', alignItems: 'center', gap: '3px' }}>
-                    <Check size={12} /> Chave Salva
+                    <Check size={12} /> Salva no Navegador
                   </span>
                 )}
               </div>
@@ -168,7 +167,7 @@ export function ScriptInputView({ onGenerate, isGenerating = false }) {
               <div className="api-key-input-group">
                 <input
                   type={showKeyText ? 'text' : 'password'}
-                  placeholder="Insira sua Gemini API Key (mantida em segurança no seu navegador)"
+                  placeholder="Insira sua Gemini API Key para estruturação avançada com IA..."
                   value={apiKey}
                   onChange={handleApiKeyChange}
                 />
@@ -182,8 +181,8 @@ export function ScriptInputView({ onGenerate, isGenerating = false }) {
                 </button>
               </div>
 
-              <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
-                A chave é armazenada com segurança no seu navegador e utilizada tanto para síntese de slides quanto para o gerador de temas na aba Cores. Se não informada, a divisão ocorre localmente.
+              <span style={{ fontSize: '11px', color: 'var(--text-muted)', lineHeight: 1.4 }}>
+                Sua chave fica segura localmente no IndexedDB do seu navegador. Se nenhuma chave for informada, o particionamento do roteiro ocorre de maneira local e determinística.
               </span>
             </div>
           )}
