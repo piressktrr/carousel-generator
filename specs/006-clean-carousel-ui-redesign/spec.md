@@ -8,6 +8,14 @@
 
 **Input**: User description: "com as duas últimas skills que eu que eu mandei sobre front-end e o UI UX, reformule a design da da página do carrossel, deixando ele com as mesmas cores de design, porém do jeito mais clean, mais dinâmico, conforme as bases que as skills oferecem."
 
+## Clarifications
+
+### Session 2026-09-06
+
+- Q: Como o palco central de slides deve apresentar o carrossel para garantir uma navegação mais limpa e dinâmica? → A: Option B - Faixa Contínua Dinâmica (todos os slides em sequência horizontal fluida, com o slide selecionado em evidência com escala e glow suaves, rolagem suave automática e contador dinâmico).
+- Q: Como as opções da barra lateral esquerda (atualmente divididas em 8 abas separadas) devem ser organizadas para evitar sobrecarga visual e garantir um fluxo de trabalho mais limpo? → A: Option A - 4 Categorias Semânticas (agrupamento coeso em 4 abas compactas e legíveis: Lâminas & Conteúdo, Design & Temas, Tipografia e Marca & Elementos, eliminando a rolagem horizontal de abas).
+- Q: O carrossel deve incluir um seletor rápido no topo para alternar entre formato Retrato (4:5) e Quadrado (1:1), ou manter exclusivamente o formato vertical 4:5? → A: Option A - Seletor de Proporção (4:5 e 1:1) com alternância dinâmica no cabeçalho do canvas e readequação fluida das lâminas.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Clean & Focused Carousel Stage with Dynamic Slide Interaction (Priority: P1)
@@ -70,15 +78,16 @@ As a new or returning user, I want the initial script intake view to be clean, i
 ### Functional Requirements
 
 - **FR-001**: The system MUST maintain the project's signature color identity (abyssal dark teal backgrounds, bioluminescent cyan primary accents, lavender secondary accents, and platinum text) while eliminating heavy borders, arbitrary dark shadows, and redundant decorative badges.
-- **FR-002**: The central canvas MUST present the active slide as the primary visual hero, with subtle scaling/elevation and clean navigation controls.
+- **FR-002**: The central canvas MUST present slides in a continuous dynamic horizontal track, with the active slide highlighted in clear focus (subtle elevation, soft glow, and scale accent) while supporting smooth directional navigation, slide position counters, and keyboard arrow controls.
 - **FR-003**: The canvas MUST feature a clear, clean position indicator (e.g., current slide index and total slides) and smooth directional navigation buttons with touch/click areas of at least 40×40px.
 - **FR-004**: Sidebars (Left Sidebar for tools/slides and Right Sidebar for raw script) MUST have fluid collapse/expand animations (under 300ms) that adjust the canvas area dynamically.
-- **FR-005**: Sidebar tab navigation MUST use clean icon-and-label tabs with subtle active pills or underlines, avoiding high-contrast clashing buttons.
+- **FR-005**: Sidebar tab navigation MUST organize editing capabilities into 4 distinct semantic categories (Lâminas & Conteúdo, Design & Temas, Tipografia, Marca & Elementos) using clean icon-and-label tabs with subtle active pills, eliminating horizontal overflow and cluttered button strips.
 - **FR-006**: Form controls, inputs, and sliders MUST use consistent border tokens (`rgba(5, 255, 212, 0.15)` resting, `rgba(5, 255, 212, 0.6)` focus), subtle background tints, and visible focus rings that meet accessibility standards.
 - **FR-007**: Typography across all workspace elements MUST follow a clear typographic scale with intentional weights (e.g., 600/700 for headings, 400/500 for body/labels) and eliminate arbitrary all-caps labels in favor of sentence-case clarity.
 - **FR-008**: The top header bar MUST be streamlined to display essential workspace information (project title, slide count badge, sidebar toggle buttons, and export actions) with clean alignment and balanced spacing.
 - **FR-009**: The initial script input view MUST feature an uncluttered, modern glassmorphic card with clear instructions, intuitive action buttons, and responsive feedback during slide generation.
 - **FR-010**: All micro-interactions (button hovers, tab clicks, slide selections, toggle switches) MUST provide immediate, smooth visual feedback using cubic-bezier easing.
+- **FR-011**: The system MUST provide an aspect ratio selector in the canvas header allowing users to toggle between Portrait (4:5) and Square (1:1) preview formats, updating slide geometry dynamically without clipping content.
 
 ### Key Entities
 
