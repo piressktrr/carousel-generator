@@ -1,16 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SAMPLE_SCRIPT } from '../services/workspaceConstants.js';
-import { Sparkles, Key, ArrowRight, Loader2, FileText } from 'lucide-react';
+import { storageService } from '../services/storageService.js';
+import { Sparkles, Key, ArrowRight, Loader2, Eye, EyeOff, Check } from 'lucide-react';
 
 export function ScriptInputView({ onGenerate, isGenerating = false }) {
   const [scriptText, setScriptText] = useState('');
   const [apiKey, setApiKey] = useState('');
-  const [showApiKey, setShowApiKey] = useState(false);
+  const [showApiKeySection, setShowApiKeySection] = useState(false);
+  const [showKeyText, setShowKeyText] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [isKeySaved, setIsKeySaved] = useState(false);
+
+  // Carrega chave persistida no IndexedDB na inicialização
+  useEffect(() => {
+    let isMounted = true;
+    async function loadSavedKey() {
+      try {
+        const savedKey = await storageService.getGeminiApiKey();
+        if (isMounted && savedKey) {
+          setApiKey(savedKey);
+          setIsKeySaved(true);
+        }
+      } catch (err) {
+        console.error('[ScriptInputView] Erro ao carregar Gemini API Key salva:', err);
+      }
+    }
+    loadSavedKey();
+    return () => { isMounted = false; };
+  }, []);
 
   const handleLoadSample = () => {
     setScriptText(SAMPLE_SCRIPT);
     setErrorMsg('');
+  };
+
+  const handleApiKeyChange = (e) => {
+    const val = e.target.value;
+    setApiKey(val);
+    if (val.trim()) {
+      storageService.saveGeminiApiKey(val.trim());
+      setIsKeySaved(true);
+    } else {
+      storageService.saveGeminiApiKey('');
+      setIsKeySaved(false);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -70,17 +103,22 @@ export function ScriptInputView({ onGenerate, isGenerating = false }) {
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: showApiKey ? 'var(--accent-biolum)' : 'var(--text-silver)',
+                  color: showApiKeySection ? 'var(--accent-biolum)' : 'var(--text-silver)',
                   fontSize: '12px',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '5px',
                   cursor: 'pointer'
                 }}
-                onClick={() => setShowApiKey(!showApiKey)}
+                onClick={() => setShowApiKeySection(!showApiKeySection)}
               >
                 <Key size={14} />
-                {showApiKey ? 'Ocultar Gemini API Key' : 'Configurar Gemini API Key (Opcional)'}
+                {showApiKeySection ? 'Ocultar Gemini API Key' : 'Configurar Gemini API Key (Opcional)'}
+                {isKeySaved && !showApiKeySection && (
+                  <span style={{ color: 'var(--accent-biolum)', fontSize: '11px', display: 'inline-flex', alignItems: 'center', gap: '2px' }}>
+                    <Check size={12} /> Salva
+                  </span>
+                )}
               </button>
             </div>
 
@@ -103,7 +141,7 @@ export function ScriptInputView({ onGenerate, isGenerating = false }) {
             </button>
           </div>
 
-          {showApiKey && (
+          {showApiKeySection && (
             <div
               style={{
                 marginTop: '10px',
@@ -113,21 +151,39 @@ export function ScriptInputView({ onGenerate, isGenerating = false }) {
                 border: '1px solid var(--border-subtle)',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '6px'
+                gap: '8px'
               }}
             >
-              <label style={{ fontSize: '11px', color: 'var(--text-silver)', fontWeight: '600' }}>
-                CHAVE DE API DO GOOGLE GEMINI (OPCIONAL)
-              </label>
-              <input
-                type="password"
-                placeholder="Insira sua Gemini API Key para assistência de síntese (ou deixe em branco para segmentação local ultrarrápida)"
-                value={apiKey}
-                onChange={(e) => setApiKey(e.target.value)}
-                style={{ padding: '8px 12px', fontSize: '13px' }}
-              />
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <label style={{ fontSize: '11px', color: 'var(--text-silver)', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <Key size={12} /> CHAVE DE API DO GOOGLE GEMINI (OPCIONAL)
+                </label>
+                {isKeySaved && (
+                  <span style={{ fontSize: '11px', color: 'var(--accent-biolum)', display: 'flex', alignItems: 'center', gap: '3px' }}>
+                    <Check size={12} /> Chave Salva
+                  </span>
+                )}
+              </div>
+
+              <div className="api-key-input-group">
+                <input
+                  type={showKeyText ? 'text' : 'password'}
+                  placeholder="Insira sua Gemini API Key (mantida em segurança no seu navegador)"
+                  value={apiKey}
+                  onChange={handleApiKeyChange}
+                />
+                <button
+                  type="button"
+                  className="api-key-toggle-btn"
+                  onClick={() => setShowKeyText(!showKeyText)}
+                  title={showKeyText ? 'Ocultar chave' : 'Exibir chave'}
+                >
+                  {showKeyText ? <EyeOff size={15} /> : <Eye size={15} />}
+                </button>
+              </div>
+
               <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
-                Se nenhuma chave for fornecida ou houver falha de rede, a divisão ocorre localmente por tópicos e parágrafos.
+                A chave é armazenada com segurança no seu navegador e utilizada tanto para síntese de slides quanto para o gerador de temas na aba Cores. Se não informada, a divisão ocorre localmente.
               </span>
             </div>
           )}
@@ -136,4 +192,5 @@ export function ScriptInputView({ onGenerate, isGenerating = false }) {
     </div>
   );
 }
+
 export default ScriptInputView;

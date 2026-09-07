@@ -15,6 +15,11 @@ export function LeftSidebar({
   globalFont = 'Inter',
   profile = null,
   currentTheme = 'abyssal-glow',
+  customThemes = [],
+  onSaveCustomTheme,
+  onDeleteCustomTheme,
+  apiKey = '',
+  onUpdateApiKey,
   onUpdateSlide,
   onAddSlide,
   onRemoveSlide,
@@ -110,7 +115,12 @@ export function LeftSidebar({
         {activeTab === 'themes' && (
           <ThemesTab
             currentTheme={currentTheme}
+            customThemes={customThemes}
             onSelectTheme={onSelectTheme}
+            onSaveCustomTheme={onSaveCustomTheme}
+            onDeleteCustomTheme={onDeleteCustomTheme}
+            apiKey={apiKey}
+            onUpdateApiKey={onUpdateApiKey}
           />
         )}
 

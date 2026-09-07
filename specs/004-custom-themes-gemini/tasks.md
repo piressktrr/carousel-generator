@@ -1,4 +1,4 @@
-﻿# Tasks: Clean Canvas, Custom Dynamic Themes & Secure Gemini AI Integration
+# Tasks: Clean Canvas, Custom Dynamic Themes & Secure Gemini AI Integration
 
 **Input**: Design documents from `specs/004-custom-themes-gemini/`
 **Prerequisites**: [plan.md](file:///D:/Carrosseis-Generator/specs/004-custom-themes-gemini/plan.md), [spec.md](file:///D:/Carrosseis-Generator/specs/004-custom-themes-gemini/spec.md), [research.md](file:///D:/Carrosseis-Generator/specs/004-custom-themes-gemini/research.md), [data-model.md](file:///D:/Carrosseis-Generator/specs/004-custom-themes-gemini/data-model.md), [contracts/](file:///D:/Carrosseis-Generator/specs/004-custom-themes-gemini/contracts/)
@@ -15,9 +15,9 @@
 
 **Purpose**: Theme calculation helpers, storage extensions, and CSS variable styling
 
-- [ ] T001 Create pure functional theme helper service in `src/services/themeService.js` (`resolveThemeVariables`, `createCustomTheme`, `generateGradientCss`, `calculateContrastRatio`)
-- [ ] T002 [P] Extend IndexedDB persistence in `src/services/storageService.js` to store and retrieve `customThemes` and masked `geminiApiKey`
-- [ ] T003 [P] Configure CSS utility classes for theme cards, gradient preview boxes, and color input sliders in `src/styles/workspace.css`
+- [x] T001 Create pure functional theme helper service in `src/services/themeService.js` (`resolveThemeVariables`, `createCustomTheme`, `generateGradientCss`, `calculateContrastRatio`)
+- [x] T002 [P] Extend IndexedDB persistence in `src/services/storageService.js` to store and retrieve `customThemes` and masked `geminiApiKey`
+- [x] T003 [P] Configure CSS utility classes for theme cards, gradient preview boxes, and color input sliders in `src/styles/workspace.css`
 
 ---
 
@@ -27,8 +27,8 @@
 
 **⚠️ CRITICAL**: Must be completed before User Story 2 & 3 UI components begin
 
-- [ ] T004 Implement `generateThemeFromPrompt` in `src/services/aiService.js` with structured Gemini 2.5 Flash REST API prompt and contrast verification
-- [ ] T005 [P] Update `src/services/workspaceConstants.js` to support dynamic theme categories and fallback color palettes
+- [x] T004 Implement `generateThemeFromPrompt` in `src/services/aiService.js` with structured Gemini 2.5 Flash REST API prompt and contrast verification
+- [x] T005 [P] Update `src/services/workspaceConstants.js` to support dynamic theme categories and fallback color palettes
 
 **Checkpoint**: Foundation ready - user story implementation can begin independently
 
@@ -42,9 +42,9 @@
 
 ### Implementation for User Story 1
 
-- [ ] T006 [P] [US1] Remove internal `<div className="slide-tag">` and `getBadgeLabel` rendering from `src/components/SlideCard.jsx`
-- [ ] T007 [US1] Clean up obsolete `.slide-tag` CSS rules and adjust top padding in `src/styles/workspace.css`
-- [ ] T008 [US1] Verify clean canvas presentation in `src/components/SlidesCanvas.jsx` and export rendering in `src/components/ExportToolbar.jsx`
+- [x] T006 [P] [US1] Remove internal `<div className="slide-tag">` and `getBadgeLabel` rendering from `src/components/SlideCard.jsx`
+- [x] T007 [US1] Clean up obsolete `.slide-tag` CSS rules and adjust top padding in `src/styles/workspace.css`
+- [x] T008 [US1] Verify clean canvas presentation in `src/components/SlidesCanvas.jsx` and export rendering in `src/components/ExportToolbar.jsx`
 
 **Checkpoint**: User Story 1 delivers an immediate uncluttered canvas MVP.
 
@@ -58,11 +58,11 @@
 
 ### Implementation for User Story 2
 
-- [ ] T009 [P] [US2] Create visual theme builder component in `src/components/LeftSidebar/CustomThemeBuilder.jsx` with solid color and multi-stop gradient controls
-- [ ] T010 [US2] Integrate custom themes catalog (listing, active indicator, creation trigger, and deletion) into `src/components/LeftSidebar/ThemesTab.jsx`
-- [ ] T011 [US2] Wire `customThemes` state, creation handler, and deletion fallback in `src/components/StudioWorkspace.jsx`
-- [ ] T012 [US2] Apply dynamic CSS custom properties (`--slide-bg`, `--slide-heading`, `--slide-accent`, `--slide-text`, `--slide-subtext`) to canvas containers in `src/components/SlidesCanvas.jsx` and `src/components/StudioWorkspace.jsx`
-- [ ] T013 [US2] Ensure safe fallback to default theme (*Abyssal Glow*) if an active custom theme is deleted in `src/components/StudioWorkspace.jsx`
+- [x] T009 [P] [US2] Create visual theme builder component in `src/components/LeftSidebar/CustomThemeBuilder.jsx` with solid color and multi-stop gradient controls
+- [x] T010 [US2] Integrate custom themes catalog (listing, active indicator, creation trigger, and deletion) into `src/components/LeftSidebar/ThemesTab.jsx`
+- [x] T011 [US2] Wire `customThemes` state, creation handler, and deletion fallback in `src/components/StudioWorkspace.jsx`
+- [x] T012 [US2] Apply dynamic CSS custom properties (`--slide-bg`, `--slide-heading`, `--slide-accent`, `--slide-text`, `--slide-subtext`) to canvas containers in `src/components/SlidesCanvas.jsx` and `src/components/StudioWorkspace.jsx`
+- [x] T013 [US2] Ensure safe fallback to default theme (*Abyssal Glow*) if an active custom theme is deleted in `src/components/StudioWorkspace.jsx`
 
 **Checkpoint**: User Story 2 provides infinite creative freedom with real-time theme reactivity.
 
@@ -76,11 +76,11 @@
 
 ### Implementation for User Story 3
 
-- [ ] T014 [P] [US3] Update Gemini API key input in `src/components/ScriptInputView.jsx` with password masking, visibility toggle (`Eye`/`EyeOff`), and IndexedDB persistence
-- [ ] T015 [US3] Add masked Gemini API key management section with toggle visibility and connection badge in `src/components/LeftSidebar/ThemesTab.jsx`
-- [ ] T016 [US3] Add "Gerador de Temas por IA" prompt input and generation button in `src/components/LeftSidebar/ThemesTab.jsx`
-- [ ] T017 [US3] Connect AI generation handler in `ThemesTab.jsx` to `aiService.generateThemeFromPrompt`, displaying palette preview with creative title and "Salvar e Aplicar"
-- [ ] T018 [US3] Synchronize API key state between landing view (`ScriptInputView.jsx`) and studio workspace (`StudioWorkspace.jsx`) via `storageService.js`
+- [x] T014 [P] [US3] Update Gemini API key input in `src/components/ScriptInputView.jsx` with password masking, visibility toggle (`Eye`/`EyeOff`), and IndexedDB persistence
+- [x] T015 [US3] Add masked Gemini API key management section with toggle visibility and connection badge in `src/components/LeftSidebar/ThemesTab.jsx`
+- [x] T016 [US3] Add "Gerador de Temas por IA" prompt input and generation button in `src/components/LeftSidebar/ThemesTab.jsx`
+- [x] T017 [US3] Connect AI generation handler in `ThemesTab.jsx` to `aiService.generateThemeFromPrompt`, displaying palette preview with creative title and "Salvar e Aplicar"
+- [x] T018 [US3] Synchronize API key state between landing view (`ScriptInputView.jsx`) and studio workspace (`StudioWorkspace.jsx`) via `storageService.js`
 
 **Checkpoint**: User Story 3 delivers practical, secure AI superpowers directly in the studio.
 
@@ -90,9 +90,9 @@
 
 **Purpose**: Production build validation, E2E scenarios, and documentation
 
-- [ ] T019 [P] Verify production build and asset bundling via `cmd /c "npm run build"`
-- [ ] T020 Execute all 5 validation scenarios defined in `specs/004-custom-themes-gemini/quickstart.md`
-- [ ] T021 Code cleanup, comment integrity check, and documentation synchronization
+- [x] T019 [P] Verify production build and asset bundling via `cmd /c "npm run build"`
+- [x] T020 Execute all 5 validation scenarios defined in `specs/004-custom-themes-gemini/quickstart.md`
+- [x] T021 Code cleanup, comment integrity check, and documentation synchronization
 
 ---
 

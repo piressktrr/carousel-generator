@@ -46,11 +46,15 @@ export function App() {
         activeSlideId: generatedSlides[0]?.id || null,
         globalFont: 'Inter',
         currentTheme: 'abyssal-glow',
+        apiKey: apiKey || '',
         profile: savedProfile,
         slides: generatedSlides,
         lastModified: Date.now()
       };
 
+      if (apiKey) {
+        await storageService.saveGeminiApiKey(apiKey);
+      }
       await storageService.saveWorkspace(newWorkspace);
       setWorkspace(newWorkspace);
     } catch (err) {

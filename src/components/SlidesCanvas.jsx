@@ -8,6 +8,7 @@ export function SlidesCanvas({
   globalFont = 'Inter',
   profile = null,
   currentTheme = 'abyssal-glow',
+  themeInlineStyles = {},
   onSelectSlide,
   renderTopRight = null,
   isLeftSidebarOpen = true,
@@ -36,7 +37,7 @@ export function SlidesCanvas({
   };
 
   return (
-    <main className="slides-canvas-container" data-theme={currentTheme}>
+    <main className="slides-canvas-container" data-theme={currentTheme} style={themeInlineStyles}>
       {/* Barra de Topo do Palco */}
       <header className="workspace-top-bar">
         <div className="top-bar-meta">
@@ -89,6 +90,7 @@ export function SlidesCanvas({
             total={slides.length}
             globalFont={globalFont}
             profile={profile}
+            themeInlineStyles={themeInlineStyles}
             isActive={slide.id === activeSlideId}
             onSelect={() => onSelectSlide(slide.id)}
           />

@@ -65,6 +65,16 @@ export const AVAILABLE_THEMES = [
   { id: 'reference-aesthetic', name: 'Reference Aesthetic', preview: '#38BDF8', category: 'clean' }
 ];
 
+export const DEFAULT_THEME_FALLBACK = 'abyssal-glow';
+
+export const THEME_CATEGORIES = [
+  { id: 'custom', label: 'Temas Personalizados' },
+  { id: 'bioluminescent', label: 'Bioluminescente' },
+  { id: 'clean', label: 'Clean & Editorial' },
+  { id: 'vibrant', label: 'Vibrante' },
+  { id: 'dark', label: 'Escuro' }
+];
+
 export const SAMPLE_SCRIPT = `5 Hábitos para Turbinar sua Produtividade em 2026
 
 1. Bloqueio de Tempo: reserve blocos de foco absoluto sem notificações para as tarefas mais difíceis.

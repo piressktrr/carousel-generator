@@ -7,6 +7,7 @@ export function SlideCard({
   total = 1,
   globalFont = 'Inter',
   profile = null,
+  themeInlineStyles = {},
   isActive = false,
   onSelect
 }) {
@@ -46,13 +47,6 @@ export function SlideCard({
     return null;
   };
 
-  // Badge label
-  const getBadgeLabel = () => {
-    if (slide.type === 'cover') return 'Capa';
-    if (slide.type === 'cta') return 'Fechamento / CTA';
-    return `Slide ${index + 1}`;
-  };
-
   // Renderizador adaptativo para os 3 templates de conteúdo estáveis
   const renderTemplateContent = () => {
     const template = slide.slideTemplate || 'classic';
@@ -90,6 +84,7 @@ export function SlideCard({
         className={`slide-card ${isActive ? 'active' : ''} ${dockingClass} ${templateClass}`}
         onClick={onSelect}
         data-slide-id={slide.id}
+        style={themeInlineStyles}
       >
         {/* Camada de Imagem Principal Ancorada */}
         {docked && docked.src && (
@@ -107,10 +102,6 @@ export function SlideCard({
 
         {/* Camada de Conteúdo e Texto */}
         <div className="slide-content-box">
-          <div className="slide-tag">
-            {getBadgeLabel()}
-          </div>
-
           <div
             className="slide-text-body"
             style={{
