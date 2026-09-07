@@ -47,6 +47,15 @@ export const AVATAR_SHAPES = [
   { id: 'square', label: 'Quadrada' }
 ];
 
+export const BRANDING_POSITIONS = [
+  { id: 'top-left', label: 'Superior Esquerdo', icon: 'ArrowUpLeft' },
+  { id: 'top-center', label: 'Topo Centro', icon: 'ArrowUp' },
+  { id: 'top-right', label: 'Superior Direito', icon: 'ArrowUpRight' },
+  { id: 'bottom-left', label: 'Inferior Esquerdo (Padrão)', icon: 'ArrowDownLeft' },
+  { id: 'bottom-center', label: 'Base Centro', icon: 'ArrowDown' },
+  { id: 'bottom-right', label: 'Inferior Direito', icon: 'ArrowDownRight' }
+];
+
 export const AVAILABLE_THEMES = [
   // Temas Originais & Bioluminescentes
   { id: 'abyssal-glow', name: 'Abyssal Glow', preview: '#05ffd4', category: 'bioluminescent' },

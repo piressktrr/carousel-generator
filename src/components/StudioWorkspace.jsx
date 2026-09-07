@@ -22,7 +22,7 @@ export function StudioWorkspace({
   const [customThemes, setCustomThemes] = useState(initialWorkspace?.customThemes || []);
   const [apiKey, setApiKey] = useState(initialWorkspace?.apiKey || '');
   const [profile, setProfile] = useState(
-    initialWorkspace?.profile || { name: '', handle: '', avatar: null, hasVerifiedBadge: false, avatarShape: 'circle' }
+    initialWorkspace?.profile || { name: '', handle: '', avatar: null, hasVerifiedBadge: false, avatarShape: 'circle', position: 'bottom-left' }
   );
   const [isLeftSidebarOpen, setIsLeftSidebarOpen] = useState(
     initialWorkspace?.isLeftSidebarOpen !== undefined ? initialWorkspace.isLeftSidebarOpen : true
@@ -200,10 +200,11 @@ export function StudioWorkspace({
     handleUpdateSlide(slideId, updatedSlide);
   };
 
-  const handleRegenerateFromScript = (newScript) => {
+  const handleRegenerateFromScript = async (newScript, overrideApiKey = null) => {
     if (!newScript || !newScript.trim()) return;
     setRawScript(newScript);
-    const regenerated = workspaceService.regenerateSlidesFromRawScript(newScript, slides);
+    const keyToUse = overrideApiKey || apiKey;
+    const regenerated = await workspaceService.regenerateSlidesFromRawScript(newScript, slides, keyToUse);
     setSlides(regenerated);
     if (regenerated.length > 0) {
       const exists = regenerated.some(s => s.id === activeSlideId);
@@ -308,6 +309,8 @@ export function StudioWorkspace({
         onClose={() => setIsRightSidebarOpen(false)}
         rawScript={rawScript}
         slidesCount={slides.length}
+        apiKey={apiKey}
+        onUpdateApiKey={handleUpdateApiKey}
         onRegenerateFromScript={handleRegenerateFromScript}
       />
     </div>

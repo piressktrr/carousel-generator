@@ -15,9 +15,9 @@
 
 **Purpose**: Positioning constants, storage defaults, and CSS flexbox styling rules
 
-- [ ] T001 Register `BRANDING_POSITIONS` constant array with 6 strategic anchors in `src/services/workspaceConstants.js`
-- [ ] T002 [P] Extend `storageService.getProfile()` and `storageService.getWorkspace()` in `src/services/storageService.js` with default `position: profile?.position || 'bottom-left'`
-- [ ] T003 [P] Define `.branding-pos-*` CSS flexbox rules in `src/styles/workspace.css` for the 6 anchors (`top-left`, `top-center`, `top-right`, `bottom-left`, `bottom-center`, `bottom-right`)
+- [x] T001 Register `BRANDING_POSITIONS` constant array with 6 strategic anchors in `src/services/workspaceConstants.js`
+- [x] T002 [P] Extend `storageService.getProfile()` and `storageService.getWorkspace()` in `src/services/storageService.js` with default `position: profile?.position || 'bottom-left'`
+- [x] T003 [P] Define `.branding-pos-*` CSS flexbox rules in `src/styles/workspace.css` for the 6 anchors (`top-left`, `top-center`, `top-right`, `bottom-left`, `bottom-center`, `bottom-right`)
 
 ---
 
@@ -27,7 +27,7 @@
 
 **⚠️ CRITICAL**: Must be completed before User Story UI components begin
 
-- [ ] T004 Update `CreatorProfile` default state in `src/App.jsx` and `src/components/StudioWorkspace.jsx` to initialize `position: 'bottom-left'`
+- [x] T004 Update `CreatorProfile` default state in `src/App.jsx` and `src/components/StudioWorkspace.jsx` to initialize `position: 'bottom-left'`
 
 **Checkpoint**: Foundation ready - user story implementation can begin independently
 
@@ -41,10 +41,10 @@
 
 ### Implementation for User Story 1
 
-- [ ] T005 [P] [US1] Build visual 6-point position anchor selector in `src/components/LeftSidebar/BrandingTab.jsx`
-- [ ] T006 [US1] Apply dynamic `.branding-pos-${position}` classes to `.slide-branding-bar` in `src/components/SlideCard.jsx`
-- [ ] T007 [US1] Ensure non-collision layout between text container and top/bottom branding bars in `src/styles/workspace.css`
-- [ ] T008 [US1] Verify high-resolution export rendering with repositioned branding bar in `src/components/ExportToolbar.jsx`
+- [x] T005 [P] [US1] Build visual 6-point position anchor selector in `src/components/LeftSidebar/BrandingTab.jsx`
+- [x] T006 [US1] Apply dynamic `.branding-pos-${position}` classes to `.slide-branding-bar` in `src/components/SlideCard.jsx`
+- [x] T007 [US1] Ensure non-collision layout between text container and top/bottom branding bars in `src/styles/workspace.css`
+- [x] T008 [US1] Verify high-resolution export rendering with repositioned branding bar in `src/components/ExportToolbar.jsx`
 
 **Checkpoint**: User Story 1 delivers full creative freedom in signature positioning as MVP.
 
@@ -58,10 +58,10 @@
 
 ### Implementation for User Story 2
 
-- [ ] T009 [P] [US2] Remove AI theme generator prompt, button, and preview cards from `src/components/LeftSidebar/ThemesTab.jsx`
-- [ ] T010 [US2] Clean up `src/components/LeftSidebar/LeftSidebar.jsx` and `src/components/StudioWorkspace.jsx` to streamline `ThemesTab.jsx` props
-- [ ] T011 [US2] Add masked Gemini API key configuration section in `src/components/RightSidebar/RightSidebar.jsx` with `Eye`/`EyeOff` toggle and IndexedDB persistence for script regeneration
-- [ ] T012 [US2] Connect `workspaceService.regenerateSlidesFromRawScript` with API key support in `src/components/StudioWorkspace.jsx` and `src/components/RightSidebar/RightSidebar.jsx`
+- [x] T009 [P] [US2] Remove AI theme generator prompt, button, and preview cards from `src/components/LeftSidebar/ThemesTab.jsx`
+- [x] T010 [US2] Clean up `src/components/LeftSidebar/LeftSidebar.jsx` and `src/components/StudioWorkspace.jsx` to streamline `ThemesTab.jsx` props
+- [x] T011 [US2] Add masked Gemini API key configuration section in `src/components/RightSidebar/RightSidebar.jsx` with `Eye`/`EyeOff` toggle and IndexedDB persistence for script regeneration
+- [x] T012 [US2] Connect `workspaceService.regenerateSlidesFromRawScript` with API key support in `src/components/StudioWorkspace.jsx` and `src/components/RightSidebar/RightSidebar.jsx`
 
 **Checkpoint**: User Story 2 simplifies the studio interface while securing and focusing Gemini AI capabilities on script structuring.
 
@@ -71,9 +71,9 @@
 
 **Purpose**: Production build verification, E2E validation scenarios, and documentation
 
-- [ ] T013 [P] Verify production build and asset bundling via `cmd /c "npm run build"`
-- [ ] T014 Execute all 5 validation scenarios defined in `specs/005-flexible-profile-positioning/quickstart.md`
-- [ ] T015 Code cleanup, comment integrity check, and documentation synchronization
+- [x] T013 [P] Verify production build and asset bundling via `cmd /c "npm run build"`
+- [x] T014 Execute all 5 validation scenarios defined in `specs/005-flexible-profile-positioning/quickstart.md`
+- [x] T015 Code cleanup, comment integrity check, and documentation synchronization
 
 ---
 

@@ -119,8 +119,6 @@ export function LeftSidebar({
             onSelectTheme={onSelectTheme}
             onSaveCustomTheme={onSaveCustomTheme}
             onDeleteCustomTheme={onDeleteCustomTheme}
-            apiKey={apiKey}
-            onUpdateApiKey={onUpdateApiKey}
           />
         )}
 

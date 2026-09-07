@@ -122,7 +122,7 @@ export function SlideCard({
 
           {/* Assinatura do Criador (Branding) com Selo Verificado e Avatar Squircle/Circular */}
           {slide.showBranding && profile && (profile.name || profile.handle) && (
-            <div className="slide-branding-bar">
+            <div className={`slide-branding-bar branding-pos-${profile.position || 'bottom-left'}`}>
               {profile.avatar && (
                 <img
                   src={profile.avatar}

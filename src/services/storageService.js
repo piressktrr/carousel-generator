@@ -43,10 +43,19 @@ export const storageService = {
         rawScript: data.rawScript || '',
         currentTheme: data.currentTheme || 'abyssal-glow',
         customThemes: Array.isArray(data.customThemes) ? data.customThemes : [],
+        profile: data.profile
+          ? {
+              ...data.profile,
+              hasVerifiedBadge: data.profile?.hasVerifiedBadge ?? false,
+              avatarShape: data.profile?.avatarShape || 'circle',
+              position: data.profile?.position || 'bottom-left'
+            }
+          : undefined,
         branding: {
           ...data.branding,
           hasVerifiedBadge: data.branding?.hasVerifiedBadge ?? false,
-          avatarShape: data.branding?.avatarShape || 'circle'
+          avatarShape: data.branding?.avatarShape || 'circle',
+          position: data.branding?.position || 'bottom-left'
         },
         slides: Array.isArray(data.slides)
           ? data.slides.map(s => ({
@@ -154,7 +163,8 @@ export const storageService = {
       return {
         ...profile,
         hasVerifiedBadge: profile.hasVerifiedBadge ?? false,
-        avatarShape: profile.avatarShape || 'circle'
+        avatarShape: profile.avatarShape || 'circle',
+        position: profile.position || 'bottom-left'
       };
     } catch (err) {
       console.error('[storageService] Erro ao carregar perfil do IndexedDB:', err);

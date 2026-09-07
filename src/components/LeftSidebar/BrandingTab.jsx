@@ -1,9 +1,35 @@
 import React, { useRef } from 'react';
-import { User, Eye, EyeOff, Upload, AtSign, BadgeCheck, Circle, Square } from 'lucide-react';
+import {
+  User,
+  Eye,
+  EyeOff,
+  Upload,
+  AtSign,
+  BadgeCheck,
+  Circle,
+  Square,
+  Compass,
+  ArrowUpLeft,
+  ArrowUp,
+  ArrowUpRight,
+  ArrowDownLeft,
+  ArrowDown,
+  ArrowDownRight
+} from 'lucide-react';
+import { BRANDING_POSITIONS } from '../../services/workspaceConstants.js';
+
+const POSITION_ICONS = {
+  ArrowUpLeft,
+  ArrowUp,
+  ArrowUpRight,
+  ArrowDownLeft,
+  ArrowDown,
+  ArrowDownRight
+};
 
 export function BrandingTab({
   activeSlide,
-  profile = { name: '', handle: '', avatar: null, hasVerifiedBadge: false, avatarShape: 'circle' },
+  profile = { name: '', handle: '', avatar: null, hasVerifiedBadge: false, avatarShape: 'circle', position: 'bottom-left' },
   onUpdateProfile,
   onUpdateSlide
 }) {
@@ -41,6 +67,10 @@ export function BrandingTab({
 
   const handleAvatarShapeChange = (shape) => {
     onUpdateProfile({ ...profile, avatarShape: shape });
+  };
+
+  const handlePositionChange = (position) => {
+    onUpdateProfile({ ...profile, position });
   };
 
   const handleToggleBrandingVisibility = (e) => {
@@ -226,6 +256,31 @@ export function BrandingTab({
             onChange={handleHandleChange}
             style={{ padding: '8px 12px', fontSize: '13px' }}
           />
+        </div>
+
+        {/* Posição da Assinatura no Slide */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: '6px' }}>
+          <label style={{ fontSize: '11px', color: 'var(--text-silver)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <Compass size={13} color="var(--accent-biolum)" /> Posição da Assinatura no Slide:
+          </label>
+          <div className="branding-position-grid">
+            {BRANDING_POSITIONS.map(pos => {
+              const isSelected = (profile.position || 'bottom-left') === pos.id;
+              const IconComp = POSITION_ICONS[pos.icon] || Compass;
+              return (
+                <button
+                  key={pos.id}
+                  type="button"
+                  className={`branding-position-btn ${isSelected ? 'active' : ''}`}
+                  onClick={() => handlePositionChange(pos.id)}
+                  title={pos.label}
+                >
+                  <IconComp size={14} />
+                  <span>{pos.label.replace(' (Padrão)', '')}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
