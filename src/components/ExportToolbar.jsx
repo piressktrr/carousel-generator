@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { exportService } from '../services/exportService.js';
-import { Download, Loader2 } from 'lucide-react';
+import { Download, FileText, Loader2 } from 'lucide-react';
 
-export function ExportToolbar({ slides = [] }) {
+export function ExportToolbar({ slides = [], aspectRatio = '4:5' }) {
   const [isExporting, setIsExporting] = useState(false);
   const [progressMsg, setProgressMsg] = useState('');
 
@@ -19,36 +19,48 @@ export function ExportToolbar({ slides = [] }) {
     }
   };
 
+  const handleExportPdf = async () => {
+    if (isExporting || slides.length === 0) return;
+    setIsExporting(true);
+    try {
+      await exportService.exportAsPdf(slides, 'carrossel-linkedin.pdf', (msg) => setProgressMsg(msg), aspectRatio);
+    } catch (err) {
+      alert(`Falha na exportação PDF: ${err.message}`);
+    } finally {
+      setIsExporting(false);
+      setProgressMsg('');
+    }
+  };
+
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+    <div className="export-toolbar-group">
       {isExporting && (
-        <span style={{ fontSize: '11px', color: 'var(--accent-biolum)', display: 'flex', alignItems: 'center', gap: '4px' }}>
-          <Loader2 size={13} className="animate-spin" style={{ animation: 'spin 1s linear infinite' }} />
-          {progressMsg || 'Processando...'}
+        <span className="export-status-pill">
+          <Loader2 size={13} className="animate-spin" />
+          <span>{progressMsg || 'Exportando...'}</span>
         </span>
       )}
 
       <button
         type="button"
+        className="btn-export-action"
         onClick={handleExportZip}
         disabled={isExporting || slides.length === 0}
-        style={{
-          background: 'rgba(5, 255, 212, 0.12)',
-          border: '1px solid rgba(5, 255, 212, 0.3)',
-          color: 'var(--accent-biolum)',
-          borderRadius: 'var(--radius-sm)',
-          padding: '6px 12px',
-          fontSize: '12px',
-          fontWeight: '600',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '6px',
-          cursor: isExporting ? 'not-allowed' : 'pointer'
-        }}
-        title="Baixar pacote com todas as imagens em alta resolução (PNG)"
+        title="Baixar pacote com todas as imagens individuais em alta resolução (PNG)"
       >
         <Download size={14} />
-        Baixar PNGs (ZIP)
+        <span>PNGs (ZIP)</span>
+      </button>
+
+      <button
+        type="button"
+        className="btn-export-action"
+        onClick={handleExportPdf}
+        disabled={isExporting || slides.length === 0}
+        title="Exportar documento PDF multipágina formatado para carrossel no LinkedIn"
+      >
+        <FileText size={14} />
+        <span>PDF</span>
       </button>
     </div>
   );

@@ -7,7 +7,9 @@ export function SlideCard({
   total = 1,
   globalFont = 'Inter',
   profile = null,
+  themeInlineStyles = {},
   isActive = false,
+  aspectRatio = '4:5',
   onSelect
 }) {
   if (!slide) return null;
@@ -46,13 +48,6 @@ export function SlideCard({
     return null;
   };
 
-  // Badge label
-  const getBadgeLabel = () => {
-    if (slide.type === 'cover') return 'Capa';
-    if (slide.type === 'cta') return 'Fechamento / CTA';
-    return `Slide ${index + 1}`;
-  };
-
   // Renderizador adaptativo para os 3 templates de conteúdo estáveis
   const renderTemplateContent = () => {
     const template = slide.slideTemplate || 'classic';
@@ -87,9 +82,11 @@ export function SlideCard({
       </div>
 
       <div
-        className={`slide-card ${isActive ? 'active' : ''} ${dockingClass} ${templateClass}`}
+        className={`slide-card ${isActive ? 'active' : ''} ratio-${aspectRatio === '1:1' ? '1-1' : '4-5'} ${dockingClass} ${templateClass}`}
         onClick={onSelect}
         data-slide-id={slide.id}
+        data-aspect-ratio={aspectRatio}
+        style={themeInlineStyles}
       >
         {/* Camada de Imagem Principal Ancorada */}
         {docked && docked.src && (
@@ -107,10 +104,6 @@ export function SlideCard({
 
         {/* Camada de Conteúdo e Texto */}
         <div className="slide-content-box">
-          <div className="slide-tag">
-            {getBadgeLabel()}
-          </div>
-
           <div
             className="slide-text-body"
             style={{
@@ -130,32 +123,43 @@ export function SlideCard({
           )}
 
           {/* Assinatura do Criador (Branding) com Selo Verificado e Avatar Squircle/Circular */}
-          {slide.showBranding && profile && (profile.name || profile.handle) && (
-            <div className="slide-branding-bar">
-              {profile.avatar && (
-                <img
-                  src={profile.avatar}
-                  alt={profile.name || 'Autor'}
-                  className={`branding-avatar ${profile.avatarShape === 'square' ? 'avatar-square' : 'avatar-circle'}`}
-                />
-              )}
-              <div className="branding-meta">
-                {profile.name && (
-                  <div className="branding-name-row">
-                    <span className="branding-name">{profile.name}</span>
-                    {profile.hasVerifiedBadge && (
-                      <span className="verified-badge" title="Perfil Verificado">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                        </svg>
-                      </span>
-                    )}
-                  </div>
+          {(() => {
+            const effectivePos = slide.profilePosition !== undefined && slide.profilePosition !== null
+              ? slide.profilePosition
+              : (profile?.position || 'bottom-left');
+            const showProfile = slide.showBranding !== false &&
+              effectivePos !== 'hidden' &&
+              profile && (profile.name || profile.handle || profile.avatar);
+
+            if (!showProfile) return null;
+
+            return (
+              <div className={`slide-branding-bar branding-pos-${effectivePos}`}>
+                {profile.avatar && (
+                  <img
+                    src={profile.avatar}
+                    alt={profile.name || 'Autor'}
+                    className={`branding-avatar ${profile.avatarShape === 'square' ? 'avatar-square' : 'avatar-circle'}`}
+                  />
                 )}
-                {profile.handle && <span className="branding-handle">{profile.handle}</span>}
+                <div className="branding-meta">
+                  {profile.name && (
+                    <div className="branding-name-row">
+                      <span className="branding-name">{profile.name}</span>
+                      {profile.hasVerifiedBadge && (
+                        <span className="verified-badge" title="Perfil Verificado">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                          </svg>
+                        </span>
+                      )}
+                    </div>
+                  )}
+                  {profile.handle && <span className="branding-handle">{profile.handle}</span>}
+                </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
         </div>
 
         {/* Camada de Overlays Secundários (Ícones e Imagens Menores na Grade 3x3) */}

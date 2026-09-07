@@ -1,30 +1,43 @@
 # ==============================================================================
 # Git Ignore Configuration (Carrosseis-Generator)
+# Comprehensive & Bulletproof Protection against Unwanted Pushes
 # ==============================================================================
 
-# Dependencies
+# ------------------------------------------------------------------------------
+# 1. Dependencies & Package Managers
+# ------------------------------------------------------------------------------
 node_modules/
 .pnpm-store/
+.npm/
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
 
-# Production Builds & Caches
+# ------------------------------------------------------------------------------
+# 2. Production Builds, Bundlers & Compilers
+# ------------------------------------------------------------------------------
 dist/
 dist-ssr/
 build/
 out/
+bin/
+obj/
 .cache/
 .vite/
 .parcel-cache/
 .turbo/
+.next/
+.nuxt/
+.astro/
+.svelte-kit/
+*.tsbuildinfo
+.eslintcache
+.stylelintcache
 
-# Logs & Diagnostics
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-# Environment Variables, Secrets & Local Overrides
+# ------------------------------------------------------------------------------
+# 3. Environment Variables, API Secrets & Credentials
+# ------------------------------------------------------------------------------
 .env
 .env.*
 .env.local
@@ -33,42 +46,177 @@ lerna-debug.log*
 .env.production.local
 !.env.example
 
-# Operating System Files
+# Private Keys, Certificates & Tokens
+*.pem
+*.key
+*.pkcs12
+*.pfx
+*.p12
+*.cert
+*.crt
+id_rsa
+id_rsa.pub
+id_dsa
+id_dsa.pub
+id_ed25519
+id_ed25519.pub
+id_ecdsa
+id_ecdsa.pub
+*.priv
+*.token
+.netrc
+
+# Sensitive JSON Credentials & Service Accounts
+credentials.json
+client_secret*.json
+service-account*.json
+google-credentials*.json
+firebase-adminsdk*.json
+
+# ------------------------------------------------------------------------------
+# 4. Logs, Diagnostics & Crash Dumps
+# ------------------------------------------------------------------------------
+*.log
+*.log.*
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+core
+core.*
+vgcore.*
+
+# ------------------------------------------------------------------------------
+# 5. Operating System Generated Files
+# ------------------------------------------------------------------------------
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS
 .DS_Store
 .DS_Store?
 ._*
 .Spotlight-V100
 .Trashes
-ehthumbs.db
-Thumbs.db
-desktop.ini
-$RECYCLE.BIN/
 
-# IDE, Text Editors & Workspace Tooling
-.idea/
-.vscode/
-*.swp
-*.swo
+# Linux
 *~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# ------------------------------------------------------------------------------
+# 6. IDEs, Text Editors & Workspace Tooling
+# ------------------------------------------------------------------------------
+# Visual Studio Code
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# JetBrains (IntelliJ, WebStorm, etc.)
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime Text
 *.sublime-project
 *.sublime-workspace
 
-# Testing & Coverage
+# Vim / Emacs / Nano
+*.swp
+*.swo
+*.swn
+.*.sw[a-p]
+*~
+\#*\#
+.#*
+
+# Eclipse / NetBeans
+.project
+.classpath
+.settings/
+nbproject/
+
+# ------------------------------------------------------------------------------
+# 7. Testing, Benchmarks & Code Coverage
+# ------------------------------------------------------------------------------
 coverage/
 .nyc_output/
+playwright-report/
+test-results/
+cypress/videos/
+cypress/screenshots/
 
-# Temporary / Scratch Files
+# ------------------------------------------------------------------------------
+# 8. Temporary, Scratch, Backups & Patches
+# ------------------------------------------------------------------------------
 tmp/
 temp/
 *.tmp
+*.temp
+*.bak
+*.old
+*.orig
+*.rej
+*.patch
+*.diff
+*.stackdump
 
-# Agent and AI Instructions (Spec Kit & Local Agent Context)
+# ------------------------------------------------------------------------------
+# 9. AI Assistants, Local LLMs & Agents Context
+# ------------------------------------------------------------------------------
 .agents/
+.claude/
+.gemini/
+.cursor/
+.windsurf/
+.cline/
+.roo/
+*.copilot*
+chat-history/
 
-# Spec Kit Internal Directories
+# ------------------------------------------------------------------------------
+# 10. Spec Kit Internal & Local State
+# ------------------------------------------------------------------------------
+.specify/feature.json
+.specify/extensions/
 .specify/integrations/
 .specify/scripts/
 .specify/templates/
 .specify/workflows/
 .specify/memory/*
 !.specify/memory/constitution.md
+
+# ------------------------------------------------------------------------------
+# 11. Carrossel Exports & Local Downloads
+# ------------------------------------------------------------------------------
+exports/
+download/
+downloads/
+captured/
+screenshots/
+uploads/
+test-uploads/
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# ------------------------------------------------------------------------------
+# 12. Local Databases & Dumps
+# ------------------------------------------------------------------------------
+*.sqlite
+*.sqlite3
+*.db3
+*.sql.gz
+*.dump

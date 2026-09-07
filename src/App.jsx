@@ -19,7 +19,7 @@ export function App() {
         if (savedWorkspace && Array.isArray(savedWorkspace.slides) && savedWorkspace.slides.length > 0) {
           setWorkspace({
             ...savedWorkspace,
-            profile: savedProfile || savedWorkspace.profile || { name: '', handle: '', avatar: null, hasVerifiedBadge: false, avatarShape: 'circle' }
+            profile: savedProfile || savedWorkspace.profile || { name: '', handle: '', avatar: null, hasVerifiedBadge: false, avatarShape: 'circle', position: 'bottom-left' }
           });
         }
       } catch (err) {
@@ -37,7 +37,7 @@ export function App() {
     setIsGenerating(true);
     try {
       const generatedSlides = await workspaceService.generateSlidesFromScript(rawScript, apiKey);
-      const savedProfile = (await storageService.getProfile()) || { name: '', handle: '', avatar: null, hasVerifiedBadge: false, avatarShape: 'circle' };
+      const savedProfile = (await storageService.getProfile()) || { name: '', handle: '', avatar: null, hasVerifiedBadge: false, avatarShape: 'circle', position: 'bottom-left' };
 
       const newWorkspace = {
         id: `proj-${Date.now()}`,
@@ -46,11 +46,16 @@ export function App() {
         activeSlideId: generatedSlides[0]?.id || null,
         globalFont: 'Inter',
         currentTheme: 'abyssal-glow',
+        aspectRatio: '4:5',
+        apiKey: apiKey || '',
         profile: savedProfile,
         slides: generatedSlides,
         lastModified: Date.now()
       };
 
+      if (apiKey) {
+        await storageService.saveGeminiApiKey(apiKey);
+      }
       await storageService.saveWorkspace(newWorkspace);
       setWorkspace(newWorkspace);
     } catch (err) {

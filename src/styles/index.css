@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Base CSS Resets & Typography Fundamentals
+   Base CSS Resets & Typography Fundamentals (Carrosseis-Generator Studio)
    ========================================================================== */
 
 @import './themes.css';
@@ -21,6 +21,7 @@ html, body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 #root {
@@ -30,6 +31,7 @@ html, body {
   flex-direction: column;
 }
 
+/* Button & Interactive Resets */
 button {
   cursor: pointer;
   border: none;
@@ -38,9 +40,16 @@ button {
   font-family: inherit;
   font-size: inherit;
   color: inherit;
-  transition: var(--transition-smooth);
+  transition: var(--transition-fast);
+  user-select: none;
 }
 
+button:focus-visible {
+  outline: 2px solid var(--accent-biolum);
+  outline-offset: 2px;
+}
+
+/* Input, Textarea & Select Controls */
 input, textarea, select {
   font-family: inherit;
   font-size: inherit;
@@ -49,12 +58,12 @@ input, textarea, select {
   border: 1px solid var(--border-subtle);
   background: rgba(0, 20, 19, 0.6);
   border-radius: var(--radius-sm);
-  transition: var(--transition-smooth);
+  transition: var(--transition-fast);
 }
 
 input:focus, textarea:focus, select:focus {
-  border-color: var(--accent-biolum);
-  box-shadow: 0 0 10px var(--accent-biolum-glow);
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 1px var(--accent-biolum-glow), 0 0 12px var(--accent-biolum-glow);
 }
 
 /* Translucent Minimalist Scrollbars */
@@ -68,10 +77,10 @@ input:focus, textarea:focus, select:focus {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(5, 255, 212, 0.2);
+  background: rgba(5, 255, 212, 0.18);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(5, 255, 212, 0.45);
+  background: rgba(5, 255, 212, 0.38);
 }

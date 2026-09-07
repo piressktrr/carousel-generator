@@ -22,10 +22,17 @@ export const workspaceService = {
    * Transfere imagens ancoradas (docking) e overlays secundários para o novo slide do mesmo índice.
    * @param {string} rawScript - Texto bruto do roteiro
    * @param {Array<Object>} [existingSlides=[]] - Lista atual de slides antes da regeneração
-   * @returns {Array<Object>} Nova lista de slides re-segmentados com mídias preservadas
+   * @param {string|null} [apiKey=null] - Chave opcional da API do Gemini
+   * @returns {Promise<Array<Object>>} Nova lista de slides re-segmentados com mídias preservadas
    */
-  regenerateSlidesFromRawScript(rawScript, existingSlides = []) {
-    const parsedSlides = segmentTextToSlides(rawScript);
+  async regenerateSlidesFromRawScript(rawScript, existingSlides = [], apiKey = null) {
+    let parsedSlides = [];
+    try {
+      parsedSlides = await aiService.generateSlides(rawScript, apiKey);
+    } catch (err) {
+      console.warn('[workspaceService] Falha na IA ao regenerar slides. Utilizando segmentador local:', err);
+      parsedSlides = segmentTextToSlides(rawScript);
+    }
     if (!parsedSlides || parsedSlides.length === 0) {
       return existingSlides.length > 0 ? existingSlides : [
         {
@@ -57,6 +64,7 @@ export const workspaceService = {
         dockedImage: prev?.dockedImage || null,
         overlays: prev?.overlays || [],
         fontOverride: prev?.fontOverride || null,
+        profilePosition: prev?.profilePosition !== undefined ? prev.profilePosition : null,
         showBranding: prev?.showBranding !== undefined ? prev.showBranding : true
       };
     });

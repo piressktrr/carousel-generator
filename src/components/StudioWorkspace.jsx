@@ -5,6 +5,8 @@ import { SlidesCanvas } from './SlidesCanvas.jsx';
 import { ExportToolbar } from './ExportToolbar.jsx';
 import { workspaceService } from '../services/workspaceService.js';
 import { storageService } from '../services/storageService.js';
+import { resolveThemeVariables } from '../services/themeService.js';
+import { DEFAULT_THEME_FALLBACK } from '../services/workspaceConstants.js';
 
 export function StudioWorkspace({
   initialWorkspace,
@@ -17,8 +19,10 @@ export function StudioWorkspace({
   const [rawScript, setRawScript] = useState(initialWorkspace?.rawScript || '');
   const [globalFont, setGlobalFont] = useState(initialWorkspace?.globalFont || 'Inter');
   const [currentTheme, setCurrentTheme] = useState(initialWorkspace?.currentTheme || 'abyssal-glow');
+  const [customThemes, setCustomThemes] = useState(initialWorkspace?.customThemes || []);
+  const [apiKey, setApiKey] = useState(initialWorkspace?.apiKey || '');
   const [profile, setProfile] = useState(
-    initialWorkspace?.profile || { name: '', handle: '', avatar: null, hasVerifiedBadge: false, avatarShape: 'circle' }
+    initialWorkspace?.profile || { name: '', handle: '', avatar: null, hasVerifiedBadge: false, avatarShape: 'circle', position: 'bottom-left' }
   );
   const [isLeftSidebarOpen, setIsLeftSidebarOpen] = useState(
     initialWorkspace?.isLeftSidebarOpen !== undefined ? initialWorkspace.isLeftSidebarOpen : true
@@ -26,9 +30,43 @@ export function StudioWorkspace({
   const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(
     initialWorkspace?.isRightSidebarOpen !== undefined ? initialWorkspace.isRightSidebarOpen : false
   );
+  const [aspectRatio, setAspectRatio] = useState(
+    initialWorkspace?.aspectRatio || '4:5'
+  );
 
   const activeSlide = slides.find(s => s.id === activeSlideId) || slides[0] || null;
   const autosaveTimerRef = useRef(null);
+
+  // Carrega temas customizados e chave de API globais na montagem
+  useEffect(() => {
+    let isMounted = true;
+    async function loadGlobalThemesAndKey() {
+      try {
+        const [savedThemes, savedKey] = await Promise.all([
+          storageService.getCustomThemes(),
+          storageService.getGeminiApiKey()
+        ]);
+        if (!isMounted) return;
+        if (Array.isArray(savedThemes) && savedThemes.length > 0) {
+          setCustomThemes(prev => {
+            const existingIds = new Set(prev.map(t => t.id));
+            const merged = [...prev];
+            for (const t of savedThemes) {
+              if (!existingIds.has(t.id)) merged.push(t);
+            }
+            return merged;
+          });
+        }
+        if (savedKey && !apiKey) {
+          setApiKey(savedKey);
+        }
+      } catch (err) {
+        console.error('[StudioWorkspace] Erro ao carregar dados globais do storage:', err);
+      }
+    }
+    loadGlobalThemesAndKey();
+    return () => { isMounted = false; };
+  }, []);
 
   // 1. Debounced Auto-Save (400ms) para o IndexedDB
   useEffect(() => {
@@ -44,10 +82,13 @@ export function StudioWorkspace({
         title: initialWorkspace?.title || 'Carrossel em Edição',
         isLeftSidebarOpen,
         isRightSidebarOpen,
+        aspectRatio,
         rawScript,
         activeSlideId,
         globalFont,
         currentTheme,
+        customThemes,
+        apiKey,
         profile,
         slides,
         lastModified: Date.now()
@@ -61,7 +102,7 @@ export function StudioWorkspace({
         clearTimeout(autosaveTimerRef.current);
       }
     };
-  }, [slides, activeSlideId, rawScript, globalFont, currentTheme, profile, isLeftSidebarOpen, isRightSidebarOpen]);
+  }, [slides, activeSlideId, rawScript, globalFont, currentTheme, customThemes, apiKey, profile, isLeftSidebarOpen, isRightSidebarOpen]);
 
   // 2. Atalhos de Teclado (Navegação com Setas e Esc)
   useEffect(() => {
@@ -163,10 +204,11 @@ export function StudioWorkspace({
     handleUpdateSlide(slideId, updatedSlide);
   };
 
-  const handleRegenerateFromScript = (newScript) => {
+  const handleRegenerateFromScript = async (newScript, overrideApiKey = null) => {
     if (!newScript || !newScript.trim()) return;
     setRawScript(newScript);
-    const regenerated = workspaceService.regenerateSlidesFromRawScript(newScript, slides);
+    const keyToUse = overrideApiKey || apiKey;
+    const regenerated = await workspaceService.regenerateSlidesFromRawScript(newScript, slides, keyToUse);
     setSlides(regenerated);
     if (regenerated.length > 0) {
       const exists = regenerated.some(s => s.id === activeSlideId);
@@ -195,8 +237,30 @@ export function StudioWorkspace({
     }
   };
 
+  const handleSaveCustomTheme = (newTheme) => {
+    const updated = [...customThemes.filter(t => t.id !== newTheme.id), newTheme];
+    setCustomThemes(updated);
+    storageService.saveCustomThemes(updated);
+  };
+
+  const handleDeleteCustomTheme = (themeId) => {
+    const updated = customThemes.filter(t => t.id !== themeId);
+    setCustomThemes(updated);
+    storageService.saveCustomThemes(updated);
+    if (currentTheme === themeId) {
+      setCurrentTheme(DEFAULT_THEME_FALLBACK);
+    }
+  };
+
+  const handleUpdateApiKey = (newKey) => {
+    setApiKey(newKey);
+    storageService.saveGeminiApiKey(newKey);
+  };
+
+  const themeInlineStyles = resolveThemeVariables(currentTheme, customThemes);
+
   return (
-    <div className="studio-workspace" data-theme={currentTheme}>
+    <div className="studio-workspace" data-theme={currentTheme} style={themeInlineStyles}>
       {/* Barra Lateral de Ferramentas Fixada no Lado Esquerdo */}
       <LeftSidebar
         isOpen={isLeftSidebarOpen}
@@ -206,6 +270,11 @@ export function StudioWorkspace({
         globalFont={globalFont}
         profile={profile}
         currentTheme={currentTheme}
+        customThemes={customThemes}
+        onSaveCustomTheme={handleSaveCustomTheme}
+        onDeleteCustomTheme={handleDeleteCustomTheme}
+        apiKey={apiKey}
+        onUpdateApiKey={handleUpdateApiKey}
         onUpdateSlide={handleUpdateSlide}
         onAddSlide={handleAddSlide}
         onRemoveSlide={handleRemoveSlide}
@@ -229,8 +298,11 @@ export function StudioWorkspace({
         globalFont={globalFont}
         profile={profile}
         currentTheme={currentTheme}
+        themeInlineStyles={themeInlineStyles}
+        aspectRatio={aspectRatio}
+        onToggleAspectRatio={setAspectRatio}
         onSelectSlide={setActiveSlideId}
-        renderTopRight={<ExportToolbar slides={slides} />}
+        renderTopRight={<ExportToolbar slides={slides} aspectRatio={aspectRatio} />}
         isLeftSidebarOpen={isLeftSidebarOpen}
         onToggleLeftSidebar={handleToggleLeftSidebar}
         isRightSidebarOpen={isRightSidebarOpen}
@@ -243,6 +315,8 @@ export function StudioWorkspace({
         onClose={() => setIsRightSidebarOpen(false)}
         rawScript={rawScript}
         slidesCount={slides.length}
+        apiKey={apiKey}
+        onUpdateApiKey={handleUpdateApiKey}
         onRegenerateFromScript={handleRegenerateFromScript}
       />
     </div>
