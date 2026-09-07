@@ -1,5 +1,7 @@
+# ==============================================================================
 # Machine-local Spec Kit state — not meant to be shared.
 # Managed by the Specify CLI; safe to edit (your changes are preserved on refresh).
+# ==============================================================================
 
 # Local pointer to the current feature directory. Rewritten every time you
 # switch features, so it is per-checkout state rather than something to share.
@@ -7,11 +9,21 @@ feature.json
 
 # Per-machine extension config overrides.
 extensions/*/local-config.yml
+extensions/
 
-# Pastas internas do .specify
+# Pastas internas e memória local do .specify
 integrations/
 scripts/
 templates/
 workflows/
 memory/*
 !memory/constitution.md
+
+# Environment, Logs & Local Temporary Files
+*.local
+*.log
+*.tmp
+*.temp
+*.bak
+.DS_Store
+Thumbs.db
