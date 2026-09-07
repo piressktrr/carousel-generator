@@ -83,6 +83,87 @@ export const ASPECT_RATIOS = [
   { id: '1:1', label: '1:1 Quadrado', ratioLabel: '1:1', canvasWidth: 380, canvasHeight: 380, exportWidth: 1080, exportHeight: 1080 }
 ];
 
+export const CANVAS_DESIGN_MOVEMENTS = [
+  {
+    id: 'chromatic-silence',
+    name: 'Chromatic Silence',
+    movementTitle: 'Silêncio Cromático',
+    philosophy: 'Espaço profundo noturno, quietude meditativa e nitidez bioluminescente.',
+    gradientType: 'radial',
+    colorStart: '#05080f',
+    colorEnd: '#0c1424',
+    headingColor: '#00f0ff',
+    accentColor: '#00f0ff',
+    textColor: '#f5f7fa',
+    subtextColor: '#94a3b8',
+    borderColor: 'rgba(0, 240, 255, 0.25)',
+    tagBgColor: 'rgba(0, 240, 255, 0.12)'
+  },
+  {
+    id: 'brutalist-joy',
+    name: 'Brutalist Joy',
+    movementTitle: 'Alegria Brutalista',
+    philosophy: 'Energia crua e visceral: base escura monolítica com eletricidade ácida vibrante.',
+    gradientType: 'linear',
+    gradientAngle: 135,
+    colorStart: '#121214',
+    colorEnd: '#1e1e24',
+    headingColor: '#d4ff00',
+    accentColor: '#d4ff00',
+    textColor: '#ffffff',
+    subtextColor: '#a1a1aa',
+    borderColor: 'rgba(212, 255, 0, 0.3)',
+    tagBgColor: 'rgba(212, 255, 0, 0.15)'
+  },
+  {
+    id: 'kinetic-vapor',
+    name: 'Kinetic Vapor',
+    movementTitle: 'Vapor Cinético',
+    philosophy: 'Profundidade atmosférica violeta com pulso luminescente magenta e ciano.',
+    gradientType: 'linear',
+    gradientAngle: 145,
+    colorStart: '#09041a',
+    colorEnd: '#210b3b',
+    headingColor: '#ff2a85',
+    accentColor: '#00f5d4',
+    textColor: '#f8fafc',
+    subtextColor: '#c4b5fd',
+    borderColor: 'rgba(255, 42, 133, 0.3)',
+    tagBgColor: 'rgba(255, 42, 133, 0.15)'
+  },
+  {
+    id: 'ethereal-aura',
+    name: 'Ethereal Aura',
+    movementTitle: 'Aura Etérea',
+    philosophy: 'Abismo oceânico esmeralda com calor dourado e fosforescência orgânica.',
+    gradientType: 'radial',
+    colorStart: '#001a18',
+    colorEnd: '#00332d',
+    headingColor: '#05ffd4',
+    accentColor: '#fbbf24',
+    textColor: '#f5f7fa',
+    subtextColor: '#86efac',
+    borderColor: 'rgba(5, 255, 212, 0.25)',
+    tagBgColor: 'rgba(5, 255, 212, 0.12)'
+  },
+  {
+    id: 'metabolist-space',
+    name: 'Metabolist Space',
+    movementTitle: 'Espaço Metabolista',
+    philosophy: 'Formas arquitetônicas de grafite escuro combinadas com calor laranja cádmio.',
+    gradientType: 'linear',
+    gradientAngle: 125,
+    colorStart: '#0e0e11',
+    colorEnd: '#1c1d24',
+    headingColor: '#ff6b35',
+    accentColor: '#ff6b35',
+    textColor: '#ffffff',
+    subtextColor: '#d1d5db',
+    borderColor: 'rgba(255, 107, 53, 0.3)',
+    tagBgColor: 'rgba(255, 107, 53, 0.15)'
+  }
+];
+
 export const THEME_CATEGORIES = [
   { id: 'custom', label: 'Temas Personalizados' },
   { id: 'bioluminescent', label: 'Bioluminescente' },

@@ -64,6 +64,7 @@ export const workspaceService = {
         dockedImage: prev?.dockedImage || null,
         overlays: prev?.overlays || [],
         fontOverride: prev?.fontOverride || null,
+        profilePosition: prev?.profilePosition !== undefined ? prev.profilePosition : null,
         showBranding: prev?.showBranding !== undefined ? prev.showBranding : true
       };
     });

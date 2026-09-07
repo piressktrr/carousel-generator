@@ -22,12 +22,17 @@ export function SlidesCanvas({
   const activeIndex = slides.findIndex(s => s.id === activeSlideId);
   const currentSlideNumber = activeIndex >= 0 ? activeIndex + 1 : 1;
 
-  // Rola o canvas suavemente para o slide ativo quando este mudar
+  // Rola o canvas suavemente para o slide ativo quando este mudar sem afetar ancestrais
   useEffect(() => {
     if (!stageRef.current || !activeSlideId) return;
-    const activeElem = stageRef.current.querySelector(`[data-slide-id="${activeSlideId}"]`);
+    const stage = stageRef.current;
+    const activeElem = stage.querySelector(`[data-slide-id="${activeSlideId}"]`);
     if (activeElem) {
-      activeElem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      const elemLeft = activeElem.offsetLeft;
+      const elemWidth = activeElem.offsetWidth;
+      const stageWidth = stage.clientWidth;
+      const targetScroll = elemLeft - (stageWidth / 2) + (elemWidth / 2);
+      stage.scrollTo({ left: Math.max(0, targetScroll), behavior: 'smooth' });
     }
   }, [activeSlideId]);
 

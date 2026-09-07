@@ -62,6 +62,7 @@ export const storageService = {
           ? data.slides.map(s => ({
               ...s,
               subtext: s.subtext || '',
+              profilePosition: s.profilePosition !== undefined ? s.profilePosition : null,
               slideTemplate: validTemplates.includes(s.slideTemplate) ? s.slideTemplate : 'classic'
             }))
           : []

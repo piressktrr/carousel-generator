@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { generateGradientCss, createCustomTheme, calculateContrastRatio } from '../../services/themeService.js';
+import { CANVAS_DESIGN_MOVEMENTS } from '../../services/workspaceConstants.js';
 import { Sparkles, Plus, Trash2, Check, X, Sliders, Palette } from 'lucide-react';
 
 export function CustomThemeBuilder({
@@ -59,6 +60,22 @@ export function CustomThemeBuilder({
     setStops(updated);
   };
 
+  // Aplica um movimento do Canvas Design como ponto de partida
+  const handleApplyMovement = (mov) => {
+    setThemeName(mov.name);
+    setBgMode('gradient');
+    setGradientAngle(mov.gradientAngle || 135);
+    setStops([
+      { color: mov.colorStart, position: 0, opacity: 1 },
+      { color: mov.colorEnd, position: 100, opacity: 1 }
+    ]);
+    setSolidBg(mov.colorStart);
+    setHeadingColor(mov.headingColor);
+    setAccentColor(mov.accentColor);
+    setTextColor(mov.textColor);
+    setSubtextColor(mov.subtextColor);
+  };
+
   // Salva o tema
   const handleSave = (e) => {
     e.preventDefault();
@@ -91,6 +108,45 @@ export function CustomThemeBuilder({
         >
           <X size={16} />
         </button>
+      </div>
+
+      {/* Inspiração Artística - Canvas Design Movements */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <label style={{ fontSize: '11px', color: 'var(--text-silver)', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <Sparkles size={12} color="var(--accent-biolum)" />
+            MOVIMENTOS ARTÍSTICOS (CANVAS DESIGN)
+          </label>
+          <span style={{ fontSize: '10px', color: 'var(--text-silver)' }}>Clique para aplicar</span>
+        </div>
+
+        <div className="canvas-movements-grid">
+          {CANVAS_DESIGN_MOVEMENTS.map((mov) => {
+            const isCurrentActive = themeName === mov.name;
+            return (
+              <button
+                key={mov.id}
+                type="button"
+                className={`canvas-movement-card ${isCurrentActive ? 'active' : ''}`}
+                onClick={() => handleApplyMovement(mov)}
+                title={mov.philosophy}
+              >
+                <div className="movement-card-header">
+                  <span className="movement-name">{mov.name}</span>
+                  <span className="movement-title-sub">{mov.movementTitle}</span>
+                </div>
+                <div className="movement-palette-strip">
+                  <span className="palette-dot" style={{ background: mov.colorStart }} title={`Fundo Início: ${mov.colorStart}`} />
+                  <span className="palette-dot" style={{ background: mov.colorEnd }} title={`Fundo Fim: ${mov.colorEnd}`} />
+                  <span className="palette-dot" style={{ background: mov.headingColor }} title={`Título: ${mov.headingColor}`} />
+                  <span className="palette-dot" style={{ background: mov.accentColor }} title={`Acento: ${mov.accentColor}`} />
+                  <span className="palette-dot" style={{ background: mov.textColor }} title={`Texto: ${mov.textColor}`} />
+                </div>
+                <div className="movement-philosophy">{mov.philosophy}</div>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Nome do Tema */}

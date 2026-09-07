@@ -216,11 +216,14 @@
    -------------------------------------------------------------------------- */
 .studio-workspace {
   width: 100vw;
+  max-width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: row;
   overflow: hidden;
+  position: relative;
   background-color: var(--bg-darkest);
+  contain: strict;
 }
 
 /* --------------------------------------------------------------------------
@@ -236,14 +239,26 @@
   flex-direction: column;
   z-index: 20;
   box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
-  transition: margin-left 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+  transition: margin-left 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              width 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              min-width 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              opacity 0.2s ease,
+              visibility 0.25s step-end;
   position: relative;
   flex-shrink: 0;
+  contain: layout style;
 }
 
 .left-sidebar.collapsed {
   margin-left: -380px;
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
+  overflow: hidden !important;
+  opacity: 0;
+  visibility: hidden;
   pointer-events: none;
+  contain: strict;
 }
 
 /* --------------------------------------------------------------------------
@@ -259,14 +274,26 @@
   flex-direction: column;
   z-index: 20;
   box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
-  transition: margin-right 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+  transition: margin-right 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              width 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              min-width 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              opacity 0.2s ease,
+              visibility 0.25s step-end;
   position: relative;
   flex-shrink: 0;
+  contain: layout style;
 }
 
 .right-sidebar.collapsed {
   margin-right: -380px;
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
+  overflow: hidden !important;
+  opacity: 0;
+  visibility: hidden;
   pointer-events: none;
+  contain: strict;
 }
 
 .right-sidebar-header {
@@ -1422,5 +1449,101 @@
   gap: 10px;
   box-shadow: 0 4px 14px rgba(5, 255, 212, 0.08);
 }
+
+/* --------------------------------------------------------------------------
+   Canvas Design Movements (Artistic Theme Presets)
+   -------------------------------------------------------------------------- */
+.canvas-movements-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 220px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.canvas-movements-grid::-webkit-scrollbar {
+  width: 4px;
+}
+
+.canvas-movements-grid::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.canvas-movements-grid::-webkit-scrollbar-thumb {
+  background: rgba(5, 255, 212, 0.2);
+  border-radius: 4px;
+}
+
+.canvas-movement-card {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px 10px;
+  background: rgba(0, 15, 14, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-align: left;
+  transition: var(--transition-fast);
+}
+
+.canvas-movement-card:hover {
+  background: rgba(0, 25, 23, 0.9);
+  border-color: rgba(5, 255, 212, 0.4);
+  transform: translateY(-1px);
+}
+
+.canvas-movement-card.active {
+  background: rgba(0, 35, 30, 0.95);
+  border-color: var(--accent-biolum);
+  box-shadow: 0 0 12px rgba(5, 255, 212, 0.18);
+}
+
+.movement-card-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.movement-name {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--text-platinum);
+}
+
+.movement-title-sub {
+  font-size: 10px;
+  color: var(--accent-biolum);
+  font-weight: 500;
+}
+
+.movement-palette-strip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.palette-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: inline-block;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.movement-philosophy {
+  font-size: 10px;
+  color: var(--text-silver);
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 
 

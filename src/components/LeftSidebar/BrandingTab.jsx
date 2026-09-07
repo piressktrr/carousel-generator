@@ -14,7 +14,8 @@ import {
   ArrowUpRight,
   ArrowDownLeft,
   ArrowDown,
-  ArrowDownRight
+  ArrowDownRight,
+  RotateCcw
 } from 'lucide-react';
 import { BRANDING_POSITIONS } from '../../services/workspaceConstants.js';
 
@@ -73,37 +74,156 @@ export function BrandingTab({
     onUpdateProfile({ ...profile, position });
   };
 
-  const handleToggleBrandingVisibility = (e) => {
+  const slideProfilePosition = activeSlide?.profilePosition;
+  const isCustomPerSlide = slideProfilePosition !== undefined && slideProfilePosition !== null;
+  const isSlideBrandingHidden = slideProfilePosition === 'hidden' || activeSlide?.showBranding === false;
+  const isSlideBrandingVisible = !isSlideBrandingHidden;
+  const activeSlideEffectivePosition = isCustomPerSlide && slideProfilePosition !== 'hidden'
+    ? slideProfilePosition
+    : (profile.position || 'bottom-left');
+
+  const handleSetSlidePosition = (posId) => {
     if (!activeSlide) return;
-    onUpdateSlide(activeSlide.id, { showBranding: e.target.checked });
+    onUpdateSlide(activeSlide.id, { profilePosition: posId, showBranding: true });
   };
 
-  const isSlideBrandingVisible = activeSlide?.showBranding !== false;
+  const handleResetToGlobal = () => {
+    if (!activeSlide) return;
+    onUpdateSlide(activeSlide.id, { profilePosition: null, showBranding: true });
+  };
+
+  const handleHideOnSlide = () => {
+    if (!activeSlide) return;
+    onUpdateSlide(activeSlide.id, { profilePosition: 'hidden' });
+  };
+
+  const handleToggleBrandingVisibility = (e) => {
+    if (!activeSlide) return;
+    if (e.target.checked) {
+      onUpdateSlide(activeSlide.id, {
+        showBranding: true,
+        profilePosition: slideProfilePosition === 'hidden' ? null : slideProfilePosition
+      });
+    } else {
+      onUpdateSlide(activeSlide.id, {
+        profilePosition: 'hidden'
+      });
+    }
+  };
+
   const avatarShape = profile.avatarShape || 'circle';
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      {/* Controle de Visibilidade Granular no Slide Ativo */}
+      {/* Controle e Posição da Assinatura no Slide Ativo */}
       {activeSlide && (
         <div className="control-card">
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <label className="section-label" style={{ margin: 0 }}>
-              {isSlideBrandingVisible ? <Eye size={14} /> : <EyeOff size={14} />}
-              Visibilidade da Assinatura no Slide Ativo
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+            <label className="section-label" style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Compass size={14} color="var(--accent-biolum)" />
+              Assinatura no Slide Ativo
             </label>
-            <input
-              type="checkbox"
-              checked={isSlideBrandingVisible}
-              onChange={handleToggleBrandingVisibility}
-              style={{ width: '16px', height: '16px', accentColor: 'var(--accent-biolum)', cursor: 'pointer' }}
-            />
+            <span style={{
+              fontSize: '10px',
+              padding: '2px 7px',
+              borderRadius: '4px',
+              background: slideProfilePosition === 'hidden'
+                ? 'rgba(244, 63, 94, 0.15)'
+                : isCustomPerSlide
+                  ? 'rgba(5, 255, 212, 0.15)'
+                  : 'rgba(255, 255, 255, 0.06)',
+              color: slideProfilePosition === 'hidden'
+                ? '#f43f5e'
+                : isCustomPerSlide
+                  ? 'var(--accent-biolum)'
+                  : 'var(--text-silver)',
+              border: slideProfilePosition === 'hidden'
+                ? '1px solid rgba(244, 63, 94, 0.3)'
+                : isCustomPerSlide
+                  ? '1px solid rgba(5, 255, 212, 0.3)'
+                  : '1px solid rgba(255, 255, 255, 0.1)'
+            }}>
+              {slideProfilePosition === 'hidden'
+                ? 'Oculto neste slide'
+                : isCustomPerSlide
+                  ? 'Posição individual'
+                  : 'Padrão global'}
+            </span>
           </div>
 
-          <p style={{ fontSize: '11px', color: 'var(--text-silver)', marginTop: '4px' }}>
-            {isSlideBrandingVisible
-              ? 'A assinatura (foto e @handle) está VISÍVEL neste slide.'
-              : 'A assinatura está OCULTA neste slide (ideal para capas de alto impacto). Os demais slides não são afetados.'}
+          <p style={{ fontSize: '11px', color: 'var(--text-silver)', margin: '0 0 10px 0', lineHeight: 1.4 }}>
+            Escolha uma posição exclusiva para a assinatura neste slide ou alterne entre ocultar e o padrão da marca:
           </p>
+
+          {/* Grid de 6 Posições para o Slide Ativo */}
+          <div className="branding-position-grid" style={{ marginBottom: '10px' }}>
+            {BRANDING_POSITIONS.map(pos => {
+              const isSelected = activeSlideEffectivePosition === pos.id && slideProfilePosition !== 'hidden';
+              const IconComp = POSITION_ICONS[pos.icon] || Compass;
+              return (
+                <button
+                  key={pos.id}
+                  type="button"
+                  className={`branding-position-btn ${isSelected ? 'active' : ''}`}
+                  onClick={() => handleSetSlidePosition(pos.id)}
+                  title={`Definir ${pos.label} para este slide`}
+                >
+                  <IconComp size={14} />
+                  <span>{pos.label.replace(' (Padrão)', '')}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Ações de Slide: Ocultar neste Slide & Usar Padrão Global */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+            <button
+              type="button"
+              onClick={handleHideOnSlide}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '6px',
+                padding: '7px 8px',
+                fontSize: '11px',
+                borderRadius: '6px',
+                background: slideProfilePosition === 'hidden' ? 'rgba(244, 63, 94, 0.15)' : 'rgba(0,0,0,0.3)',
+                border: slideProfilePosition === 'hidden' ? '1px solid #f43f5e' : '1px solid rgba(255,255,255,0.1)',
+                color: slideProfilePosition === 'hidden' ? '#f43f5e' : 'var(--text-silver)',
+                cursor: 'pointer',
+                transition: 'var(--transition-fast)'
+              }}
+              title="Ocultar assinatura apenas neste slide"
+            >
+              <EyeOff size={13} />
+              <span>Ocultar no slide</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleResetToGlobal}
+              disabled={!isCustomPerSlide}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '6px',
+                padding: '7px 8px',
+                fontSize: '11px',
+                borderRadius: '6px',
+                background: !isCustomPerSlide ? 'rgba(255,255,255,0.02)' : 'rgba(5, 255, 212, 0.08)',
+                border: !isCustomPerSlide ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(5, 255, 212, 0.25)',
+                color: !isCustomPerSlide ? 'rgba(255,255,255,0.3)' : 'var(--accent-biolum)',
+                cursor: !isCustomPerSlide ? 'not-allowed' : 'pointer',
+                transition: 'var(--transition-fast)'
+              }}
+              title="Voltar a herdar o alinhamento configurado globalmente"
+            >
+              <RotateCcw size={13} />
+              <span>Padrão Global</span>
+            </button>
+          </div>
         </div>
       )}
 
